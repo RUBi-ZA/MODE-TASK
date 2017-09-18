@@ -1,6 +1,6 @@
 <img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right">
 
-# NMA-TASK
+# MODE-TASK
 
 Collection of tools for analysing normal modes and performing principal component analysis
 
