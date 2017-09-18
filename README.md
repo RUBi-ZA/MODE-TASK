@@ -1,6 +1,6 @@
 | Linux/OSX | Windows |
 |----------:|--------:|
-|<img src="https://api.travis-ci.com/michaelglenister/NMA-TASK.svg?token=zTmqpAXFeCMTdzy6XBH7&branch=master" align="right">|WIP|
+|<img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right">|WIP|
 
 # NMA-TASK
 
