@@ -376,18 +376,19 @@ int main(int argc, char *argv[])
 	int c = vt.cols();
  
 	outputFileW.open(eigenvalueMatrixFile.c_str());// this is the eigenvalue matrix.
-
-	for (int i=0; i<r; i++)
+	int count = 0;
+	for (int i=r-1; i>=0; i--)
 	{
+		count++;
 		double e = w(i);
-		outputFileW<<i+1<<" "<<e<<endl;
+		outputFileW<<count<<" "<<e<<endl;
 	}
 	outputFileW.close();
 
 	ofstream outputFileVT;
 	outputFileVT.open(eigenvalueVTFile.c_str());
 
-	for (int i=0; i<r; i++)
+	for (int i=r-1; i>=0; i--)
 	{
         for (int j=0; j<c; j++)
         {
@@ -402,7 +403,7 @@ int main(int argc, char *argv[])
 	ofstream outputFileU;
 	outputFileU.open(eigenvalueUFile.c_str());
 
-	for (int i=0; i<r; i++)
+	for (int i=r-1; i>=0; i--)
 	{
         for (int j=0; j<c; j++)
         {

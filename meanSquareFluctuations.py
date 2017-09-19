@@ -159,8 +159,8 @@ def main(args):
 
     # If user fails to provide first and last modes get default values
     if args.firstMode == 0 and args.lastMode == 0:
-	last_mode = total_modes - 6
-        first_mode = last_mode - 19
+	last_mode = 27
+        first_mode = 7
         
 
     # Llama
@@ -182,7 +182,7 @@ def main(args):
     # Create A Full W Inverse Matrix (This is if we want correlation averaged over all modes)
     w_inv = np.zeros((total_modes, total_modes))
     for i in range(total_modes):
-        if i < total_modes - 6:
+        if i > 5:
             w_inv[i, i] = 1 / (float(eigen_values[i].split()[1].strip()))
     
     print "Selecting modes"
@@ -302,8 +302,8 @@ if __name__ == "__main__":
     # custom arguments
     parser.add_argument("--pdb", help="Input") 
     parser.add_argument("--pdbConf2", help="", default = "none")  
-    parser.add_argument("--firstMode", help="[int]", default=0, type=int) #default = total modes-25
-    parser.add_argument("--lastMode", help="[int]", default=0, type=int)  # use last non-trivial mode if no user input provided
+    parser.add_argument("--firstMode", help="[int]", default=0, type=int) #default = 7
+    parser.add_argument("--lastMode", help="[int]", default=0, type=int)  # default = 27
     parser.add_argument("--wMatrix", help="W matrix input file that was output from C++ Scripts")
     parser.add_argument("--vtMatrix", help="U and VT full Matrix")
     parser.add_argument("--atomType", help="Enter CA to select alpha carbons or CB to select beta carbons", default='CA')
