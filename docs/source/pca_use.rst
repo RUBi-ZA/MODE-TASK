@@ -35,7 +35,7 @@ To see the all the available options run the following command:
 |                        |            |                    | trajectory name             |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom group             | String     |``-ag``             | Group of atom for PCA.      |
-|                        |            |                    | Default is CA atoms.   |
+|                        |            |                    | Default is CA atoms.        |
 | 			 |	      | 		   | Other options are:          |
 |                        |            |                    | all= all atoms,             |
 |                        |            |                    | backbone = backbone atoms,  |
