@@ -166,22 +166,20 @@ level. Obviously, we must compare only the residues that are common in each mode
 +------------------------+-----------------------------+
 | Output                 | Description                 |
 +========================+=============================+
-| MSF text file          | Mean square fluctuations for|
-|                        | all residues, calculated    |
-|                        | over all modes.             |
-+------------------------------------------------------+
-| MSF modes text file    | Mean square fluctuations for|
-|                        | all residues, calculated    |
-|                        | for a specific mode range.  |
+| MSF text file          | MSF for all residues,       |
+|                        | calculated over all modes   |
 +------------------------+-----------------------------+
-| common residue MSF text| Mean square fluctuations for|
-| file                   | all common residues,        |
-|                        | calculated over all modes.  |
+| MSF modes text file    | MSF for all residues,       |
+|                        | calculated for a specific   |
+|                        | mode range                  |
 +------------------------+-----------------------------+
-| common residue MSF     | Mean square fluctuations for|
-| modes text file        | all common residues,        |
-|                        | calculated over a specific  |
-|                        | mode range.                 |
+| Common residue MSF     | MSF for all common          |
+| text file              | residues, calculated over   |
+|                        | all modes                   |
++------------------------+-----------------------------+
+| Common residue MSF     | MSF for all common          |
+| modes text file        | residues, calculated over a |
+|                        | specific mode range         |
 +------------------------+-----------------------------+
 
 Conformation mode
@@ -229,7 +227,7 @@ Calculates the combined overlap and correlation for specified set of modes to a 
 
 **Command:** ::
 
-	combinationMode.py <options> --pdbConf <PDB file> --pdbANM <PDB file> --vtMatrix <text file>
+	combinationMode.py <options> --pdbConf <PDB file> --pdbANM <PDB file> --vtMatrix <text file> --modes <comma separated string>
 
 **Inputs:**
 
@@ -245,15 +243,16 @@ Calculates the combined overlap and correlation for specified set of modes to a 
 | VT matrix file *       | File       |``--vtMatrix``      | Eigenavalues obtained from  |
 |                        |            |                    | ANM script                  |
 +------------------------+------------+--------------------+-----------------------------+
+| Modes *                | Integer    |``--modes``         | Calculate the overlap for a |
+|                        |            |                    | combination of specific     |
+|                        |            |                    | modes. Numbers are          |
+|                        |            |                    | separated by commas: 1,5,7  |
++------------------------+------------+--------------------+-----------------------------+
 | Output file            | File       |``--output``        | Specify a name for the PDB	 |
 |                        |            |                    | output file. Default:       |
 |                        |            |                    | ModesOfConfChange.pdb       |
 +------------------------+------------+--------------------+-----------------------------+
-| Modes                  | Integer    |``--modes``         | Calculate the overlap for a |
-|                        |            |                    | combination of specific     |
-|                        |            |                    | modes. Numbers areseparated |
-|                        |            |                    | by commas. (1,5,7)          |
-+------------------------+------------+--------------------+-----------------------------+
+
 
 **Outputs:**
 

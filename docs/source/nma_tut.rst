@@ -82,7 +82,7 @@ b) Command line output
 	Completed at: 2017-08-22 11:54:19.509456
 	- Total time: 0:00:00
 
-Note that, the same 212 atoms in from each protomer were selected – thus the symmetry of the pentamer is retained.
+Note that, the same 212 atoms from each protomer were selected – thus the symmetry of the pentamer is retained.
 
 
 2) Create a model of the EV71 Pentamer complex with additional coarse graining set at level 4:
@@ -119,7 +119,7 @@ The ANM.cpp script accepts a PDB file and a cutoff distance. The script construc
 
 **Output:**
 
-W_values.txt: A list of 3N eigenvalues the normal modes of the system. Eigenvalues are ordered from fastest to slowest mode.
+W_values.txt: A list of 3N eigenvalues the normal modes of the system. Eigenvalues are ordered from slowest to fastest.
 
 VT_values.txt: A 3Nx3N list of the eigenvectors for each mode. Eigenvectors are printed as a set of rows.
 
@@ -141,7 +141,7 @@ In this tutorial we will perform a comprative analysis between the normal modes 
 
  ::
 
-	./ANM --pdb Tutorial/EV71_CG4.pdb  --outdir Tutorial --atomType CB
+	./ANM --pdb Tutorial/EV71_CG4.pdb  --outdir Tutorial --atomType CB --cutoff 24
 
 Example of the command line output:
 
@@ -162,7 +162,7 @@ Example of the command line output:
 
 3.2)  ::
 
-	./ANM --pdb Tutorial/EV71_CG3.pdb --outdir Tutorial/CG3 --atomType CB
+	./ANM --pdb Tutorial/EV71_CG3.pdb --outdir Tutorial/CG3 --atomType CB --cutoff 24
 
 Example of command line output:
 
@@ -174,7 +174,7 @@ Example of command line output:
 	- Total time: 0:02:0-704
 
 Indentification of modes that contribute to the conformational change
--------------------------------------------------------------------
+-------------------------------------------------------------------------
 
 We have performed ANM on two separate pentamer complexes. From each model we have obtained a set of eigenvalues and eigenvectors corresponding to each normal mode:
 
@@ -220,45 +220,35 @@ A text file with the overlap and correlation of each mode to the conformational 
 
  ::
 
-	MODE           Overlap                      Correlation
+	MODE           Overlap             Correlation
 
-	Mode: 802      0.464930905363      0.505024336385
-	Mode: 799      0.288299273538      0.212056909378
-	Mode: 775      -0.251274270888      0.102742699068
-	Mode: 748      0.247685561536      0.131291816799
-	Mode: 788      0.212254981509      0.0620242553959
-	Mode: 705      0.182970920364      0.134255823159
-	Mode: 785      -0.16260558288      0.230938806173
-	Mode: 203      0.161599915581      0.0168408447117
-	Mode: 754      -0.152172952906      0.142214445993
-	Mode: 397      0.1331492216         0.240388245613
-	Mode: 622      -0.13150716791      0.13057940904
-	Mode: 280      0.12871454907      0.0444642851196
-	Mode: 774      0.123724858059      0.0394196518151
-	Mode: 793      0.116201325237      0.0236754652566
-	Mode: 750      0.116127226795      0.167416988474
+	Mode: 9        0.759547056636      0.502678274421
+	Mode: 37       0.274882204134      0.0404194084198
+	Mode: 36      -0.266695656516      0.116161361929	
+	Mode: 23       0.260184892921      0.0752811758038
+	Mode: 608      0.224274263942      0.0255344947974
+	Mode: 189     -0.208122679764      0.143874874887
+	Mode: 355      0.165654954812      0.0535734675763
+	Mode: 56       0.14539061536       0.11985698672
+	Mode: 387     -0.137880035134      0.245587436772
+	Mode: 307     -0.130040876389      0.145317107434
 
 **Top output from conformationalMode.py of EV71_CG3:**
 
  ::
 
-	MODE           Overlap                       Correlation
+	MODE           Overlap             Correlation
 
-	Mode: 1822     -0.415600190243      0.247290729903
-	Mode: 1816     0.252625858163      0.113261133544
-	Mode: 1746     0.175581842737      0.306224937911
-	Mode: 1745     0.13950940547      0.303095607429
-	Mode: 1747     0.138225569708      0.297843432141
-	Mode: 1659     0.137739698541      0.272789201446
-	Mode: 1801     -0.136763146302      0.210065050974
-	Mode: 1730     0.136567023438      0.299515587264
-	Mode: 1665     -0.133241326847      0.354553903803
-	Mode: 1793     -0.13005798464      0.202987256131
-	Mode: 1738     -0.120706064305      0.220396792939
-	Mode: 1800     0.120606594989      0.178140199695
-	Mode: 1774     -0.12050356591      0.126790378565
-	Mode: 1408     -0.103297837303      0.346942965669
-	Mode: 1754     -0.103052988178      0.312731487395
+	Mode: 9       -0.663942246191      0.236900852193
+	Mode: 30      -0.235871923574      0.192794743468
+	Mode: 56       0.159507003696      0.083164362262
+	Mode: 101      0.157155354273      0.272502734273
+	Mode: 172      0.156716125374      0.275230637373
+	Mode: 166     -0.153026188385      0.332283689479
+	Mode: 189     -0.147803049356      0.372767489438
+	Mode: 38      -0.13204901279       0.196369524407
+	Mode: 423     -0.131685652034      0.334715006091
+	Mode: 76      -0.129977918229      0.296798866026
 
 Mode visualisation
 -------------------------------
@@ -271,31 +261,31 @@ From each model we have identified which mode overlaps the most with the directi
 
 	g++ -I cpp/input/ getEigenVectors.cpp -o getEigenVectors
 
-1.1)  Obtain eigenvectors for mode 802 of the CG4 model. Note this overlap is positive, thus the vectors act in the opposite direction to conformational change. Therefore we must specify the direction as 1 when extracting the vectors:
+1.1)  Obtain eigenvectors for mode 9 of the CG4 model. Note this overlap is positive, thus the vectors act in the opposite direction to conformational change. Therefore we must specify the direction as 1 when extracting the vectors:
 
  ::
 
-	./getEigenVectors --vtMatrix Tutorial/VT_values.txt --mode 802 --direction 1 --outdir Tutorial/
+	./getEigenVectors --vtMatrix Tutorial/VT_values.txt --mode 9 --direction 1 --outdir Tutorial/
 
-1.1)  Obtain eigenvectors for mode 1822 of the CG3 model. However, the overlap for this mode was negative, therefore we must specifify direction as -1
+1.1)  Obtain eigenvectors for mode 9 of the CG3 model. However, the overlap for this mode was negative, therefore we must specifify direction as -1
 
  ::
 
-	./getEigenVectors --vt Tutorial/CG3/VT_values.txt --mode 1822 --direction -1 --outdir Tutorial/CG3
+	./getEigenVectors --vt Tutorial/CG3/VT_values.txt --mode 9 --direction -1 --outdir Tutorial/CG3
 
 2) We can now project these vectors onto the respective models using the **visualiseVector.py** script and then visualise them as a set of frames in VMD:
 
-2.1) Mode 802 of CG4:
+2.1) Mode 9 of CG4:
 
  ::
 
-	visualiseVector.py --pdb Tutorial/EV71_CG4.pdb --vectorFile Tutorial/EVectors802.txt --mode 802 --outdir Tutorial/ --atomType CB
+	visualiseVector.py --pdb Tutorial/EV71_CG4.pdb --vectorFile Tutorial/EVectors9.txt --mode 9 --outdir Tutorial/ --atomType CB
 
-2.2) Mode 1822 of CG3:
+2.2) Mode 9 of CG3:
 
  ::
 
-	visualiseVector.py --pdb Tutorial/CG3/EV71_CG3.pdb  --vectorFile Tutorial/CG3/EVectors1822.txt --mode 1822 --outdir Tutorial/CG3 --atomType CB
+	visualiseVector.py --pdb Tutorial/CG3/EV71_CG3.pdb  --vectorFile Tutorial/CG3/EVectors9.txt --mode 9 --outdir Tutorial/CG3 --atomType CB
 
 **Output from visualiseVector.py**
 
@@ -309,11 +299,11 @@ The script will produce a folder named VISUALISE. For every mode that you give t
 **Visualising the results in VMD**
 
 1) Open VMD.
-2) To load the VISUAL_802.pdb file click the following tabs: ``File >> New Molecule >> Browse >> Select VISUAL_802.pdb.``
-3) The VISUAL_802.pdb file contains a set of 50 frames of the eigenvectors of mode 802. This can be visualised as a movie by clicking on the Play button. The frame set can also be coloured to the user's desire using the options under the Graphics >> Representations tab.
-4) The VISUAL_ARROWS text file contains a script that can be copied and pasted straight into the Tk Console in VMD: Extensions >> Tk Console
-5) To obtain a clearer observation, change the background to white: Graphics >> Colors >> Categories >> Display >> Names >> Background >> Colors >> White
-6) To obtain only the arrows, delete all frames of the VISUAL_802.pdb molecules: Right click on the number of frames >> Delete frames >> Delete frames 0 to 49.
+2) To load the VISUAL_9.pdb file click the following tabs: ``File >> New Molecule >> Browse >> Select VISUAL_9.pdb.``
+3) The VISUAL_9.pdb file contains a set of 50 frames of the eigenvectors of mode 9. This can be visualised as a movie by clicking on the Play button. The frame set can also be coloured to the user's desire using the options under the ``Graphics >> Representations tab.``
+4) The VISUAL_ARROWS text file contains a script that can be copied and pasted straight into the Tk Console in VMD: ``Extensions >> Tk Console``
+5) To obtain a clearer observation, change the background to white: ``Graphics >> Colors >> Categories >> Display >> Names >> Background >> Colors >> White``
+6) To obtain only the arrows, delete all frames of the VISUAL_9.pdb molecules: ``Right click on the number of frames >> Delete frames >> Delete frames 0 to 49``
 
 
 Mean square fluctuation (MSF)
@@ -330,35 +320,35 @@ The script also allows for comparison of MSF obtained from modes of different mo
 In this toturial we will analyse the MSF between EV71_CG4 and EV71_CG3.
 
 
-1) First we will calculate the MSF of the CG4 model. We will calculate the overall MSF and the MSF for the mode 802.
+1) First we will calculate the MSF of the CG4 model. We will calculate the overall MSF and the MSF for the mode 9.
 
  ::
 
-	meanSquareFluctuation.py --pdb Tutorial/EV71_CG4.pdb --pdbConf2 Tutorial/EV71_CG3.pdb --firstMode 802 --lastMode 802 --wMatrix Tutorial/W_values.txt --vtMatrix Tutorial/VT_values.txt --outdir Tutorial/ --atomType CB
+	meanSquareFluctuation.py --pdb Tutorial/EV71_CG4.pdb --pdbConf2 Tutorial/EV71_CG3.pdb --firstMode 9 --lastMode 9 --wMatrix Tutorial/W_values.txt --vtMatrix Tutorial/VT_values.txt --outdir Tutorial/ --atomType CB
 
-2) Next, we will calculate the MSF of the CG3 model. We will calculate the overall MSF and the MSF for mode 1822
+2) Next, we will calculate the MSF of the CG3 model. We will calculate the overall MSF and the MSF for mode 9
 
  ::
 
-	meanSquareFluctuation.py --pdb Tutorial/EV71_CG3.pdb --pdbConf2 Tutorial/EV71_CG4.pdb --firstMode 1822 --lastMode 1822 --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --outdir Tutorial/CG3/ --atomType CB
+	meanSquareFluctuation.py --pdb Tutorial/EV71_CG3.pdb --pdbConf2 Tutorial/EV71_CG4.pdb --firstMode 9 --lastMode 9 --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --outdir Tutorial/CG3/ --atomType CB
 
 
 **Output for Model CG4:**
 
 **1) EV71_msf.txt:** Text file of the overall MSF values for all residues
 
-**2) EV71_msfModes802_802.txt:** MSF for all residues for mode 802
+**2) EV71_msfModes9_9.txt:** MSF for all residues for mode 9
 
 **3) EV71CommonResidues_msf.txt:** Overal MSF for residues common between CG4 and CG3.
 
-**4) EV71_CommonResidues_msfModes802_802.txt:** MSF for residues common between CG4 and CG3 calculated for mode 802
+**4) EV71_CommonResidues_msfModes9_9.txt:** MSF for residues common between CG4 and CG3 calculated for mode 9
 output for Model CG3:
 
 **1) EV71_msf.txt:** Text file of the overall MSF values for all residues
 
-**2) EV71_msfModes1822_1822.txt:** MSF for all residues for mode 1822
+**2) EV71_msfModes9_9.txt:** MSF for all residues for mode 9
 
 **3) EV71CommonResidues_msf.txt:** overal MSF for residues common between CG3 and CG4.
 
-**4) EV71_CommonResidues_msfModes1822_1822.txt:** MSF for residues common between CG3 and CG3 calculated for mode 1822
+**4) EV71_CommonResidues_msfModes9_9.txt:** MSF for residues common between CG3 and CG3 calculated for mode 9
 
