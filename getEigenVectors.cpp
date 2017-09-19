@@ -16,6 +16,8 @@
 #include <ap.h>
 #include <time.h>
 
+#include <sys/stat.h>
+
 using namespace std;
 
 // Get current date/time, format is YYYY-MM-DD HH:mm:ss
@@ -93,6 +95,13 @@ int main(int argc, char *argv[])
 			//hasOutdir = true;
 		}
     }
+
+	// Check if output directory exists and create it
+	struct stat statStruct;
+    stat(outdir.c_str(), &statStruct);
+	if (!S_ISDIR(statStruct.st_mode))
+    	cout<<"Creating directory '"<<outdir<<"'"<<endl;
+		const int dir_err = mkdir(outdir.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
 	if(!hasVt)
 	{

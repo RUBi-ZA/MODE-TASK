@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <time.h>
 
+#include <sys/stat.h>
 
 using namespace std;
 using namespace alglib;
@@ -282,13 +283,20 @@ int main(int argc, char *argv[])
 		}
              
 	
-                else if(strcmp(argv[i], "--atomType") == 0)
+        else if(strcmp(argv[i], "--atomType") == 0)
 		{
 			atype = argv[i+1];
 			//hasOutdir = true;
 		}
 	
 	}
+
+	// Check if output directory exists and create it
+	struct stat statStruct;
+    stat(outdir.c_str(), &statStruct);
+	if (!S_ISDIR(statStruct.st_mode))
+    	cout<<"Creating directory '"<<outdir<<"'"<<endl;
+		const int dir_err = mkdir(outdir.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 	
 	if(!hasPdb)
 	{
