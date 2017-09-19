@@ -193,7 +193,7 @@ User can also perform the PCA on internal coordinates of a MD trajectory. Option
 |                        |            |                    | trajectory name             |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom group             | String     |``-ag``             | Group of atom for PCA.      |
-|                        |            |                    | Default is CA atoms.   |
+|                        |            |                    | Default is CA atoms.        |
 | 			 |	      | 		   | Other options are:          |
 |                        |            |                    | all= all atoms,             |
 |                        |            |                    | backbone = backbone atoms,  |
@@ -270,7 +270,7 @@ MDS is a tool to visualize the similarity or dissimilarity in a dataset. Two typ
 |                        |            |                    | trajectory name             |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom group             | String     |``-ag``             | Group of atom for MDS.      |
-|                        |            |                    | Default is CA atoms.   |
+|                        |            |                    | Default is CA atoms.        |
 |                        |            |                    | Other options are:          |
 |                        |            |                    | all= all atoms,             |
 |                        |            |                    | backbone = backbone atoms,  |
@@ -292,7 +292,7 @@ MDS is a tool to visualize the similarity or dissimilarity in a dataset. Two typ
 |                        |            |                    | type is euclidean           |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom indices           | String     | ``-ai``            | Group of atom for pairwise  |
-|                        |            |                    | distance. Default is CA|
+|                        |            |                    | distance. Default is CA     |
 |                        |            |                    | atoms. Other options are:   |
 |                        |            |                    | all= all atoms,backbone =   |
 |                        |            |                    | backbone atoms, alpha=      |
@@ -367,7 +367,7 @@ t-distributed Stochastic Neighbor Embedding (t-SNE) is a tool for dimensionality
 |                        |            |                    | trajectory name             |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom group             | String     |``-ag``             | Group of atom for t-SNE.    |
-|                        |            |                    | Default is CA atoms.   |
+|                        |            |                    | Default is CA atoms.        |
 | 			 |	      | 		   | Other options are:          |
 |                        |            |                    | all= all atoms,             |
 |                        |            |                    | backbone = backbone atoms,  |
@@ -386,7 +386,7 @@ t-distributed Stochastic Neighbor Embedding (t-SNE) is a tool for dimensionality
 |                        |            |                    | RMSD. Default is rmsd       |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom indices           | String     | ``-ai``            | Group of atom for pairwise  |
-|                        |            |                    | distance. Default is CA|
+|                        |            |                    | distance. Default is CA     |
 |                        |            |                    | atoms. Other options are:   |
 |                        |            |                    | all= all atoms,backbone =   |
 |                        |            |                    | backbone atoms, alpha=      |
