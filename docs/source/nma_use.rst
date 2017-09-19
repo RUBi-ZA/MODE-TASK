@@ -184,7 +184,6 @@ level. Obviously, we must compare only the residues that are common in each mode
 |                        | mode range.                 |
 +------------------------+-----------------------------+
 
-
 Conformation mode
 -------------------------------
 
@@ -223,6 +222,51 @@ Identifies modes responsible for the conformational change of a molecule.
 |                        | mode                        |
 +------------------------+-----------------------------+
 
+Combination mode
+-------------------------------
+
+Calculates the combined overlap and correlation for specified set of modes to a known conformational change.
+
+**Command:** ::
+
+	combinationMode.py <options> --pdbConf <PDB file> --pdbANM <PDB file> --vtMatrix <text file>
+
+**Inputs:**
+
++------------------------+------------+--------------------+-----------------------------+
+| Input (*\*required*)   | Input type | Flag               | Description                 |
++========================+============+====================+=============================+
+| Unaligned PDB file *   | File       |``--pdbConf``       | PDB file of the             |
+|                        |            |                    | conformational change       |
++------------------------+------------+--------------------+-----------------------------+
+| PDB *                  | File       |``--pdbANM``        | PDB file that was useed to  |
+|                        |            |                    | run ANM                     |
++------------------------+------------+--------------------+-----------------------------+
+| VT matrix file *       | File       |``--vtMatrix``      | Eigenavalues obtained from  |
+|                        |            |                    | ANM script                  |
++------------------------+------------+--------------------+-----------------------------+
+| Output file            | File       |``--output``        | Specify a name for the PDB	 |
+|                        |            |                    | output file. Default:       |
+|                        |            |                    | ModesOfConfChange.pdb       |
++------------------------+------------+--------------------+-----------------------------+
+| Modes                  | Integer    |``--modes``         | Calculate the overlap for a |
+|                        |            |                    | combination of specific     |
+|                        |            |                    | modes. Numbers areseparated |
+|                        |            |                    | by commas. (1,5,7)          |
++------------------------+------------+--------------------+-----------------------------+
+
+**Outputs:**
+
++------------------------+-----------------------------+
+| Output                 | Description                 |
++========================+=============================+
+| Combination file       | Text file with the overlap  |
+|                        | and correlation of each     |
+|                        | mode as well as the         |
+|                        | combined overlap and        |
+|                        | correlation for the modes   |
+|                        | specified                   |
++------------------------+-----------------------------+
 
 Mode visualisation
 -------------------------------
