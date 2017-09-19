@@ -10,7 +10,7 @@ To contribute to the documentation please follow `this guide`_.
 Cite this project
 -----------------
 
-A puplication is currently being prepared
+A publication is currently being prepared
 
 License
 ---------------
