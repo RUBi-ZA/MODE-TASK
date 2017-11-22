@@ -23,7 +23,7 @@ def welcome_msg(title, author):
 	print '\tRhodes University, 2017\t\t\t\t'
 	print '\tDistributed under GNU GPL 3.0\t\t\t'
 	print '\t\t\t\t\t\t\t\t'
-	print '\thttps://github.com/michaelglenister/NMA-TASK\t'
+	print '\thttps://github.com/RUBi-ZA/MODE-TASK\t'
 	print '\t\t\t\t\t\t\t\t'
 	print '============================================================'
 	return;
