@@ -11,7 +11,7 @@ Collection of tools for analysing normal modes and performing principal componen
 git clone https://github.com/RUBi-ZA/MODE-TASK.git
 cd MODE-TASK
 ```
-*Install dependencies and set up Python virtual environment:*
+*Install dependencies and set up Python 2.7 virtual environment:*
 ```bash
 sudo apt install virtualenvwrapper python-dev 
 virtualenv venv
