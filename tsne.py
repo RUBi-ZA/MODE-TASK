@@ -52,28 +52,28 @@ def get_options():
 		args.out_dir=out
 		
 	if args.atm_grp == None:
-		print 'No atom selected. t-SNE will be performed on C alpha atoms '
+		print ('No atom selected. t-SNE will be performed on C alpha atoms ')
 		args.atm_grp = 'CA'  # set to default C-alpha atoms
 		
 	if args.atm_grp not in  ('all', 'CA', 'backbone', 'protein'):
-		print 'ERROR: no such option as', args.atm_grp, 'for flag -at \nPlease see the usage\n\n '
+		print ('ERROR: no such option as', args.atm_grp, 'for flag -at \nPlease see the usage\n\n ')
 		sys.exit(1)
 		
 	if args.coordinate_type not in  ('distance', 'phi', 'psi', 'angle', None):
-		print 'ERROR: no such option as', args.coordinate_type, 'for flag -ct \nPlease see the usage\n\n '
+		print ('ERROR: no such option as', args.coordinate_type, 'for flag -ct \nPlease see the usage\n\n ')
 		sys.exit(1)
 		
 	if 	args.dissimilarity_type == 'euc':
 		if args.atom_indices == None:
-			print 'No atom selected for pairwise distance. pairwise distance of C alpha atoms will be used'
+			print ('No atom selected for pairwise distance. pairwise distance of C alpha atoms will be used')
 			args.atom_indices='alpha'
 			
 	if args.atom_indices not in  ('all', 'alpha', 'backbone', 'minimal', 'heavy', None):
-		print 'ERROR: no such option as', args.atom_indices, 'for flag -ai \nPlease see the usage\n\n '
+		print ('ERROR: no such option as', args.atom_indices, 'for flag -ai \nPlease see the usage\n\n ')
 		sys.exit(1)
 		
 	if args.dissimilarity_type not in  ('rmsd', 'euc', None):
-		print 'ERROR: no such option as', args.dissimilarity_type, 'for flag -dt \nPlease see the help by running \n tsne.py -h\n\n '
+		print ('ERROR: no such option as', args.dissimilarity_type, 'for flag -dt \nPlease see the help by running \n tsne.py -h\n\n ')
 		sys.exit(1)
 	return args;
 	
@@ -86,12 +86,12 @@ args=get_options()
 # if no arguments are passed
 #====================================================================
 if args.trj is None:
-	print 'Missing trajectory arguments :(\nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+	print ('Missing trajectory arguments :(\nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 	parser.print_help()
 	sys.exit(1)
 
 if args.topology is None:
-	print 'Missing topology !!\nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+	print ('Missing topology !!\nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 	parser.print_help()
 	sys.exit(1)
 
@@ -105,7 +105,7 @@ topology = args.topology
 
 #pca_traj = md.load(traj, top=topology)
 
-print 'Reading trajectory ', args.trj, '...' 
+print ('Reading trajectory ', args.trj, '...')
 
 try:
 	pca_traj = md.load(traj, top=topology)
@@ -128,7 +128,7 @@ if not os.path.exists(out_dir):
 #else:
 #	print out_dir, 'already exist. Can not overwrite the output directory!\n'
 #	sys.exit(1)
-print 'Results will be written in ', out_dir
+print ('Results will be written in ', out_dir)
 
 ## =============================
 # trajectory info
@@ -158,7 +158,7 @@ def tsne(input):
 	't-distributed Stochastic Neighbor Embedding'
 	seed = np.random.RandomState(seed=1)
 	my_tsne = TSNE(n_components=3, n_iter=3000, random_state=seed, init='pca') ## apparantly n_components more than 3 throws error in certain cases. 
-	print "Performing TSNE..."
+	print ("Performing TSNE...")
 	mpos = my_tsne.fit_transform(input)
 	write_plots('tsne_projection', mpos, out_dir)
 	title='t-SNE Projection'
@@ -170,16 +170,16 @@ def tsne(input):
 if args.dissimilarity_type == 'rmsd' or args.dissimilarity_type == None:
 	pair_rmsd=get_pair_rmsd(pca_traj, sele_grp)
 	tsne(pair_rmsd)
-	print 'FINISHED!'
+	print ('FINISHED!')
 if args.dissimilarity_type == 'euc':
 	if args.coordinate_type == None:
 		args.coordinate_type = "distance"
-		print "Using pairwise distance by default"
-	print 'using Euclidean space of', args.coordinate_type
+		print ("Using pairwise distance by default")
+	print ('using Euclidean space of', args.coordinate_type)
 	int_cord=get_internal_coordinates(top, args.coordinate_type, pca_traj, atom_indices)
 	similarities = euclidean_distances(int_cord)
 	tsne(similarities)
-	print 'FINISHED!'
+	print ('FINISHED!')
 	
 
 

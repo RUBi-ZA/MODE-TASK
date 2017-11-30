@@ -53,59 +53,59 @@ def get_options():
 		args.out_dir=out
 		
 	if args.trj is None:
-		print 'ERROR: Missing trajectory argument.... :(  \nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+		print ('ERROR: Missing trajectory argument.... :(  \nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 		parser.print_help()
 		sys.exit(1)
 
 	if not os.path.exists(args.trj ):
-		print('\nERROR: {0} not found....:(  Please check the path or filename\n' .format(args.trj ))
+		print ('\nERROR: {0} not found....:(  Please check the path or filename\n' .format(args.trj ))
 		#parser.print_help()
 		sys.exit(1)
 		
 	if not os.path.exists(args.topology):
-		print('\nERROR: {0} not found....:(  Please check the path or filename\n' .format(args.topology ))
+		print ('\nERROR: {0} not found....:(  Please check the path or filename\n' .format(args.topology ))
 		#parser.print_help()
 		sys.exit(1)
 		
 	if args.topology is None:
-		print 'ERROR: Missing toplogy argument.... :(  \nPlease see the help by running \n mds.py -h\n\n '
+		print ('ERROR: Missing toplogy argument.... :(  \nPlease see the help by running \n mds.py -h\n\n ')
 		parser.print_help()
 		sys.exit(1)
 		
 	if args.dissimilarity_type not in  ('rmsd', 'euc', None):
-		print 'ERROR: no such option as', args.dissimilarity_type, 'for flag -dt \nPlease see the help by running \n mds.py -h\n\n '
+		print ('ERROR: no such option as', args.dissimilarity_type, 'for flag -dt \nPlease see the help by running \n mds.py -h\n\n ')
 		sys.exit(1)
 		
 	if args.mds_type == None:
-		print 'No MDS type given... performing metric MDS...'
+		print ('No MDS type given... performing metric MDS...')
 		args.mds_type='metric'
 	if args.mds_type not in  ('nm', 'metric', None):
-		print 'ERROR: no such option as', args.mds_type, 'for flag -mt \nPlease see the usage\n\n '
+		print ('ERROR: no such option as', args.mds_type, 'for flag -mt \nPlease see the usage\n\n ')
 		sys.exit(1)
 		
 	if args.coordinate_type not in  ('distance', 'phi', 'psi', 'angle', None):
-		print 'ERROR: no such option as', args.coordinate_type, 'for flag -ct \nPlease see the usage\n\n '
+		print ('ERROR: no such option as', args.coordinate_type, 'for flag -ct \nPlease see the usage\n\n ')
 		parser.print_help()
 		sys.exit(1)
 	
 	if args.atm_grp == None:
-		print 'No atom selected. MDS will be performed on C alpha atoms '
+		print ('No atom selected. MDS will be performed on C alpha atoms ')
 		args.atm_grp = 'CA'  # set to default C-alpha atoms
 		
 	if args.atm_grp not in  ('all', 'CA', 'backbone', 'protein'):
-		print 'ERROR: no such option as', args.atm_grp, 'for flag -at \nPlease see the usage\n\n '
+		print ('ERROR: no such option as', args.atm_grp, 'for flag -at \nPlease see the usage\n\n ')
 		sys.exit(1)
 	if 	args.dissimilarity_type == 'euc':
 		if args.atom_indices == None:
-			print 'No atom selected for pairwise distance. pairwise distance of C alpha atoms will be used'
+			print ('No atom selected for pairwise distance. pairwise distance of C alpha atoms will be used')
 			args.atom_indices='alpha'
 	
 	if args.atom_indices not in  ('all', 'alpha', 'backbone', 'minimal', 'heavy', None):
-		print 'ERROR: no such option as', args.atom_indices, 'for flag -ai \nPlease see the usage\n\n '
+		print ('ERROR: no such option as', args.atom_indices, 'for flag -ai \nPlease see the usage\n\n ')
 		sys.exit(1)
 	if args.dissimilarity_type == None or args.dissimilarity_type == 'rmsd':
 		if args.atom_indices != None:
-			print '\nWARNING: -ai', args.atom_indices, '  ,is meaningless with -dt set to rmsd \n'
+			print ('\nWARNING: -ai', args.atom_indices, '  ,is meaningless with -dt set to rmsd \n')
 	
 	return args;
 
@@ -119,7 +119,7 @@ traj = args.trj
 topology = args.topology
 #pca_traj = md.load(traj, top=topology)
 
-print 'Reading trajectory ', args.trj, '...' 
+print ('Reading trajectory ', args.trj, '...')
 
 try:
 	pca_traj = md.load(traj, top=topology)
@@ -141,7 +141,7 @@ if not os.path.exists(out_dir):
 #else:
 #	print out_dir, 'already exist. Can not overwrite the output directory!\n'
 #	sys.exit(1)
-print 'Results will be written in ', out_dir
+print ('Results will be written in ', out_dir)
 ## =============================
 # print trajectory info
 #===================================
@@ -171,7 +171,7 @@ def mds(input, type):
 	#np.savetxt('mds_input.txt', input) ## testing value error
 	if type == 'nm':
 		nmds=MDS(n_components=100, max_iter=3000, metric=False, random_state=seed, dissimilarity="precomputed")
-		print "Performing non-metric MDS.."
+		print ("Performing non-metric MDS..")
 		npos=nmds.fit_transform(input)
 		
 		# write PC plots
@@ -181,17 +181,17 @@ def mds(input, type):
 		# cosine content 
 		
 		pc1_cos=get_cosine(npos, 0)
-		print 'cosine content of first PC=',pc1_cos
+		print ('cosine content of first PC=',pc1_cos)
 		pc2_cos=get_cosine(npos, 1)
-		print 'cosine content of second PC=', pc2_cos
+		print ('cosine content of second PC=', pc2_cos)
 		pc3_cos=get_cosine(npos, 2)
-		print 'cosine content of 3rd PC=',pc3_cos
+		print ('cosine content of 3rd PC=',pc3_cos)
 		pc4_cos=get_cosine(npos, 3)
-		print 'cosine content of 4th PC=', pc4_cos
+		print ('cosine content of 4th PC=', pc4_cos)
 			
 	elif type == 'metric':
 		mmds = MDS(n_components=100, max_iter=3000, random_state=seed, dissimilarity="precomputed")
-		print "Performing metric MDS.."
+		print ("Performing metric MDS..")
 		mpos = mmds.fit_transform(input)
 		
 		# write PC plots
@@ -201,35 +201,35 @@ def mds(input, type):
 		# cosine content 
 		
 		pc1_cos=get_cosine(mpos, 0)
-		print 'cosine content of first PC=',pc1_cos
+		print ('cosine content of first PC=',pc1_cos)
 		pc2_cos=get_cosine(mpos, 1)
-		print 'cosine content of second PC=', pc2_cos
+		print ('cosine content of second PC=', pc2_cos)
 		pc3_cos=get_cosine(mpos, 2)
-		print 'cosine content of 3rd PC=',pc3_cos
+		print ('cosine content of 3rd PC=',pc3_cos)
 		pc4_cos=get_cosine(mpos, 3)
-		print 'cosine content of 4th PC=', pc4_cos
+		print ('cosine content of 4th PC=', pc4_cos)
 	
 	else:
-		print 'ERROR: Please check -mt flag options by running mds.py -h'
+		print ('ERROR: Please check -mt flag options by running mds.py -h')
 	
 	return;
 
 type=args.mds_type
 
 if args.dissimilarity_type == 'rmsd' or args.dissimilarity_type == None:
-	print 'using pairwise RMSD...'
+	print ('using pairwise RMSD...')
 	pair_rmsd=get_pair_rmsd(pca_traj, sele_grp)
 	mds(pair_rmsd, type)
-	print 'FINISHED!'
+	print ('FINISHED!')
 if args.dissimilarity_type == 'euc':
 	if args.coordinate_type == None:
 		args.coordinate_type = "distance"
-		print "Using pairwise distance by default"
-	print 'using Euclidean space of', args.coordinate_type
+		print ("Using pairwise distance by default")
+	print ('using Euclidean space of', args.coordinate_type)
 	int_cord=get_internal_coordinates(top, args.coordinate_type, pca_traj, atom_indices)
 	similarities = euclidean_distances(int_cord)
 	mds(similarities, type)
-	print 'FINISHED!'
+	print ('FINISHED!')
 
 
 

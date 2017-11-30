@@ -22,12 +22,12 @@ def man():
 
 def trajectory_info(pca_traj, traj, atm_name=None, sele_grp=None):
 	'Prints various information of MD trajectory'
-	print '\n\nTrajectory info:\n'
-	print "Total",pca_traj.n_frames,"frames read from", traj
-	print "MD time is from ", pca_traj.time[0],'to',pca_traj.time[-1],'ps'
-	print pca_traj.n_atoms, "atoms and ", pca_traj.n_residues, "residues in the trajectory"
-	print "Atom group selected for PCA:", atm_name
-	print "Total", len(sele_grp), atm_name,'atoms selected for analysis\n'
+	print ('\n\nTrajectory info:\n')
+	print ('Total',pca_traj.n_frames,'frames read from', traj)
+	print ('MD time is from ', pca_traj.time[0],'to',pca_traj.time[-1],'ps')
+	print (pca_traj.n_atoms, 'atoms and ', pca_traj.n_residues, 'residues in the trajectory')
+	print ('Atom group selected for PCA:', atm_name)
+	print ('Total', len(sele_grp), atm_name,'atoms selected for analysis\n')
 	
 	return;
 
@@ -40,27 +40,27 @@ def get_internal_coordinates(top, coordinate_type, pca_traj, atom_indices):
 	'get the different types of internal coordinates as per user selections'
 	calpha_idx=top.select_atom_indices(atom_indices)
 	if coordinate_type == 'distance':
-		print "Pair wise atomic distance selected\n "
+		print ('Pair wise atomic distance selected\n ')
 		atom_pairs = list(combinations(calpha_idx, 2)) # all unique pairs of elements 
 		pairwise_distances = md.geometry.compute_distances(pca_traj, atom_pairs)
 		int_cord=pairwise_distances
 		
 	if coordinate_type == 'phi':
-		print  "phi torsions  selected\n"
+		print ('phi torsions  selected\n')
 		atom_pairs = list(combinations(calpha_idx, 3)) 
 		angle=md.compute_phi(pca_traj)
 		
 		int_cord=angle[1] ## apparently compute_phi returns tupple of atoms indices and phi angles, index 1 has phi angles 
 	
 	if coordinate_type == 'psi':
-		print "psi torsions  selected\n"
+		print ('psi torsions  selected\n')
 		atom_pairs = list(combinations(calpha_idx, 3)) 
 		angle=md.compute_psi(pca_traj)
 		
 		int_cord=angle[1] ## apparently compute_psi returns tupple of atoms indices and psi angles, index 1 has psi angles 
 		
 	if coordinate_type == 'angle':
-		print "1-3 angle selected between N,CA and C"
+		print ('1-3 angle selected between N,CA and C')
 		nrow=len(top.select("name CA")) # to get the number of amino acid ignoring ligand etc. 
 		ncol=3
 		# make a matrix of N,CA, C index, each row index making bond
@@ -142,7 +142,7 @@ def get_kmo(input):
 	numerator_kmo=np.sum(np.square(input))-np.sum(np.square(np.diagonal(input)))
 	deno_kmo=numerator_kmo+np.sum(np.square(B))-np.sum(np.square(np.diagonal(B)))
 	kmo=numerator_kmo/deno_kmo
-	print 'KMO for input trajectory is ', kmo
+	print ('KMO for input trajectory is ', kmo)
 	return;
 	
 def print_kmo(pca_traj, traj, atm_name, sele_grp):

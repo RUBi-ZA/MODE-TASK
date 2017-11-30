@@ -70,40 +70,40 @@ def set_option():
 		args.out_dir=out
 		
 	if args.trj is None: 
-		print 'ERROR: Missing trajectory argument.... :(  \nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+		print ('ERROR: Missing trajectory argument.... :(  \nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 		parser.print_help()
 		sys.exit(1)
 	
 	if args.topology is None:
-		print 'ERROR: Missing topology.... :( \nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+		print ('ERROR: Missing topology.... :( \nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 		parser.print_help()
 		sys.exit(1)
 		
 	if not os.path.exists(args.trj ):
-		print('\nERROR: {0} not found....:(  Please check the path\n' .format(args.trj ))
+		print ('\nERROR: {0} not found....:(  Please check the path\n' .format(args.trj ))
 		parser.print_help()
 		sys.exit(1)
 	
 	if not os.path.exists(args.topology):
-		print('\nERROR: {0} not found....:(  Please check the path\n' .format(args.topology ))
+		print ('\nERROR: {0} not found....:(  Please check the path\n' .format(args.topology ))
 		parser.print_help()
 		sys.exit(1)
 	if args.pca_type not in  ('svd', 'evd', 'kpca', 'ipca', None):
-		print 'ERROR: no such option as', args.pca_type, 'for flag -pt \nPlease see the help by running \n pca.py -h..\n\n '
+		print ('ERROR: no such option as', args.pca_type, 'for flag -pt \nPlease see the help by running \n pca.py -h..\n\n ')
 		sys.exit(1)
 	if args.kernel_type not in  ('linear', 'poly', 'sigmoid', 'cosine', 'precomputed', 'rbf',None):
-		print 'ERROR: no such option as', args.kernel_type, 'for flag -kt \nPlease see the help by running \n pca.py -h..\n\n '
+		print ('ERROR: no such option as', args.kernel_type, 'for flag -kt \nPlease see the help by running \n pca.py -h..\n\n ')
 		sys.exit(1)
 		
 	if args.kernel_type != None and args.pca_type != 'kpca':
-		print 'WARNING: -kt', args.kernel_type, 'is meaningless with -pt', args.pca_type, '. Flag -kt is being ignored!'
+		print ('WARNING: -kt', args.kernel_type, 'is meaningless with -pt', args.pca_type, '. Flag -kt is being ignored!')
 		
 	if args.svd_solver not in  ('auto', 'full', 'arpack', 'randomized', None):
-		print 'ERROR: no such option as', args.svd_solver, 'for flag -st \nPlease see the help by running \n pca.py -h.\n\n'
+		print ('ERROR: no such option as', args.svd_solver, 'for flag -st \nPlease see the help by running \n pca.py -h.\n\n')
 		sys.exit(1)
 	
 	if args.svd_solver != None and args.pca_type != 'svd':
-		print 'WARNING: -st', args.svd_solver, 'is meaningless with -pt', args.pca_type, '. Flag -st is being ignored!'
+		print ('WARNING: -st', args.svd_solver, 'is meaningless with -pt', args.pca_type, '. Flag -st is being ignored!')
 	return args
 
 args = set_option()
@@ -127,7 +127,7 @@ if not os.path.exists(out_dir):
 #else:
 #	print out_dir, 'already exist. Can not overwrite the output directory!\n'
 #	sys.exit(1)
-print 'Results will be written in ', out_dir
+print ('Results will be written in ', out_dir)
 
 comp = args.comp
 n_eivec=5
@@ -138,7 +138,7 @@ if ref:
 	except:
 			raise IOError('Could not open reference structure {0} for reading. \n' .format(args.reference))
 
-print 'Reading trajectory ', args.trj, '...' 
+print ('Reading trajectory ', args.trj, '...')
 try:
 	pca_traj = md.load(traj, top=topology)
 except:
@@ -154,10 +154,10 @@ top = pca_traj.topology
 #===============================================
 
 if args.atm_grp == None:
-	print 'No atom has been selected. PCA will be performed on C alpha atoms '
+	print ('No atom has been selected. PCA will be performed on C alpha atoms ')
 	atm_name = 'CA'  # set to default C-alpha atoms
 if args.reference == None:
-	print "No reference structure given, RMSD will be computed to the first frame in the trajectory"
+	print ('No reference structure given, RMSD will be computed to the first frame in the trajectory')
 	ref = pca_traj # set reference to current trajectory
 if args.pca_type == None:
 	ptype = 'svd'
@@ -206,7 +206,7 @@ print_kmo(pca_traj, traj, atm_name, sele_grp)
 
 def get_rmsd():
 	rmsd = md.rmsd(pca_traj, ref, 0, atom_indices=sele_grp)
-	print "RMSD written to rmsd.agr \n "
+	print ('RMSD written to rmsd.agr \n ')
 	## write the RMSD file
 	rmsd_fname=out_dir+'/rmsd.agr'
 	np.savetxt(rmsd_fname, rmsd)
@@ -245,7 +245,7 @@ def svd_pca(svd):
 	pca_sele_traj.fit(sele_traj_reshaped_scaled)
 	pca_sele_traj_reduced = pca_sele_traj.transform(sele_traj_reshaped_scaled)
 	
-	print "Trace of the covariance matrix is: ", np.trace(pca_sele_traj.get_covariance())
+	print ('Trace of the covariance matrix is: ', np.trace(pca_sele_traj.get_covariance()))
 	
 	# write the plots 
 	
@@ -257,13 +257,13 @@ def svd_pca(svd):
 	write_pcs('pca_variance', pca_sele_traj, out_dir)
 	
 	pc1_cos=get_cosine(pca_sele_traj_reduced, 0)
-	print 'cosine content of first PC=',pc1_cos
+	print ('cosine content of first PC=',pc1_cos)
 	pc2_cos=get_cosine(pca_sele_traj_reduced, 1)
-	print 'cosine content of second PC=', pc2_cos
+	print ('cosine content of second PC=', pc2_cos)
 	pc3_cos=get_cosine(pca_sele_traj_reduced, 2)
-	print 'cosine content of 3rd PC=',pc3_cos
+	print ('cosine content of 3rd PC=',pc3_cos)
 	pc4_cos=get_cosine(pca_sele_traj_reduced, 3)
-	print 'cosine content of 4th PC=', pc4_cos
+	print ('cosine content of 4th PC=', pc4_cos)
 	
 	return;
 
@@ -295,13 +295,13 @@ def my_kernelPCA(kernel):
 	np.savetxt(kpca_variance_fname, kpca.lambdas_)
 	
 	pc1_cos=get_cosine(kpca_reduced, 0)
-	print 'cosine content of first PC=',pc1_cos
+	print ('cosine content of first PC=',pc1_cos)
 	pc2_cos=get_cosine(kpca_reduced, 1)
-	print 'cosine content of second PC=', pc2_cos
+	print ('cosine content of second PC=', pc2_cos)
 	pc3_cos=get_cosine(kpca_reduced, 2)
-	print 'cosine content of 3rd PC=',pc3_cos
+	print ('cosine content of 3rd PC=',pc3_cos)
 	pc4_cos=get_cosine(kpca_reduced, 3)
-	print 'cosine content of 4th PC=', pc4_cos
+	print ('cosine content of 4th PC=', pc4_cos)
 	return;
 
 
@@ -333,13 +333,13 @@ def incremental_pca():
 	#write variance
 	#np.savetxt('ipca_variance', kpca.lambdas_)
 	pc1_cos=get_cosine(ipca_reduced, 0)
-	print 'cosine content of first PC=',pc1_cos
+	print ('cosine content of first PC=',pc1_cos)
 	pc2_cos=get_cosine(ipca_reduced, 1)
-	print 'cosine content of second PC=', pc2_cos
+	print ('cosine content of second PC=', pc2_cos)
 	pc3_cos=get_cosine(ipca_reduced, 2)
-	print 'cosine content of 3rd PC=',pc3_cos
+	print ('cosine content of 3rd PC=',pc3_cos)
 	pc4_cos=get_cosine(ipca_reduced, 3)
-	print 'cosine content of 4th PC=', pc4_cos
+	print ('cosine content of 4th PC=', pc4_cos)
 
 	return;
 
@@ -363,7 +363,7 @@ def my_pca():
 	cov_mat = np.corrcoef(arr, rowvar=False)
 	trj_eval, trj_evec=np.linalg.eig(cov_mat)
 	
-	print "Trace of cov matrix is ",  np.trace(cov_mat)
+	print ('Trace of cov matrix is ',  np.trace(cov_mat))
 	
 	#=============================
 	# sanity check of calculated eigenvector and eigen values 
@@ -424,7 +424,7 @@ def my_pca():
 	# transform the input data into choosen pc
 	arr_transformed = arr.dot(pca)
 	#arr_transformed = pca.T.dot(arr.T)
-	print arr_transformed.shape
+	print (arr_transformed.shape)
 	write_plots('pca_projection', arr_transformed, out_dir)
 	title='PCA Projection'
 	write_fig('pca_projection', arr_transformed, out_dir, title)
@@ -433,13 +433,13 @@ def my_pca():
 	get_rmsf(pca_traj, sele_grp, trj_eval, out_dir)
 	
 	pc1_cos=get_cosine(arr_transformed, 0)
-	print 'cosine content of first PC=',pc1_cos
+	print ('cosine content of first PC=',pc1_cos)
 	pc2_cos=get_cosine(arr_transformed, 1)
-	print 'cosine content of second PC=', pc2_cos
+	print ('cosine content of second PC=', pc2_cos)
 	pc3_cos=get_cosine(arr_transformed, 2)
-	print 'cosine content of 3rd PC=',pc3_cos
+	print ('cosine content of 3rd PC=',pc3_cos)
 	pc4_cos=get_cosine(arr_transformed, 3)
-	print 'cosine content of 4th PC=', pc4_cos
+	print ('cosine content of 4th PC=', pc4_cos)
 	
 	return;
 
@@ -449,33 +449,33 @@ if ptype == 'kpca':
 	kernel = ''
 	kernel = args.kernel_type
 	if args.kernel_type:
-		print "Performing Kernel PCA with", kernel, 'kernel'
+		print ('Performing Kernel PCA with', kernel, 'kernel')
 		my_kernelPCA(kernel)
-		print "\nFINISHED. !"
+		print ('\nFINISHED. !')
 	else:
-		print "Performing Kernel PCA with default linear kernel"
+		print ('Performing Kernel PCA with default linear kernel')
 		my_kernelPCA('linear')
-		print "\nFINISHED. !"
+		print ('\nFINISHED. !')
 
 if ptype == 'svd':
 	svd=''
 	svd = args.svd_solver
 	if svd:
-		print "Performing SVD (Single Value Decomposition) PCA with ",svd,"svd_solver"
+		print ('Performing SVD (Single Value Decomposition) PCA with ',svd,'svd_solver')
 		svd_pca(svd)
-		print "\nFINISHED. !"
+		print ('\nFINISHED. !')
 	else:
-		print "Performing SVD (Single Value Decomposition) PCA with 'auto' svd_solver"
+		print ("Performing SVD (Single Value Decomposition) PCA with 'auto' svd_solver")
 		svd_pca(svd)
-		print "\nFINISHED. !"
+		print ("\nFINISHED. !")
 if ptype == 'ipca':
-	print "Performing Incremental_pca (IPCA)"
+	print ("Performing Incremental_pca (IPCA)")
 	incremental_pca()
-	print "\nFINISHED. !"
+	print ("\nFINISHED. !")
 
 if ptype == 'evd':
 	my_pca()
-	print "\nFINISHED. !"
+	print ("\nFINISHED. !")
 
 if __name__=="__main__":
 	main()
