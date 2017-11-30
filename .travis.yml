@@ -1,7 +1,7 @@
 branches:
     only:
         - master
-        
+   
 language: python
 
 matrix:
@@ -11,6 +11,13 @@ matrix:
     - os: linux
       dist: trusty
       python: 2.7
+      sudo: required
+      apt:
+       packages:
+        - python-tk
+    - os: linux
+      dist: trusty
+      python: 3.6
       sudo: required
       apt:
        packages:
