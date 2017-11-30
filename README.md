@@ -1,5 +1,4 @@
-<img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master">
-<img src="https://media.readthedocs.org/static/projects/badges/passing.svg">
+<img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right"><img src="https://media.readthedocs.org/static/projects/badges/passing.svg" align="right">
 
 # MODE-TASK
 
