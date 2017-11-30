@@ -18,23 +18,22 @@ import math
 
 def main(args):
 
-	
     atomT = args.atomType.upper()
     if atomT!='CA' and atomT!='CB':
-	print '\n**************************************\nUnrecognised atom type\nInput Options:\nCA: to select alpha carbon atoms\nCB: to select beta carbon atoms\n**************************************\n'
-	sys.exit()
+        print ('\n**************************************\nUnrecognised atom type\nInput Options:\nCA: to select alpha carbon atoms\nCB: to select beta carbon atoms\n**************************************\n')
+        sys.exit()
 
     try:
         pdb_file = args.pdb
-	f = open(pdb_file, 'r')
-	lines = f.readlines()
-	f.close()
+        f = open(pdb_file, 'r')
+        lines = f.readlines()
+        f.close()
     except IOError:
-	print '\n**************************************\nFILE '+args.pdb+' NOT FOUND\n**************************************\n'
+        print ('\n**************************************\nFILE '+args.pdb+' NOT FOUND\n**************************************\n')
         sys.exit()
 
 
-    # get index of first atom
+# get index of first atom
     for i in range(len(lines)):
         if lines[i].startswith("ATOM"):
             index_atom = i
@@ -95,9 +94,8 @@ def main(args):
 
     starting_atom = args.startingAtom  # residue number of starting atoms
     if starting_atom<0:
-	starting_atom = 1
-	print '\n**************************************\nInvalid Starting Atom: '+str(starting_atom)+'\nDefault Starting Atom = 1 has been used\n**************************************\n'
-	
+        starting_atom = 1
+    print ('\n**************************************\nInvalid Starting Atom: '+str(starting_atom)+'\nDefault Starting Atom = 1 has been used\n**************************************\n')
 
 
     starting_atom_i = starting_atom - 1  # Index for starting atom
@@ -129,14 +127,14 @@ def main(args):
 
     #c_g_select = 0
     if c_g == 0 or c_g<0:
-	print '\n**************************************\nERROR: Coarse Grain Level = '+str(c_g)+'\nNo output generated\n**************************************'
-	sys.exit()
+        print ('\n**************************************\nERROR: Coarse Grain Level = '+str(c_g)+'\nNo output generated\n**************************************')
+        sys.exit()
     elif c_g == 1:
-	c_g_select = 0
+        c_g_select = 0
     elif c_g ==2:
-	c_g_select = 1
+        c_g_select = 1
     else:
-	c_g_select = (c_g * (c_g - 1)) - c_g
+        c_g_select = (c_g * (c_g - 1)) - c_g
 
     # selects atoms which are not within this distance to already selected atoms
     cutoff = distances_from_start[c_g_select]
@@ -170,8 +168,8 @@ def main(args):
             distribution[atom_index] = local_distribution
 
     # print index_of_selected_atoms
-    print "No. atoms selected per unit: " + str(len(index_of_selected_atoms)) +" from " +str(number_protomer_atoms)+' orignal residues'
-    print "No. atoms selected per macromolecule: " + str(len(index_of_selected_atoms) * number_of_protomers)+ " from " +str(number_protomer_atoms* number_of_protomers)+' orignal residues'
+    print ('No. atoms selected per unit: ' + str(len(index_of_selected_atoms)) + ' from ' + str(number_protomer_atoms) + ' orignal residues')
+    print ('No. atoms selected per macromolecule: ' + str(len(index_of_selected_atoms) * number_of_protomers) + ' from ' + str(number_protomer_atoms* number_of_protomers) + ' orignal residues')
 
     # for a in distribution:
     # print a
@@ -197,11 +195,11 @@ def main(args):
 
     outfile = args.output
     if not '.pdb' in outfile and not'.' in outfile:
-	outfile+='.pdb'
+        outfile+='.pdb'
     elif not '.pdb' in outfile and '.' in outfile:
-	print '\n**************************************\nSpecified output file name is not comptable with PDB format\nDefault file use: ComplexCG.pdb\n**************************************'
-	outfile = "ComplexCG.pdb"
-	
+        print ('\n**************************************\nSpecified output file name is not comptable with PDB format\nDefault file use: ComplexCG.pdb\n**************************************')
+        outfile = "ComplexCG.pdb"
+
     w = open(args.outdir + "/" + outfile, 'w')
     w.writelines(header)
     w.writelines(selected_c_beta_lines)
@@ -218,7 +216,7 @@ def log(message):
     global stream
 
     if not silent:
-        print >> stream, message
+        print_err(message)
 
 
 if __name__ == "__main__":
@@ -264,6 +262,7 @@ if __name__ == "__main__":
         main(args)
 
         end = datetime.now()
+
         time_taken = format_seconds((end - start).seconds)
 
         log("Completed at: %s" % str(end))
@@ -272,4 +271,4 @@ if __name__ == "__main__":
         # close logging stream
         stream.close()
     else:
-        print "No arguments provided. Use -h to view help"
+        print ('No arguments provided. Use -h to view help')

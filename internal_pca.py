@@ -53,12 +53,12 @@ def set_option():
 		args.out_dir=out
 		
 	if args.trj is None: 
-		print 'ERROR: Missing trajectory argument.... :(  \nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+		print ('ERROR: Missing trajectory argument.... :(  \nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 		parser.print_help()
 		sys.exit(1)
 	
 	if args.topology is None:
-		print 'ERROR: Missing topology.... :( \nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+		print ('ERROR: Missing topology.... :( \nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 		parser.print_help()
 		sys.exit(1)
 	
@@ -72,7 +72,7 @@ def set_option():
 		parser.print_help()
 		sys.exit(1)
 	if args.coordinate_type is None:
-		print "No arguments given for -ct...using distance as internal coordinate\n"
+		print ('No arguments given for -ct...using distance as internal coordinate\n')
 		args.coordinate_type='distance'
 	return args
 	
@@ -82,12 +82,12 @@ atm_name = args.atm_grp
 # if no arguments are passed
 #====================================================================
 if args.trj is None: 
-	print 'Missing trajectory arguments :(\nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+	print ('Missing trajectory arguments :(\nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 	parser.print_help()
 	sys.exit(1)
 
 if args.topology is None:
-	print 'Missing topology !!\nPlease see the help by running \n\nsystem_setup.py -h\n\n '
+	print ('Missing topology !!\nPlease see the help by running \n\nsystem_setup.py -h\n\n ')
 	parser.print_help()
 	sys.exit(1)
 
@@ -100,7 +100,7 @@ traj = args.trj
 topology = args.topology
 #pca_traj = md.load(traj, top=topology)
 comp = args.comp
-print 'Reading trajectory ', args.trj, '...' 
+print ('Reading trajectory ', args.trj, '...')
 
 try:
 	pca_traj = md.load(traj, top=topology)
@@ -119,7 +119,7 @@ if not os.path.exists(out_dir):
 #else:
 #	print out_dir, 'already exist. Can not overwrite the output directory!\n'
 #	sys.exit(1)
-print 'Results will be written in ', out_dir
+print ('Results will be written in ', out_dir)
 
 #==============================================
 #
@@ -128,7 +128,7 @@ print 'Results will be written in ', out_dir
 #===============================================
 
 if args.atm_grp == None:
-	print 'No atom has been selected. PCA will be performed on C alpha atoms '
+	print ('No atom has been selected. PCA will be performed on C alpha atoms ')
 	atm_name = 'CA'  # set to default C-alpha atoms
 
 
@@ -174,13 +174,13 @@ def get_internal_coordinates():
 	'get the different types of internal coordinates as per user selections'
 	calpha_idx=top.select_atom_indices('alpha')
 	if args.coordinate_type == 'distance':
-		print "Pair wise atomic distance selected\n "
+		print ('Pair wise atomic distance selected\n ')
 		atom_pairs = list(combinations(calpha_idx, 2)) # all unique pairs of elements 
 		pairwise_distances = md.geometry.compute_distances(pca_traj, atom_pairs)
 		int_cord=pairwise_distances
 		#print int_cord.shape
 	if args.coordinate_type == 'phi':
-		print  "phi torsions  selected\n"
+		print  ('phi torsions  selected\n')
 		atom_pairs = list(combinations(calpha_idx, 3)) 
 		angle=md.compute_phi(pca_traj)
 		
@@ -189,7 +189,7 @@ def get_internal_coordinates():
 		#print int_cord[0]
 	
 	if args.coordinate_type == 'psi':
-		print "psi torsions  selected\n"
+		print ('psi torsions  selected\n')
 		atom_pairs = list(combinations(calpha_idx, 3)) 
 		angle=md.compute_psi(pca_traj)
 		
@@ -197,7 +197,7 @@ def get_internal_coordinates():
 		#print np.array(angle[1]).shape
 		
 	if args.coordinate_type == 'angle':
-		print "1-3 angle selected between N,CA and C"
+		print ('1-3 angle selected between N,CA and C')
 		nrow=len(top.select("name CA")) # to get the number of amino acid ignoring ligand etc. 
 		ncol=3
 		# make a matrix of N,CA, C index, each row index making bond
@@ -228,13 +228,13 @@ def distance_pca(int_cord1):
 	write_fig('dpca_projection', dpca_reduced, out_dir, title)
 	
 	pc1_cos=get_cosine(dpca_reduced, 0)
-	print 'cosine content of first PC=',pc1_cos
+	print ('cosine content of first PC=',pc1_cos)
 	pc2_cos=get_cosine(dpca_reduced, 1)
-	print 'cosine content of second PC=', pc2_cos
+	print ('cosine content of second PC=', pc2_cos)
 	pc3_cos=get_cosine(dpca_reduced, 2)
-	print 'cosine content of 3rd PC=',pc3_cos
+	print ('cosine content of 3rd PC=',pc3_cos)
 	pc4_cos=get_cosine(dpca_reduced, 3)
-	print 'cosine content of 4th PC=', pc4_cos
+	print ('cosine content of 4th PC=', pc4_cos)
 	return;
 
 int_cord=get_internal_coordinates()
