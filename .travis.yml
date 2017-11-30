@@ -1,6 +1,8 @@
 branches:
     only:
         - master
+        
+language: python
 
 matrix:
   allow_failures:
@@ -8,10 +10,7 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      language: python
-      python:
-        - 2.7
-        - 3.6
+      python: 2.7
       sudo: required
       apt:
        packages:
@@ -26,8 +25,13 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt install python-tk; fi
 
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then pip install numpy==1.13.1 cython==0.26 scikit-learn==0.19.0 scipy==0.19.1 matplotlib==2.0.2 mdtraj==1.8.0; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then pip3 install numpy==1.13.1 cython==0.26 scikit-learn==0.19.0 scipy==0.19.1 matplotlib==2.0.2 mdtraj==1.8.0; fi
+  - pip install --upgrade pip
+  - pip install numpy==1.13.1
+  - pip install cython==0.26
+  - pip install scikit-learn==0.19.0
+  - pip install scipy==0.19.1
+  - pip install matplotlib==2.0.2
+  - pip install mdtraj==1.8.0
 
 script: 
   - cd tests
