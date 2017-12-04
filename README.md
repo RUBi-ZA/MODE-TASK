@@ -13,14 +13,30 @@ cd MODE-TASK
 ```
 *Install dependencies and set up Python 2.7 virtual environment:*
 ```bash
-sudo apt install virtualenvwrapper python-dev 
+sudo apt install virtualenvwrapper python-dev python-pip
 virtualenv venv
 source venv/bin/activate
-pip install --upgrade pip
 pip install numpy
-pip install matplotlib
 pip install cython
 pip install mdtraj
+pip install scipy
+pip install pandas
+pip install sklearn
+pip install matplotlib
+```
+*Or optionally with a Python 3.6 virtual environment:*
+```bash
+sudo apt install virtualenvwrapper python3-dev python3-pip
+virtualenv venv
+source venv/bin/activate
+pip3 install setuptools
+pip3 install numpy
+pip3 install cython
+pip3 install mdtraj
+pip3 install scipy
+pip3 install pandas
+pip3 install sklearn
+pip3 install matplotlib
 ```
 *Compile C++ binaries:*
 ```

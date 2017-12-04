@@ -8,3 +8,5 @@ getEigenVectors
 output/
 
 venv/
+
+out_pca_test_trj\.xtc/
