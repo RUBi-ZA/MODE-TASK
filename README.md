@@ -1,4 +1,4 @@
-<img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right"><img src="https://media.readthedocs.org/static/projects/badges/passing.svg" align="right">
+<img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right"><img src="https://media.readthedocs.org/static/projects/badges/passing.svg" align="right"><img src="https://img.shields.io/badge/python-2.7%2C%203.6-blue.svg" align="right">
 
 # MODE-TASK
 
@@ -11,7 +11,7 @@ Collection of tools for analysing normal modes and performing principal componen
 git clone https://github.com/RUBi-ZA/MODE-TASK.git
 cd MODE-TASK
 ```
-*Install dependencies and set up Python 2.7 virtual environment:*
+*Install dependencies and set up Python 2 virtual environment:*
 ```bash
 sudo apt install virtualenvwrapper python-dev python-pip
 virtualenv venv
@@ -24,7 +24,7 @@ pip install pandas
 pip install sklearn
 pip install matplotlib
 ```
-*Or optionally with a Python 3.6 virtual environment:*
+*Or optionally with a Python 3 virtual environment:*
 ```bash
 sudo apt install virtualenvwrapper python3-dev python3-pip
 virtualenv venv
