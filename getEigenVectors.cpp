@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 			cout<<"arguments:"<<endl;
 			cout<<" -h, --help		Show this help message and exit"<<endl;
 			cout<<" --vt			VT matrix file"<<endl;
-			cout<<" --mode			Mode value"<<endl;
+			cout<<" --mode			Specify the index of the mode you wish to target"<<endl;
 			cout<<" --outdir		Directory to generate output to"<<endl;
 			cout<<" --direction		Direction of overlap correction (Default -1)"<<endl;
 			return -1;
