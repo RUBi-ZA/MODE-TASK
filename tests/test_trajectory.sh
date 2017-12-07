@@ -2,4 +2,4 @@
 
 cd ..
 
-./visualiseVector.py --pdb output/ComplexCG.pdb --vectorFile output/EVectors1.txt --atomType CB
+./visualiseVector.py --pdb output/ComplexCG4.pdb --vectorFile output/EVectors1.txt --atomType CB

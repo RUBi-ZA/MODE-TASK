@@ -8,4 +8,4 @@ done <${file}
 
 cd ..
 
-./conformationMode.py --pdbConf output/ComplexCG.pdb --pdbANM output/ComplexCG.pdb --vtMatrix output/VT_values.txt --atomType CB
+./conformationMode.py --pdbConf output/ComplexCG4.pdb --pdbANM output/ComplexCG4.pdb --vtMatrix output/VT_values.txt --atomType CB

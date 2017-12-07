@@ -4,4 +4,4 @@ cd ..
 
 g++ -I cpp/src/ ANM.cpp -o ANM
 
-./ANM --pdb output/ComplexCG.pdb --cutoff 24 --atomType CB
+./ANM --pdb output/ComplexCG4.pdb --cutoff 24 --atomType CB
