@@ -143,80 +143,87 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
     
 
 
-    for i in range(total_modes):
-        vectors = eigen_vectors[i].split()
-        for j in range(total_modes):
-            vector = float(vectors[j].strip())
-            v_t[i, j] = vector
-            u[j, i] = vector
-
-    # Calculate Correlation Matrices
-    print ("Calculating MSF across all modes")
-    w_v_t = np.dot(w_inv, v_t)
-    # print "Correlations Calculated"
-    c = np.dot(u, w_v_t)
-    # print "Correlations Calculated"
-
-    print ("Calculating MSF across modes specific modes")	
-    # Mode Specific C Matrix
-    w_v_tm = np.dot(w_f, v_t)
-    CMS = np.dot(u, w_v_tm)
-
-
-    # Calculate Trace of the Correlation Matrices
-    trace_c = np.zeros((total_modes // 3, total_modes // 3))
-    trace_c_m = np.zeros((total_modes // 3, total_modes // 3))
-
-    for i in range(0, total_modes, 3):
-        for j in range(0, total_modes, 3):
-            trace = 0
-            trace_m = 0
-            for k in range(3):
-                trace = trace + c[i + k, j + k]
-                trace_m = trace_m + CMS[i + k, j + k]
-            trace_c[i // 3, j // 3] = trace
-            trace_c_m[i // 3, j // 3] = trace_m
-	    
-	    
-    # Print the diagonal values per residue
-    w = open(args.outdir + "/" + protein_name+ "_msf.txt", 'w')
-    w.write("MSF Calculated for "+pdb)
-    w.write("\nRes\tm.s.f\n")
- 
-    for i in res_range:
-        w.write(str(ResiduesOrderedByIndex[i]) + "\t" + str(trace_c[i, i]) + "\n")
-    w.close()
+    try:
+        for i in range(total_modes):
+            vectors = eigen_vectors[i].split()
+            for j in range(total_modes):
+                vector = float(vectors[j].strip())
+                v_t[i, j] = vector
+                u[j, i] = vector
+    
+        # Calculate Correlation Matrices
+        print ("Calculating MSF across all modes")
+        w_v_t = np.dot(w_inv, v_t)
+        # print "Correlations Calculated"
+        c = np.dot(u, w_v_t)
+        # print "Correlations Calculated"
+    
+        print ("Calculating MSF across modes specific modes")	
+        # Mode Specific C Matrix
+        w_v_tm = np.dot(w_f, v_t)
+        CMS = np.dot(u, w_v_tm)
     
     
-    w = open(args.outdir + "/" + protein_name +"_msfSpecificModes.txt", 'w')
-    w.write("MSF Calculated for "+pdb)
-    w.write("\n**********************\nMODES SELECTED FOR CALCULATIONS:\n")
-    for m in mode_range:
-        w.write(str(m+1)+" ; ")
-    w.write("\n**********************")
-    w.write("\nRes\tm.s.f\n")
-    for i in res_range:
-        w.write(str(ResiduesOrderedByIndex[i])+ "\t" + str(trace_c_m[i, i]) + "\n")
-    w.close()    
-
-    if sr:
-        w = open(args.outdir + "/" + protein_name + "CommonResidues_msf.txt", 'w')
+        # Calculate Trace of the Correlation Matrices
+        trace_c = np.zeros((total_modes / 3, total_modes / 3))
+        trace_c_m = np.zeros((total_modes / 3, total_modes / 3))
+    
+        for i in range(0, total_modes, 3):
+            for j in range(0, total_modes, 3):
+                trace = 0
+                trace_m = 0
+                for k in range(3):
+                    trace = trace + c[i + k, j + k]
+                    trace_m = trace_m + CMS[i + k, j + k]
+                trace_c[i / 3, j / 3] = trace
+                trace_c_m[i / 3, j / 3] = trace_m
+    	    
+    	    
+        # Print the diagonal values per residue
+        w = open(args.outdir + "/" + protein_name+ "_msf.txt", 'w')
         w.write("MSF Calculated for "+pdb)
         w.write("\nRes\tm.s.f\n")
-        for k,i in enumerate(interface_index): 	  
-            w.write(str(CResiduesOrderedByIndex[k]) + "\t" + str(trace_c[i, i]) + "\n")
+     
+        for i in res_range:
+            w.write(str(ResiduesOrderedByIndex[i]) + "\t" + str(trace_c[i, i]) + "\n")
         w.close()
-
-        w = open(args.outdir + "/" + protein_name +"_CommonResidues_msfSpecificModes.txt", 'w')
+        
+        
+        w = open(args.outdir + "/" + protein_name +"_msfSpecificModes.txt", 'w')
         w.write("MSF Calculated for "+pdb)
         w.write("\n**********************\nMODES SELECTED FOR CALCULATIONS:\n")
         for m in mode_range:
             w.write(str(m+1)+" ; ")
         w.write("\n**********************")
         w.write("\nRes\tm.s.f\n")
-        for k,i in enumerate(interface_index):
-            w.write(str(CResiduesOrderedByIndex[k]) + "\t" + str(trace_c_m[i, i]) + "\n")
-        w.close()
+        for i in res_range:
+            w.write(str(ResiduesOrderedByIndex[i])+ "\t" + str(trace_c_m[i, i]) + "\n")
+        w.close()    
+        
+        
+      
+        if sr:
+            w = open(args.outdir + "/" + protein_name + "CommonResidues_msf.txt", 'w')
+            w.write("MSF Calculated for "+pdb)
+            w.write("\nRes\tm.s.f\n")
+            for k,i in enumerate(interface_index): 	  
+                w.write(str(CResiduesOrderedByIndex[k]) + "\t" + str(trace_c[i, i]) + "\n")
+            w.close()
+    
+            w = open(args.outdir + "/" + protein_name +"_CommonResidues_msfSpecificModes.txt", 'w')
+            w.write("MSF Calculated for "+pdb)
+            w.write("\n**********************\nMODES SELECTED FOR CALCULATIONS:\n")
+            for m in mode_range:
+                w.write(str(m+1)+" ; ")
+            w.write("\n**********************")
+            w.write("\nRes\tm.s.f\n")
+            for k,i in enumerate(interface_index):
+                w.write(str(CResiduesOrderedByIndex[k]) + "\t" + str(trace_c_m[i, i]) + "\n")
+            w.close()
+
+    except IndexError:
+        print ('\n**************************************\nERORR!! PDB FILE AND ANM MATRICES ARE IMCOMPATABLE\nCHECK INPUT PARAMETERS FOR:\n1) INCORRECT PDB FILE \n2) INCORRECT MATRICES \n3) INCORRECT SPECIFIED MODES\n**************************************\n')
+        sys.exit()
 
 
 def main(args):
@@ -251,7 +258,8 @@ def main(args):
         wMatrix1 = args.wMatrix
         vtMatrix1 = args.vtMatrix 
         calcMSF(pdb1,common_residues,protein_name1,wMatrix1,vtMatrix1,mode_range,specificResidues,atomT)
-
+	
+	
         protein_name2 = "PDBCompare"
         wMatrixC = args.wMatrixC
         vtMatrixC = args.vtMatrixC 
@@ -262,13 +270,22 @@ def main(args):
         w.write("Residues Common in Both PDB Files: "+pdb1+" and "+pdb2+"\n")
         w.write(str(common_residues))
         w.close()        
-
+        
+    
     else:
         protein_name1 = "PDB1"
         pdb1_residues = parsePDB(pdb1,atomT)
         wMatrix1 = args.wMatrix
         vtMatrix1 = args.vtMatrix	
         calcMSF(pdb1,pdb1_residues,protein_name1,wMatrix1,vtMatrix1,mode_range,specificResidues,atomT)
+        
+        
+        
+
+
+
+
+	
 
 silent = False
 stream = sys.stdout
@@ -295,7 +312,7 @@ if __name__ == "__main__":
     # custom arguments
     parser.add_argument("--pdb", help="Input") 
     parser.add_argument("--pdbC", help="Enter a second PDB file to compare MSF bewteen two models", default = "none")  
-    parser.add_argument("--modes", help="Enter a select range of modes in format M1:M2\nE.g To calculate MSF over the first 20 non-zero modes enter --modeRange 7:27\nOR\nCalculate the MSF for a combination of specific modes\nEnter mode numbers separated by a comma\nEg: --modes 1,5,7", default="7:27") 
+    parser.add_argument("--modes", help="Enter a select range of modes in format M1:M2\nE.g To calculate MSF over the first 20 non-zero modes enter --modes 7:27\nOR\nCalculate the MSF for a combination of specific modes\nEnter mode numbers separated by a comma\nEg: --modes 1,5,7", default="7:27") 
     parser.add_argument("--wMatrix", help="Text file of Eigevalues of pdb, in format output from ANM.cpp")
     parser.add_argument("--vtMatrix", help="Text file of Eigevectors of pdb, in row (VT) format output from ANM.cpp")
     parser.add_argument("--wMatrixC", help="Text file of Eigevalues of pdbC, in format output from ANM.cpp", default = "none")
