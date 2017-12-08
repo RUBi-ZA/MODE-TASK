@@ -164,8 +164,8 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
 
 
     # Calculate Trace of the Correlation Matrices
-    trace_c = np.zeros((total_modes / 3, total_modes / 3))
-    trace_c_m = np.zeros((total_modes / 3, total_modes / 3))
+    trace_c = np.zeros((total_modes // 3, total_modes // 3))
+    trace_c_m = np.zeros((total_modes // 3, total_modes // 3))
 
     for i in range(0, total_modes, 3):
         for j in range(0, total_modes, 3):
@@ -174,8 +174,8 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
             for k in range(3):
                 trace = trace + c[i + k, j + k]
                 trace_m = trace_m + CMS[i + k, j + k]
-            trace_c[i / 3, j / 3] = trace
-            trace_c_m[i / 3, j / 3] = trace_m
+            trace_c[i // 3, j // 3] = trace
+            trace_c_m[i // 3, j // 3] = trace_m
 	    
 	    
     # Print the diagonal values per residue
@@ -198,9 +198,7 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
     for i in res_range:
         w.write(str(ResiduesOrderedByIndex[i])+ "\t" + str(trace_c_m[i, i]) + "\n")
     w.close()    
-    
-    
-  
+
     if sr:
         w = open(args.outdir + "/" + protein_name + "CommonResidues_msf.txt", 'w')
         w.write("MSF Calculated for "+pdb)
@@ -253,8 +251,7 @@ def main(args):
         wMatrix1 = args.wMatrix
         vtMatrix1 = args.vtMatrix 
         calcMSF(pdb1,common_residues,protein_name1,wMatrix1,vtMatrix1,mode_range,specificResidues,atomT)
-	
-	
+
         protein_name2 = "PDBCompare"
         wMatrixC = args.wMatrixC
         vtMatrixC = args.vtMatrixC 
@@ -265,22 +262,13 @@ def main(args):
         w.write("Residues Common in Both PDB Files: "+pdb1+" and "+pdb2+"\n")
         w.write(str(common_residues))
         w.close()        
-        
-    
+
     else:
         protein_name1 = "PDB1"
         pdb1_residues = parsePDB(pdb1,atomT)
         wMatrix1 = args.wMatrix
         vtMatrix1 = args.vtMatrix	
         calcMSF(pdb1,pdb1_residues,protein_name1,wMatrix1,vtMatrix1,mode_range,specificResidues,atomT)
-        
-        
-        
-
-
-
-
-	
 
 silent = False
 stream = sys.stdout
