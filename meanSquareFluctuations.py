@@ -165,8 +165,8 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
     
     
         # Calculate Trace of the Correlation Matrices
-        trace_c = np.zeros((total_modes / 3, total_modes / 3))
-        trace_c_m = np.zeros((total_modes / 3, total_modes / 3))
+        trace_c = np.zeros((total_modes // 3, total_modes // 3))
+        trace_c_m = np.zeros((total_modes // 3, total_modes // 3))
     
         for i in range(0, total_modes, 3):
             for j in range(0, total_modes, 3):
@@ -175,8 +175,8 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
                 for k in range(3):
                     trace = trace + c[i + k, j + k]
                     trace_m = trace_m + CMS[i + k, j + k]
-                trace_c[i / 3, j / 3] = trace
-                trace_c_m[i / 3, j / 3] = trace_m
+                trace_c[i // 3, j // 3] = trace
+                trace_c_m[i // 3, j // 3] = trace_m
     	    
     	    
         # Print the diagonal values per residue
