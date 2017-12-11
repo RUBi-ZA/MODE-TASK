@@ -311,20 +311,13 @@ user create a Covraiance plot for a particular chain within a particular assymet
 | The following are generated for the PDB and          |
 | Comparison PDB (if pdbC was assigned)                |
 +------------------------+-----------------------------+
-| MSF text file          | MSF for all residues,       |
-|                        | calculated over all modes   |
+| Covariance Plots       | Covariance Matrices plotted |
+|                        | as a Linear Segmented Color | 
+|                        | map                         |
 +------------------------+-----------------------------+
-| MSF modes text file    | MSF for all residues,       |
-|                        | calculated for a specific   |
-|                        | mode range                  |
-+------------------------+-----------------------------+
-| Common residue MSF     | MSF for all common          |
-| text file              | residues, calculated over   |
-|                        | all modes                   |
-+------------------------+-----------------------------+
-| Common residue MSF     | MSF for all common          |
-| modes text file        | residues, calculated over a |
-|                        | specific mode range         |
+| Matrix text files      | Covariance Matrices printed |
+|                        | in .txt format              | 
+|                        |                             |
 +------------------------+-----------------------------+
 
 Conformation mode
