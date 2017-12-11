@@ -26,9 +26,11 @@ if len(sys.argv) > 1:
 
     # Check if getEigenVectors exists
     if not os.path.isfile("getEigenVectors"):
-        print ("Error: 'getEigenVectors' executable not found.")
-        print ("Please ensure it exists in the same directory as this script.")
-        sys.exit()
+        os.system("g++ -I cpp/input/ getEigenVectors.cpp -o getEigenVectors")
+        if not os.path.isfile("getEigenVectors"):
+            print ("Error: 'getEigenVectors' executable not found.")
+            print ("Please ensure it exists in the same directory as this script.")
+            sys.exit()
 
     # Run getEigenVectors executable
     os.system("./getEigenVectors --vt " + args.vt + " --mode " + args.mode + " --direction " + args.direction + " --outdir " + args.outdir)

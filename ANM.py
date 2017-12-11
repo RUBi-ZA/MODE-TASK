@@ -26,12 +26,16 @@ if len(sys.argv) > 1:
 
     # Check if getEigenVectors exists
     if not os.path.isfile("ANM"):
-        print ("Error: 'ANM' executable not found.")
-        print ("Please ensure it exists in the same directory as this script.")
-        sys.exit()
+        os.system("g++ -I cpp/src/ ANM.cpp -o ANM")
+        if not os.path.isfile("ANM"):
+            print ("Error: 'ANM' executable not found.")
+            print ("Please ensure it exists in the same directory as this script.")
+            sys.exit()
 
     # Run getEigenVectors executable
     os.system("./ANM --pdb " + args.pdb + " --cutoff " + args.cutoff + " --atomType " + args.atomType + " --outdir " + args.outdir)
 
 else:
     print ('No arguments provided. Use -h to view help')
+
+stderr, sdtout = subprocess.check_output("")
