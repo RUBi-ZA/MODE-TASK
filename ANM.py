@@ -37,5 +37,3 @@ if len(sys.argv) > 1:
 
 else:
     print ('No arguments provided. Use -h to view help')
-
-stderr, sdtout = subprocess.check_output("")
