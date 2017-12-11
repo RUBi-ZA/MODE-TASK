@@ -7,7 +7,7 @@ Coarse grain
 Takes a protein structure or biological assembly and coarse grains to select a set amount of CB atoms
 **Command:** ::
 	
-	coarseGrain.py <options> --pdbFile <pdb file>
+	coarseGrain.py <options> --pdbFile <pdb file> --atomType <string>
 
 **Inputs:**
 
@@ -15,12 +15,21 @@ Takes a protein structure or biological assembly and coarse grains to select a s
 | Input (*\*required*)   | Input type | Flag               | Description                 |
 +========================+============+====================+=============================+
 | PDB file *        	 | File       |``--pdb``           | PDB structure to coarse     |
-|                        |            |                    | grain                       |
+|                        |            |                    | grain. Can also accept      |
+|                        |            |                    | biological assembly (.pdb1) |
++------------------------+------------+--------------------+-----------------------------+
+| Atom type *            | String     |``--atomType``      | Specify the type of atom to |
+|                        |            |                    | be selected in CG models.   |
+|                        |            |                    | Only CA or CB accepted.     |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
-| Course grain level     | Integer    |``--cg``            | Level by which to coarse    |
-|                        |            |                    | grain the protein. Lower    |
+| Course grain level     | Comma      |``--cg``            | Level/Levels by which to    |
+|                        | Separted   |                    | coarse grain protein.       |
+|                        | String     |                    | Lower is less coarse grained|
 |                        |            |                    | is less coarse grained.     |
+|                        |            |                    | E.g --cg 4                  |
+|                        |            |                    |     OR                      |
+|                        |            |                    | E.g --cg 1,3,5              |
 |                        |            |                    | Default: 4                  |
 +------------------------+------------+--------------------+-----------------------------+
 | Starting atom          | Integer    |``--startingAtom``  | Residue number of the    	 |
@@ -37,8 +46,8 @@ Takes a protein structure or biological assembly and coarse grains to select a s
 +------------------------+-----------------------------+
 | Output                 | Description                 |
 +========================+=============================+
-| PDB file               | Coarse grained protein      |
-|                        |                             |
+| PDB file/s             | Coarse grained protein/s    |
+|                        | or macromolecule/s          |
 +------------------------+-----------------------------+
 
 ANM
@@ -52,7 +61,7 @@ Construct an elastic network model of a protein complex and solves for the eigen
 
 **Command:** ::
 
-	ANM <options> --pdb <pdb file>
+	ANM <options> --pdb <pdb file> --atomType <atom type>
 
 **Inputs:**
 
@@ -60,6 +69,11 @@ Construct an elastic network model of a protein complex and solves for the eigen
 | Input (*\*required*)   | Input type | Flag               | Description                 |
 +========================+============+====================+=============================+
 | PDB file *             | File       |``--pdb``           | PDB input file              |
+|                        |            |                    |                             |
++------------------------+------------+--------------------+-----------------------------+
+| Atom type *            | String     |``--atomType``      | Specify the type of atom to |
+|                        |            |                    | be selected in CG models.   |
+|                        |            |                    | Only CA or CB accepted.     |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 | Cutoff                 | Integer    |``--cutoff``        | Cuttoff radius in Å.        |
@@ -92,14 +106,14 @@ Get eigenvectors
 
 **Command:** ::
 
-	getEigenVectors <options> --vt <text file>
+	getEigenVectors <options> --vt <text file> --mode <mode index>
 
 **Inputs:**
 
 +------------------------+------------+--------------------+-----------------------------+
 | Input (*\*required*)   | Input type | Flag               | Description                 |
 +========================+============+====================+=============================+
-| VT matrix file *    	 | File       |``--vt``            | VT values from ANM script   |
+| VT matrix file *    	 | File       |``--vtMatrix``      | VT values from ANM script   |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 | Mode index *           | Integer    |``--mode``          | Specify the index of the    |
@@ -118,7 +132,8 @@ Get eigenvectors
 | Eigenvector file       | Text file containing a      |
 |                        | list of extracted           |
 |                        | eigenvectors for a specific |
-|                        | modes.                      |
+|                        | modes. Vectors are unit     |
+|                        | vectors                     |
 +------------------------+-----------------------------+
 
 Mean square fluctuation
@@ -133,7 +148,7 @@ level. Obviously, we must compare only the residues that are common in each mode
 
 **Command:** ::
 
-	meanSquareFluctuations.py <options> --pdb <PDB file> --wMatrix <text file> --vtMatrix <text file>
+	meanSquareFluctuations.py <options> --pdb <PDB file> --wMatrix <text file> --vtMatrix <text file> --atomType <string>
 
 **Inputs:**
 
@@ -143,22 +158,41 @@ level. Obviously, we must compare only the residues that are common in each mode
 | PDB file *             | File       |``--pdb``           | PDB input file              |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
-| Conformation PDB       | File       |``--pdfConf2``      | When assigned, caclulates   |
-|                        |            |                    | mean square fluctautions    |
-|                        |            |                    | based on in common residues |
-|                        |            |                    | between the two proteins    |
-+------------------------+------------+--------------------+-----------------------------+
-| First mode             | Integer    |``--firstMode``	   | When unassigned the script  |
-|                        |            |                    | will use the last six modes |
-+------------------------+------------+--------------------+-----------------------------+
-| Last mode              | Integer    |``--lastMode``	   | When unassigned the script  |
-|                        |            |                    | will use the last six modes |
-+------------------------+------------+--------------------+-----------------------------+
 | W matrix file *        | File       |``--wMatrix``	   | W values from ANM script    |
-|                        |            |                    |                             |
+|                        |            |                    | for PDB                     |
 +------------------------+------------+--------------------+-----------------------------+
 | VT matrix file *       | File       |``--vtMatrix``	   | VT values from ANM script   |
+|                        |            |                    | for Comparison PDB          |
++------------------------+------------+--------------------+-----------------------------+
+| Atom type *            | String     |``--atomType``      | Specify the type of atom to |
+|                        |            |                    | be selected in CG models.   |
+|                        |            |                    | Only CA or CB accepted.     |
 |                        |            |                    |                             |
++------------------------+------------+--------------------+-----------------------------+
+| Comparison PDB         | File       |``--pdbC``          | When assigned, calculates   |
+|                        |            |                    | mean square fluctautions    |
+|                        |            |                    | based of common residues    |
+|                        |            |                    | between the two proteins    |
++------------------------+------------+--------------------+-----------------------------+
+| W matrix file          | File       |``--wMatrixC``	   | When assigned W values from |
+| for pdbC               |            |                    | ANM for Comparison PDB      |
++------------------------+------------+--------------------+-----------------------------+
+| VT matrix file         | File       |``--vtMatrixC``	   | When assigned VT values from|
+| for pdbC               |            |                    | ANM for Comparison PDB      |
++------------------------+------------+--------------------+-----------------------------+
+| Selected modes         | String     |``--modes``         | MSFs will be calculated     |
+|                        |            |                    | over specified modes.       |
+|                        |    OR      |                    | Options:                    | 
+|	                 |            |                    | 1) Single mode E.g --modes 7|
+|                        | Colon      |                    | 2) A range E.g --modes 7:20 |
+|                        | Separated  |                    | 3) A list E.g --modes 8,9,11| 
+|                        | String     |                    |                             |
+|                        |            |                    | If unspecified MSFs will be |   
+|                        |    OR      |                    | calculated for the first    |                           
+|                        |            |                    | twenty slowest modes (7:27) |
+|                        | Comma      |                    |                             | 
+|                        | Separated  |                    |                             |
+|                        | String     |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+ 
 
 **Outputs:**
@@ -166,6 +200,117 @@ level. Obviously, we must compare only the residues that are common in each mode
 +------------------------+-----------------------------+
 | Output                 | Description                 |
 +========================+=============================+
+| The following are generated for the PDB and          |
+| Comparison PDB (if pdbC was assigned)                |
++------------------------+-----------------------------+
+| MSF text file          | MSF for all residues,       |
+|                        | calculated over all modes   |
++------------------------+-----------------------------+
+| MSF modes text file    | MSF for all residues,       |
+|                        | calculated for a specific   |
+|                        | mode range                  |
++------------------------+-----------------------------+
+| Common residue MSF     | MSF for all common          |
+| text file              | residues, calculated over   |
+|                        | all modes                   |
++------------------------+-----------------------------+
+| Common residue MSF     | MSF for all common          |
+| modes text file        | residues, calculated over a |
+|                        | specific mode range         |
++------------------------+-----------------------------+
+
+Assembly Covariance
+-------------------------------
+
+Calculates and plots Covariance matrices
+
+The user can compare the Covariance between different regions in the biological assembly, or can calcaulate the Covariance across the full assembly complex.
+The user also has the option to perform the calculation over a specified list of modes or a mode range. The function also has a zoom option that allows the
+user create a Covraiance plot for a particular chain within a particular assymetric unit. 
+
+**Command:** ::
+
+	assemblyCovariance.py <options> --pdb <PDB file> --wMatrix <text file> --vtMatrix <text file> --atomType <string>
+
+**Inputs:**
+
++------------------------+------------+--------------------+-----------------------------+
+| Input (*\*required*)   | Input type | Flag               | Description                 |
++========================+============+====================+=============================+
+| PDB file *             | File       |``--pdb``           | PDB input file              |
+|                        |            |                    |                             |
++------------------------+------------+--------------------+-----------------------------+
+| W matrix file *        | File       |``--wMatrix``	   | W values from ANM script    |
+|                        |            |                    | for PDB                     |
++------------------------+------------+--------------------+-----------------------------+
+| VT matrix file *       | File       |``--vtMatrix``	   | VT values from ANM script   |
+|                        |            |                    | for Comparison PDB          |
++------------------------+------------+--------------------+-----------------------------+
+| Atom type *            | String     |``--atomType``      | Specify the type of atom to |
+|                        |            |                    | be selected in CG models.   |
+|                        |            |                    | Only CA or CB accepted.     |
+|                        |            |                    |                             |
++------------------------+------------+--------------------+-----------------------------+
+| Selected modes         | String     |``--modes``         | Covariance will be          |
+|                        |            |                    | calculated over specified   |
+|                        |    OR      |                    | modes                       |
+|                        |            |                    |                             |
+|                        | Colon      |                    | Options:                    |
+|                        | Separated  |                    | 1) All modes E.g --modes all|
+|                        | String     |                    | 2) Single mode E.g --modes 7|
+|            	         |            |                    | 3) A range E.g --modes 7:20 |
+|                        |    OR      |                    | 4) A list E.g --modes 8,9,11|
+|                        |            |                    |                             |
+|                        | Comma      |                    | If unspecified Covariance   |
+|                        | Separated  |                    | will be  calculated for all |
+|                        | String     |                    | modes.                      |
++------------------------+------------+--------------------+-----------------------------+
+| Assymetric Units       | String     |``--aUnits``        | Covariance will be          | 
+|                        |            |                    | calculated and plotted for  |
+|                        |    OR      |                    | specified assyemtric units  |
+|                        |            |                    | modes                       | 
+|                        | Comma      |                    | Options:                    | 
+|                        | Separated  |                    | 1) Single unit              |
+|                        | String     |                    |    E.g --aUnits 5           |               
+|                        |            |                    | 2) A list of units          |                  
+|                        |            |                    |    E.g --aUnits 1,3         | 
+|                        |            |                    |                             |
+|                        |            |                    | If unspecified Covariance   | 
+|                        |            |                    | will be calculated for the  |   
+|                        |            |                    | first assymtereic unit in   |
+|                        |            |                    | the assembly.               |
++------------------------+------------+--------------------+-----------------------------+
+| Zoom                   | Comma      |``--zoom``          | If specified:Covariance will|
+|                        | Separated  |                    | be calculated and plotted   |
+|                        | String     |                    | for a specified chain in a  |
+|                        |            |                    | specified unit.             |
+|                        |            |                    | Only format accepts is:     |
+|                        |            |                    | [Unit,Chain]                |
+|                        |            |                    |    E.g --zoom 1,2           |
+|                        |            |                    |        OR                   |
+|                        |            |                    |    E.g --zoom 1,B           |
+|                        |            |                    | (Chain specifier must match |
+|                        |            |                    | chain label in PDB file)    |
+|                        |            |                    | The above calculates the    |
+|                        |            |                    | covairance for the second   |
+|                        |            |                    | chain in the first          |
+|                        |            |                    | assymetric unit.            |
++------------------------+------------+--------------------+-----------------------------+
+| VMin                   | float      |``--vmin``          | Minimum axes value for plot |
+|                        |            |                    | Default: -0.1               |
++------------------------+------------+--------------------+-----------------------------+
+| VMax                   | float      |``--vmax``          | Maximum axes value for plot |
+|                        |            |                    | Default:  0.1               |
++------------------------+------------+--------------------+-----------------------------+
+
+**Outputs:**
+
++------------------------+-----------------------------+
+| Output                 | Description                 |
++========================+=============================+
+| The following are generated for the PDB and          |
+| Comparison PDB (if pdbC was assigned)                |
++------------------------+-----------------------------+
 | MSF text file          | MSF for all residues,       |
 |                        | calculated over all modes   |
 +------------------------+-----------------------------+
@@ -189,7 +334,7 @@ Identifies modes responsible for the conformational change of a molecule.
 
 **Command:** ::
 
-	conformationMode.py <options> --pdbConf <PDB file> --pdbANM <PDB file> --vtMatrix <text file>
+	conformationMode.py <options> --pdbConf <PDB file> --pdbANM <PDB file> --vtMatrix <text file> --atomType <string>
 
 **Inputs:**
 
@@ -204,6 +349,11 @@ Identifies modes responsible for the conformational change of a molecule.
 +------------------------+------------+--------------------+-----------------------------+
 | VT matrix file *       | File       |``--vtMatrix``      | Eigenavalues obtained from  |
 |                        |            |                    | ANM script                  |
++------------------------+------------+--------------------+-----------------------------+
+| Atom type *            | String     |``--atomType``      | Specify the type of atom to |
+|                        |            |                    | be selected in CG models.   |
+|                        |            |                    | Only CA or CB accepted.     |
+|                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 | Output file            | File       |``--output``        | Specify a name for the PDB	 |
 |                        |            |                    | output file. Default:       |
@@ -227,7 +377,7 @@ Calculates the combined overlap and correlation for specified set of modes to a 
 
 **Command:** ::
 
-	combinationMode.py <options> --pdbConf <PDB file> --pdbANM <PDB file> --vtMatrix <text file> --modes <comma separated string>
+	combinationMode.py <options> --pdbConf <PDB file> --pdbANM <PDB file> --vtMatrix <text file> --modes <comma separated string> --atomType <string>
 
 **Inputs:**
 
@@ -248,11 +398,15 @@ Calculates the combined overlap and correlation for specified set of modes to a 
 |                        |            |                    | modes. Numbers are          |
 |                        |            |                    | separated by commas: 1,5,7  |
 +------------------------+------------+--------------------+-----------------------------+
+| Atom type *            | String     |``--atomType``      | Specify the type of atom to |
+|                        |            |                    | be selected in CG models.   |
+|                        |            |                    | Only CA or CB accepted.     |
+|                        |            |                    |                             |
++------------------------+------------+--------------------+-----------------------------+
 | Output file            | File       |``--output``        | Specify a name for the PDB	 |
 |                        |            |                    | output file. Default:       |
 |                        |            |                    | ModesOfConfChange.pdb       |
 +------------------------+------------+--------------------+-----------------------------+
-
 
 **Outputs:**
 
@@ -274,7 +428,7 @@ Generates a trajectory with arrows that can be viewed in the tool VMD
 
 **Command:** ::
 
-	visualiseVector.py <options> --pdb <PDB file> --vectorFile <text file> --mode <int>
+	visualiseVector.py <options> --pdb <PDB file> --vectorFile <text file> --mode <int> --atomType <string>
 
 **Inputs:**
 
@@ -289,6 +443,11 @@ Generates a trajectory with arrows that can be viewed in the tool VMD
 +------------------------+------------+--------------------+-----------------------------+
 | Vector file *          | File       |``--vectorFile``    | File containing eigen       |
 |                        |            |                    | vectors                     |
++------------------------+------------+--------------------+-----------------------------+
+| Atom type *            | String     |``--atomType``      | Specify the type of atom to |
+|                        |            |                    | be selected in CG models.   |
+|                        |            |                    | Only CA or CB accepted.     |
+|                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 
 **Outputs:**
@@ -305,3 +464,4 @@ Outputs are generated in output/VISUALISE directory by default.
 |                        | copied into the VMD TK      |
 |                        | console                     |
 +------------------------+-----------------------------+
+
