@@ -3,4 +3,4 @@ cd ..
 
 g++ -I cpp/input/ getEigenVectors.cpp -o getEigenVectors
 
-./getEigenVectors --vt output/VT_values.txt --mode 1
+./getEigenVectors --vtMatrix output/VT_values.txt --mode 1
