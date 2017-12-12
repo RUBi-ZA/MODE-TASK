@@ -41,6 +41,11 @@ Takes a protein structure or biological assembly and coarse grains to select a s
 |                        |            |                    | Default: ComplexCG.pdb      |
 +------------------------+------------+--------------------+-----------------------------+
 
+
+
+
+
+
 **Outputs:**
 
 +------------------------+-----------------------------+
@@ -79,6 +84,7 @@ Construct an elastic network model of a protein complex and solves for the eigen
 | Cutoff                 | Integer    |``--cutoff``        | Cuttoff radius in Å.        |
 |                        |            |                    | Default: 15                 |
 +------------------------+------------+--------------------+-----------------------------+
+
 
 **Outputs:**
 
@@ -195,6 +201,7 @@ level. Obviously, we must compare only the residues that are common in each mode
 |                        | String     |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+ 
 
+
 **Outputs:**
 
 +------------------------+-----------------------------+
@@ -251,66 +258,62 @@ user create a Covraiance plot for a particular chain within a particular assymet
 |                        |            |                    | Only CA or CB accepted.     |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
-| Selected modes         | String     |``--modes``         | Covariance will be          |
+| Selected modes         | String     |``--modes``         | Covariance will be          | 
 |                        |            |                    | calculated over specified   |
 |                        |    OR      |                    | modes                       |
-|                        |            |                    |                             |
-|                        | Colon      |                    | Options:                    |
+|                        |            |                    |                             | 
+|                        | Colon      |                    | Options:                    | 
 |                        | Separated  |                    | 1) All modes E.g --modes all|
-|                        | String     |                    | 2) Single mode E.g --modes 7|
-|            	         |            |                    | 3) A range E.g --modes 7:20 |
-|                        |    OR      |                    | 4) A list E.g --modes 8,9,11|
+|                        | String     |                    | 2) Single mode E.g --modes 7|                             
+|            	         |            |                    | 3) A range E.g --modes 7:20 |                               
+|                        |    OR      |                    | 4) A list E.g --modes 8,9,11|               
 |                        |            |                    |                             |
-|                        | Comma      |                    | If unspecified Covariance   |
-|                        | Separated  |                    | will be  calculated for all |
-|                        | String     |                    | modes.                      |
-+------------------------+------------+--------------------+-----------------------------+
+|                        | Comma      |                    | If unspecified Covariance   |  
+|                        | Separated  |                    | will be  calculated for all |   
+|                        | String     |                    | modes.                      | 
++------------------------+------------+--------------------+-----------------------------+ 
 | Assymetric Units       | String     |``--aUnits``        | Covariance will be          | 
 |                        |            |                    | calculated and plotted for  |
 |                        |    OR      |                    | specified assyemtric units  |
 |                        |            |                    | modes                       | 
 |                        | Comma      |                    | Options:                    | 
 |                        | Separated  |                    | 1) Single unit              |
-|                        | String     |                    |    E.g --aUnits 5           |               
+|                        | String     |          	   |    E.g --aUnits 5           |               
 |                        |            |                    | 2) A list of units          |                  
 |                        |            |                    |    E.g --aUnits 1,3         | 
 |                        |            |                    |                             |
 |                        |            |                    | If unspecified Covariance   | 
 |                        |            |                    | will be calculated for the  |   
-|                        |            |                    | first assymtereic unit in   |
-|                        |            |                    | the assembly.               |
-+------------------------+------------+--------------------+-----------------------------+
-| Zoom                   | Comma      |``--zoom``          | If specified:Covariance will|
+|                        |            |                    | first assymtereic unit in   |                         
+|                        |            |                    | the assembly.               |                           
++------------------------+------------+--------------------+-----------------------------+ 
+| Zoom                   | Comma      |``--zoom``          | If specified:Covariance will| 
 |                        | Separated  |                    | be calculated and plotted   |
 |                        | String     |                    | for a specified chain in a  |
-|                        |            |                    | specified unit.             |
-|                        |            |                    | Only format accepts is:     |
+|                        |            |                    | specified unit.             | 
+|                        |            |                    | Only format accepts is:     | 
 |                        |            |                    | [Unit,Chain]                |
-|                        |            |                    |    E.g --zoom 1,2           |
-|                        |            |                    |        OR                   |
-|                        |            |                    |    E.g --zoom 1,B           |
-|                        |            |                    | (Chain specifier must match |
+|                        |            |          	   |    E.g --zoom 1,2           |               
+|                        |            |                    |        OR                   |                  
+|                        |            |                    |    E.g --zoom 1,B           | 
+|                        |            |                    |(Chain specifier must match  |
 |                        |            |                    | chain label in PDB file)    |
-|                        |            |                    | The above calculates the    |
-|                        |            |                    | covairance for the second   |
-|                        |            |                    | chain in the first          |
-|                        |            |                    | assymetric unit.            |
+|                        |            |                    | The above calculates the    | 
+|                        |            |                    | covairance for the second   |   
+|                        |            |                    | chain in the first          |                         
+|                        |            |                    | assymetric unit.            |                           
++------------------------+------------+--------------------+-----------------------------+ 
+| VMin                   | float      |``--vmin``          | Minimum axes value for plot | 
+|                        |            |                    | Default: -0.1               |                           
 +------------------------+------------+--------------------+-----------------------------+
-| VMin                   | float      |``--vmin``          | Minimum axes value for plot |
-|                        |            |                    | Default: -0.1               |
-+------------------------+------------+--------------------+-----------------------------+
-| VMax                   | float      |``--vmax``          | Maximum axes value for plot |
-|                        |            |                    | Default:  0.1               |
-+------------------------+------------+--------------------+-----------------------------+
-
+| VMax                   | float      |``--vmax``          | Maximum axes value for plot | 
+|                        |            |                    | Default:  0.1               |                           
++------------------------+------------+--------------------+-----------------------------+  
 **Outputs:**
 
 +------------------------+-----------------------------+
 | Output                 | Description                 |
 +========================+=============================+
-| The following are generated for the PDB and          |
-| Comparison PDB (if pdbC was assigned)                |
-+------------------------+-----------------------------+
 | Covariance Plots       | Covariance Matrices plotted |
 |                        | as a Linear Segmented Color | 
 |                        | map                         |
@@ -366,7 +369,8 @@ Identifies modes responsible for the conformational change of a molecule.
 Combination mode
 -------------------------------
 
-Calculates the combined overlap and correlation for specified set of modes to a known conformational change.
+Calculates the combined overlap and correlation for specified set of modes to a known conformational change. This script also calculates the overlap and correlation per chain in each
+assymetric unit for the specified modes. This allows the user to determine which parts of the complex, in each mode, contribute the most to the overall conformational change.
 
 **Command:** ::
 
@@ -401,6 +405,8 @@ Calculates the combined overlap and correlation for specified set of modes to a 
 |                        |            |                    | ModesOfConfChange.pdb       |
 +------------------------+------------+--------------------+-----------------------------+
 
+
+
 **Outputs:**
 
 +------------------------+-----------------------------+
@@ -413,6 +419,16 @@ Calculates the combined overlap and correlation for specified set of modes to a 
 |                        | correlation for the modes   |
 |                        | specified                   |
 +------------------------+-----------------------------+
+| Break down per unit    | Text file with the overlap  |
+| file                   | and correlation calculated  |
+|                        | for each chain in each      |
+|                        | assymteric unit in the      |
+|                        | complex. Calculations are   |
+|                        | performed for each specified|
+|                        | mode.                       |
++------------------------+-----------------------------+
+
+
 
 Mode visualisation
 -------------------------------

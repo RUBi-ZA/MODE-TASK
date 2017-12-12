@@ -28,8 +28,8 @@ Within this directory create a folder called **Tutorial:**
 
 We will run all scripts from the ModeTask directory. 
 
-Preparation of structures
--------------------------------
+Preparation of structure of the mature capsid
+---------------------------------------------
 
 1) Download the 3VBS biological assembly (3VBS.pdb1) of the **mature EV-71 capsid** from the PDB.
 
@@ -49,60 +49,66 @@ The estimated run time to perfom ANM on a complex of 4210 residues, using **Mode
 
 For the sake of this tutorial we will use the **coarseGrain.py** script to construct a pentamer with lower resolution pentamer.
 
+Preparation of structure of the A-partcile capsid
+-------------------------------------------------
+
+1) Download the 4N43 biological assembly (4N43.pdb1) of the **A-partcile EV-71 capsid** from the PDB.
+
+2) Open 4N43.pdb1 in PyMol.
+
+3) Use the **split_states 4N43** command to visualise the full capsid.
+
+4) Save the capsid: File – Save Molecule – Select the first 5 states. Save as Apart_Pentamer.pdb into the **ModeTask/Tutorial directory.**
+
 Coarse grain
 -------------------------------
 
 The MODE-TASK package is designed to analyse both single proteins or larger macromolecules such as a virus capsid. The ANM.cpp script contructs an elastic network model on all CA or CB atoms in a given PDB file. This is ideal for smaller protein complexes. For larger protein complexes the coarseGrained.py script can be used to construct an additional coarse grained PDB file. 
 
-1) Create a model of the EV71 Pentamer complex with additional coarse graining set at level 3, selecting CB atoms:
+1) Create a two models of the EV71 Pentamer complex with additional coarse graining set at levels 3 and 4 of selected CB atoms:
 
  ::
 
-	coarseGrain.py --pdb Tutorial/EV71_Pentamer.pdb --cg 3 --startingAtom 1 --output EV71_CG3.pdb --outdir Tutorial --atomType CB
+	coarseGrain.py --pdb Tutorial/EV71_Pentamer.pdb --cg 3,4 --startingAtom 1 --output EV71_CG3.pdb --outdir Tutorial --atomType CB
 
 **The input paramaters include:**
 
 	* pdb: This is the pdb structure that you wish to coarse grain
-	* cg: This specifies the level of coarse graining. To select fewer atoms increase the level
+	* cg: This specifies the levels of coarse graining. To select fewer atoms increase the level
 	* starting atom: This specifies the first residue to be selected in the complex
 	* output: The filename of the coarse grained pdb file
 	* outdir: The directory in which to save the coarse grained pdb file
 
 **Output:**
 
-a) EV71_CG3.pdb: A coarse grained pdb file that has the coordinates of selected CB atoms from residues that are equally distributed across the complex (Figure 1).
-
+a) EV71_CG3.pdb and EV71_CG4.pdb : Two separate coarse grained pdb files that have the coordinates of selected CB atoms from residues that are equally distributed across the complex.
+   As an example EV71_CG3.pdb is shown the figure below.
 b) Command line output
 
  ::
 
-	Started at: 2017-08-22 11:54:19.392835
+	============================================================
+	Started at: 2017-12-12 11:34:36.399300
+	------------------------------------------------------------
+	SUMMARY OF COARSE GRAINING PERFORMED AT LEVEL 3
 	No. atoms selected per unit: 122 from 842 orignal residues
 	No. atoms selected per macromolecule: 610 from 4210 orignal residues
-	Completed at: 2017-08-22 11:54:19.509456
-	- Total time: 0:00:00
-
-Note that, the same 212 atoms from each protomer were selected – thus the symmetry of the pentamer is retained.
-
-
-2) Create a model of the EV71 Pentamer complex with additional coarse graining set at level 4:
-
- ::
-
-	coarseGrain.py --pdb Tutorial/EV71_Pentamer.pdb --cg 4 --startingAtom 1 --output EV71_CG4.pdb --outdir Tutorial --atomType CB
-
- ::
-
-	Started at: 2017-08-22 11:54:53.484248
+	------------------------------------------------------------
+	------------------------------------------------------------
+	SUMMARY OF COARSE GRAINING PERFORMED AT LEVEL 4
 	No. atoms selected per unit: 54 from 842 orignal residues
 	No. atoms selected per macromolecule: 270 from 4210 orignal residues
-	Completed at: 2017-08-22 11:54:53.586145
+	------------------------------------------------------------
+	Completed at: 2017-12-12 11:34:36.541637
 	- Total time: 0:00:00
+
+Note that, the same set of 122 atoms from each protomer were selected for CG3, likewise, the same set of 54 aatoms from each protomer were selected for CG4 – thus the symmetry of the pentamer is retained.
+
 
  .. figure:: ../img/nma_tut0.png
    :align: center
 
-   Fig 1. Left) Crystal structure of the EV71 Pentamer (3VBS). Right) EV71_CG3.pdb contains 610 CB atoms from 4210 total residues. 
+   Fig: Left) Crystal structure of the EV71 Pentamer (3VBS). Right) EV71_CG3.pdb contains 610 CB atoms from 4210 total residues. 
 
 
 Mode decomposition
@@ -188,6 +194,8 @@ We will then compare the modes from the respective models and determine if the a
 
 To determine if our modes overlap with the direction of conformational change, we must first determine the conformational change between the crystal structures of the **mature** and **A-particle pentamer.** The **conformationMode.py**  scripts take two UNALIGNED pdb files and the set of all eigenvectors determined for the complex. The script aligns the structures, calculates the known conformational change and then identifies which modes contribute to the change.
 
+Prepare the A-partcile pentamer in PyMol, using the biological assembly: 4n43.pdb1
+
 Conformation mode
 -------------------------------
 
@@ -213,7 +221,7 @@ A text file with the overlap and correlation of each mode to the conformational 
 
  ::
 
-	conformationMode.py --pdbANM Tutorial/EV71_CG3.pdb --vtMatrix Tutorial/CG3/VT_values.txt  --pdbConf Tutorial/Apart_PentamerAligned.pdb --outdir Tutorial/CG3 --atomType CB
+	conformationMode.py --pdbANM Tutorial/EV71_CG3.pdb --vtMatrix Tutorial/CG3/VT_values.txt  --pdbConf Tutorial/Apart_Pentamer.pdb --outdir Tutorial/CG3 --atomType CB
 
 
 **Top output from conformationalMode.py of EV71_CG4:**
@@ -249,6 +257,160 @@ A text file with the overlap and correlation of each mode to the conformational 
 	Mode: 38      -0.13204901279       0.196369524407
 	Mode: 423     -0.131685652034      0.334715006091
 	Mode: 76      -0.129977918229      0.296798866026
+
+
+In addition, the command line output will specify the precise atoms over which the calculations were performed. (Of course, this will correspond to all atoms the are present in both conformations).
+The RMSD between the two structures wil also be specified:
+
+ ::
+
+	Started at: 2017-12-12 12:50:48.922586
+
+	*****************************************************************
+	WARNING!!!:
+	Not all chains from PDB files were selected	
+	Suggested: Chain IDs do not match between PDB Files
+
+	*****************************************************************
+	Correlations calculated across 465 common residues (93 per 5 assymetric units).
+	Breakdown per chain:
+
+	A: 32 residues per assymetric unit
+	Residues selected include: 74 79 92 98 101 105 108 112 122 139 142 148 155 158 161 171 
+                                   175 180 189 198 203 213 216 224 240 253 265 269 273 282 
+                                   290 293 
+
+	B: 29 residues per assymetric unit
+	Residues selected include: 17 37 44 58 65 76 79 83 90 108 115 128 134 141 151 155 180 
+                                   186 189 202 208 219 222 227 231 234 241 245 249 
+
+	C: 32 residues per assymetric unit
+	Residues selected include: 2 7 12 15 18 28 32 36 40 65 78 82 86 92 98 104 112 133 139 
+                                   147 152 158 169 174 202 205 209 214 219 222 229 233 
+
+	*****************************************************************
+
+
+	RMSD between the two conformations = 3.95802072351
+
+	Completed at: 2017-12-12 12:50:49.269902
+	- Total time: 0:00:00
+
+
+
+Combination mode
+-------------------------------
+
+This option allows you to calculate the overlap and correlation to a conformational change, over a combination of modes. In this example we will use the EV71_CG3 Model
+and perform the calculation over the modes 9 and 30.
+
+
+
+	combinationMode.py --pdbANM Tutorial/EV71_CG3.pdb --vtMatrix Tutorial/CG3/VT_values.txt  --pdbConf Tutorial/Apart_Pentamer.pdb --modes 9,30 --outdir Tutorial/CG3 --atomType CB
+
+**Output from combinationMode.py**
+
+The command line output is the same as described for conformationMode.py 
+
+The script will also print out twe text files:
+
+1) A file that specifies that calculated overlap and correlation over the full model:
+
+ ::
+
+	MODE           Overlap              Correlation
+
+	Mode: 9        -0.663942246191      0.236900852193
+	Mode: 30       -0.235871923574      0.192794743468
+
+	*****************************************************************
+	Combinded Overlap = 0.616937749679
+	Combinded Correlation = 0.219893695954
+	*****************************************************************
+
+
+2) A file that gives a breakdown of the calculated overlap and correlation per chain in each assyemtric unit of the model.This is very useful for identifying which regions of the complex
+   contribute the most the the conformational change for a given mode:
+ 
+ ::
+    
+	=================================================================
+	=================================================================
+
+	ASSYMETRIC UNIT: 1
+	CHAIN: A
+	MODE           Overlap              Correlation
+
+	Mode: 9        -0.677454134085      0.101259205597
+	Mode: 30       -0.396594527376      0.601345215538
+
+	Combinded Overlap = 0.620398046618
+	Combinded Correlation = 0.337867917512
+	-----------------------------------------------------------------
+	CHAIN: B
+	MODE           Overlap              Correlation
+
+	Mode: 9        -0.717931968623      0.491498558701
+	Mode: 30       -0.348260895864      0.249005547277
+
+	Combinded Overlap = 0.679846136775
+	Combinded Correlation = 0.321369216974
+	-----------------------------------------------------------------
+	CHAIN: C
+	MODE           Overlap              Correlation
+
+	Mode: 9       -0.637082761027       0.198091140187
+	Mode: 30       0.0309855898365      0.149051660589
+
+	Combinded Overlap = 0.532447057412
+	Combinded Correlation = 0.14767859844
+	-----------------------------------------------------------------
+
+	=================================================================
+	=================================================================
+
+	ASSYMETRIC UNIT: 2
+	CHAIN: A
+	MODE           Overlap              Correlation
+
+	Mode: 9        -0.677486033685      0.101126894833
+	Mode: 30       -0.396528584512      0.601655942534
+
+	Combinded Overlap = 0.620396963618
+	Combinded Correlation = 0.337655761311
+	-----------------------------------------------------------------
+	CHAIN: B
+	MODE           Overlap              Correlation
+
+	Mode: 9        -0.717946715867     0.491379282027
+	Mode: 30       -0.34820663545      0.249321165251
+
+	Combinded Overlap = 0.679888476475
+	Combinded Correlation = 0.321447980441
+	-----------------------------------------------------------------
+	CHAIN: C
+	MODE           Overlap              Correlation
+
+	Mode: 9       -0.637045607049       0.19801176313
+	Mode: 30       0.0310759318839      0.149266120068
+
+	Combinded Overlap = 0.53259259653
+	Combinded Correlation = 0.147730501227
+	-----------------------------------------------------------------
+
+	=================================================================
+	=================================================================
+
+	ASSYMETRIC UNIT: 3
+	.
+	.
+	.
+	ASSYMETRIC UNIT: 4
+	.
+	.
+	.
+	ASSYMETRIC UNIT: 5
+
 
 Mode visualisation
 -------------------------------
@@ -309,46 +471,90 @@ The script will produce a folder named VISUALISE. For every mode that you give t
 Mean square fluctuation (MSF)
 -------------------------------
 
-Lastly, we will use the meanSquareFluctuations.py script to calculate the MSF of the CB atoms. The scripts allows you to calculate:
+Next, we will use the meanSquareFluctuations.py script to calculate the MSF of the CB atoms. The scripts allows you to calculate:
 
-a) the overall MSF, calculated over all modes
+a) the overall MSFs, calculated over all modes
 
-b) the MSF of the CB atoms for a specific mode, or a specific range of modes.
+b) the MSFs of the CB atoms for a specific mode, or a specific range of modes.
 
 The script also allows for comparison of MSF obtained from modes of different models. We can use the –pdbConf2 parameter to send the script a second PDB model. The script will then calculate the MSF of atoms corresponding to residues that are common between both models. 
 
-In this toturial we will analyse the MSF between EV71_CG4 and EV71_CG3.
+In this toturial we will analyse and compare the MSF between EV71_CG4 and EV71_CG3. This will give an indication as to whether or not the higher coarse grained model is also suitable to study the virus.
 
 
-1) First we will calculate the MSF of the CG4 model. We will calculate the overall MSF and the MSF for the mode 9.
-
- ::
-
-	meanSquareFluctuation.py --pdb Tutorial/EV71_CG4.pdb --pdbConf2 Tutorial/EV71_CG3.pdb --firstMode 9 --lastMode 9 --wMatrix Tutorial/W_values.txt --vtMatrix Tutorial/VT_values.txt --outdir Tutorial/ --atomType CB
-
-2) Next, we will calculate the MSF of the CG3 model. We will calculate the overall MSF and the MSF for mode 9
+1) We will compare the MSFs between the two models for a) all modes and b) mode 9 
 
  ::
 
-	meanSquareFluctuation.py --pdb Tutorial/EV71_CG3.pdb --pdbConf2 Tutorial/EV71_CG4.pdb --firstMode 9 --lastMode 9 --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --outdir Tutorial/CG3/ --atomType CB
+	meanSquareFluctuation.py --pdb Tutorial/EV71_CG3.pdb --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --pdbConf2 Tutorial/EV71_CG4.pdb --wMatrixC Tutorial/W_values.txt 	--vtMatrixC Tutorial/VT_values.txt --modes 9 --outdir Tutorial/ --atomType CB
 
+
+**Output for Model CG3:**
+
+**1) PDB1_msf.txt:** Text file of the overall MSFs values for all residues of CG3
+
+**2) PDB1__msfSpecificModes.txt:** MSFs for all residues for mode 9 of CG3
+
+**3) PDB1CommonResidues_msf.txt:** Overal MSFs for residues (of CG3) common between CG3 and CG4
+
+**4) PDB1_CommonResidues_msfSpecificModes.txt:** MSFs for residues (of CG3) common between CG3 and CG4 calculated for mode 9
 
 **Output for Model CG4:**
 
-**1) EV71_msf.txt:** Text file of the overall MSF values for all residues
+**1) PDBCompare_msf.txt::** Text file of the overall MSFs values for all residues of CG4
 
-**2) EV71_msfModes9_9.txt:** MSF for all residues for mode 9
+**2) PDBCompare__msfSpecificModes.txt:** MSFs for all residues for mode 9 of CG4
 
-**3) EV71CommonResidues_msf.txt:** Overal MSF for residues common between CG4 and CG3.
+**3) PDBCompareCommonResidues_msf.txt:** overal MSFs for residues (of CG4) common between CG4 and CG3.
 
-**4) EV71_CommonResidues_msfModes9_9.txt:** MSF for residues common between CG4 and CG3 calculated for mode 9
-output for Model CG3:
+**4) PDBCompare_CommonResidues_msfSpecificModes.txt:** MSFs for residues (of CG4) common between CG4 and CG3 calculated for mode 9
 
-**1) EV71_msf.txt:** Text file of the overall MSF values for all residues
 
-**2) EV71_msfModes9_9.txt:** MSF for all residues for mode 9
+Assembly Covariance
+-------------------------------
 
-**3) EV71CommonResidues_msf.txt:** overal MSF for residues common between CG3 and CG4.
+Now, we will use the assemblyCovariance.py script to calculate to plot various covariance matrices of the complex. For this example we will the EV71_CG3 Model.
 
-**4) EV71_CommonResidues_msfModes9_9.txt:** MSF for residues common between CG3 and CG3 calculated for mode 9
+a) First we will plot the overall covriance for the full model, as calculated over all modes:
+
+	assemblyCovariance.py --pdb Tutorial/EV71_CG3.pdb --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --modes all --outdir Tutorial/CG3/ --atomType CB
+
+The above function will produce a plot corresponding to the full model, AND as a default a second plot that zooms into the first assyemtric unit will also be produced
+
+
+ .. figure:: ../img/Covariance_Full.png
+   :align: center
+
+   Fig: Overall covariance matrix for the full EV71_CG3 Model
+
+ .. figure:: ../img/Covariance_AUnits.png
+   :align: center
+
+   Fig: Overall covariance matrix for a single protomer within the EV71_CG3 Model
+
+a) Now we will use the addtional options to calculate the covariance for mode 7 only (The first non-trivial mode). We will also plot the covriance between the assymetric units 1 and 3, and then zoom
+   into chain A of the first assyemtric unit. Not we have also adjusted the values of the axes to increase sensivity for a single mode.
+
+	assemblyCovariance.py --pdb Tutorial/EV71_CG3.pdb --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --modes 7 --aUnits 1,3 --zoom 1,A --outdir Tutorial/CG3/M7 --atomType CB
+        --vmin -0.005 --vmax 0.005
+
+The above function will produce a plot corresponding to the full model for mode 7, a second plot that zooms into covariance between the first and thrid assyemtric units, and a third plot for the covarince of Chain A and Unit 1.
+
+
+ .. figure:: ../img/Covariance_FullMode7.png
+   :align: center
+
+   Fig: Covariance matrix for the full EV71_CG3 Model calculated over Mode 7
+
+ .. figure:: ../img/Covariance_AUnits1_3.png
+   :align: center
+
+   Fig: Covariance matrix for the assymetric units 1 and 3 of the EV71_CG3 Model calculated over Mode 7
+
+ .. figure:: ../img/Covariance_Zoom.png
+   :align: center
+
+   Fig: Covariance matrix for Chain A in assymetric units 1 the EV71_CG3 Model calculated over Mode 7
+
+For each of the steps above, the script also outputs each covariance matrix in txt file format. 
 
