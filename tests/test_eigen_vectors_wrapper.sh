@@ -1,4 +1,4 @@
 #!/bin/bash
 cd ..
 
-./getEigenVectors.py --vt output/VT_values.txt --mode 1
+./getEigenVectors.py --vtMatrix output/VT_values.txt --mode 1

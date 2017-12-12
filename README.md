@@ -12,7 +12,7 @@ git clone https://github.com/RUBi-ZA/MODE-TASK.git
 cd MODE-TASK
 ```
 
-*Compile C++ binaries:*
+*C++ scripts are pre-compiled and can be called from within a python environment using their corresponding ANM.py and getEigenVectors.py scripts. To compile the C++ yourself, use the following commands:*
 ```
 sudo apt install g++
 g++ -I cpp/src/ ANM.cpp -o ANM
