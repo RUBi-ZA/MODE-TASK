@@ -33,7 +33,7 @@ if len(sys.argv) > 1:
             sys.exit()
 
     # Run getEigenVectors executable
-    os.system("./getEigenVectors --vtMatrix " + args.vt + " --mode " + args.mode + " --direction " + args.direction + " --outdir " + args.outdir)
+    os.system("./getEigenVectors --vtMatrix " + args.vtMatrix + " --mode " + args.mode + " --direction " + args.direction + " --outdir " + args.outdir)
 
 else:
     print ('No arguments provided. Use -h to view help')
