@@ -11,28 +11,10 @@ from datetime import datetime
 
 from lib.utils import *
 
-
-def main(args):
-
-    atomT = args.atomType.upper()
-    if atomT!='CA' and atomT!='CB':
-        print ('\n**************************************\nUnrecognised atom type\nInput Options:\nCA: to select alpha carbon atoms\nCB: to select beta carbon atoms\n**************************************')
-        sys.exit()
-
-    try:
-        pdb_file = open(args.pdb, 'r')
-        pdb_lines = pdb_file.readlines()
-        pdb_file.close()
-    except IOError:
-        print ('\n**************************************\nFILE ' + args.pdb + ' NOT FOUND:\n**************************************\n')
-        sys.exit()
-
-    # CHANGE THE FOLLOWING
-    mode = args.mode
-
+def visualise(pdb_lines,atomT,mode,vectorFile,outdir):
     structure = 'VISUAL'
  
-    # Get index of first atom
+    # get index of first atom
     for i in range(len(pdb_lines)):
         if pdb_lines[i].startswith("ATOM"):
             index_atom = i
@@ -74,9 +56,9 @@ def main(args):
         if "TER" in atom or "END" in atom:
             continue
         chain = atom.split()[4].strip()
-    if chain not in colourByChain and countColour<len(colours):
-        colourByChain[chain]=colours[countColour]
-        countColour+=1
+        if chain not in colourByChain and countColour<len(colours):
+            colourByChain[chain]=colours[countColour]
+            countColour+=1
         if chain == chain1:
             conect_chain.append(i)
         else:
@@ -84,6 +66,7 @@ def main(args):
             conect_chain = []
             conect_chain.append(i)
             chain1 = chain
+            
     conect.append(conect_chain)
 
     #Default to black if too many chains
@@ -93,28 +76,27 @@ def main(args):
             colourByChain[chain] = 'black'
             startColourBlack = True
 
-    #keysC = colourByChain.keys()
-    #keysC.sort()
     keysC = sorted(colourByChain.keys())
 
-    print ('ARROW COLOUR KEY BY CHAIN')
+    print ('\n**************************************\n')
+    print ("ARROW COLOUR KEY BY CHAIN")
     for k in keysC:
-        print (k + ': ' + colourByChain[k])
-
+        print (k+': '+colourByChain[k])
+    print ('\n**************************************\n')
     # Get the vectors
     # CHANGE HERE # may not be correct change, double check
 
     try:  
-        vectorf = open(args.vectorFile, 'r')
+        vectorf = open(vectorFile, 'r')
         vectors = vectorf.readlines()
         vectorf.close()
     except IOError:
-        print ('\n**************************************\nFILE ' + args.vectorFile + ' NOT FOUND:\n**************************************\n')
+        print ('\n**************************************\nFILE '+vectorFile+' NOT FOUND:\n**************************************\n')
         sys.exit()
 
     #Write VISUALISE
     try:
-        w = open(args.outdir + "/" + "VISUALISE/" + structure + '_' + str(mode) + ".pdb", 'w')
+        w = open(outdir + "/" + "VISUALISE/" + structure + '_' + str(mode) + ".pdb", 'w')
         for i in range(0, 50):
             v_index = -1
             for atom in c_beta_atoms:
@@ -156,7 +138,9 @@ def main(args):
         chainbreaks = []
         for cb in conect:
             chainbreaks.append(cb[-1])
+        
 
+       
         if startColourBlack:
             arrows.append('proc vmd_draw_arrow {mol start end} {\n    set middle [vecadd $start [vecscale 0.9 [vecsub $end '
               '$start]]]\n    graphics $mol cylinder $start $middle radius 0.80\n    graphics $mol cone $middle $end '
@@ -166,8 +150,12 @@ def main(args):
               '$start]]]\n    graphics $mol cylinder $start $middle radius 0.80\n    graphics $mol cone $middle $end '
               'radius 2.20\n}\ndraw color '+colours[0]+'\n')
 
+    
+
+     
         nextAtom=[]
         for n,atom in enumerate(c_beta_atoms,1):
+  
             if "ATOM" in atom:
                 chain = atom.split()[4].strip()
                 v_index += 1
@@ -184,20 +172,44 @@ def main(args):
                 z2 = round(float(atom[46:54].strip()) + (vz * steps[1]), 3)
 
                 arrows.append('draw arrow {' + str(x1) + ' ' + str(y1) + ' ' + str(z1) + '} {' + str(x2) + ' ' + str(y2) + ' ' + str(z2) + '}\n')
-            if n in chainbreaks:
-                nextAtom = c_beta_atoms[n:]
-            for a in nextAtom:
-                if "ATOM" in a:
-                    chain = a.split()[4].strip()
-                    break
-                arrows.append('draw color '+colourByChain[chain]+'\n')
+                if n in chainbreaks:
+                    nextAtom = c_beta_atoms[n:]
+                    for a in nextAtom:
+                        if "ATOM" in a:
+                            chain = a.split()[4].strip()
+                            break   
+                    arrows.append('draw color '+colourByChain[chain]+'\n')
+  
+  
 
-        w = open(args.outdir + "/" + "VISUALISE/" + structure + '_ARROWS_' + str(mode) + ".txt", 'w')
+        w = open(outdir + "/" + "VISUALISE/" + structure + '_ARROWS_' + str(mode) + ".txt", 'w')
         w.writelines(arrows)
         w.close()
     except IndexError:
         print ('\n**************************************\nERROR!!\nVECTOR FILE and PDB FILE ARE NOT COMPATIBLE\n**************************************\n')
         sys.exit()
+def main(args):
+
+    atomT = args.atomType.upper()
+    if atomT!='CA' and atomT!='CB':
+        print ('\n**************************************\nUnrecognised atom type\nInput Options:\nCA: to select alpha carbon atoms\nCB: to select beta carbon atoms\n**************************************')
+        sys.exit()
+
+    try:
+        pdb_file = open(args.pdb, 'r')
+        pdb_lines = pdb_file.readlines()
+        pdb_file.close()
+    except IOError:
+        print ('\n**************************************\nFILE ' + args.pdb + ' NOT FOUND:\n**************************************\n')
+        sys.exit()
+
+    # CHANGE THE FOLLOWING
+    mode = args.mode
+    outdir = args.outdir
+    vectorFile = args.vectorFile
+    visualise(pdb_lines,atomT,mode,vectorFile,outdir)
+
+    
 
 silent = False
 stream = sys.stdout

@@ -150,7 +150,6 @@ def calcCovariance(wMatrix, vtMatrix, modes, definedUnits, specifiedUnits, zoom,
         #Construct assymteric image
         numberUnits = len(specifiedUnits)
         sizePerUnit = len(definedUnits[1])
-
         trace_cf = np.zeros((numberUnits*sizePerUnit,numberUnits*sizePerUnit))
         cf_rows = 0
         cf_cols = 0
@@ -256,11 +255,7 @@ def defineAssemetricUnits(pdb,atom):
                     protomerLines = []
                     protomerLines.append(l)
                     #chain1 = chain
-  
-            if l.startswith("TER"):
-                protomerLines.append(l)
-            if l.startswith('END'):
-               protomerLines.append(l)
+ 
     
         protomers[countProtomers] = protomerLines
     return protomers
@@ -273,7 +268,7 @@ def main(args):
     modes = args.modes
     WM = args.wMatrix
     VTM = args.vtMatrix
-    AUnits = args.assymetricUnits
+    AUnits = args.aUnits
     zoomIndex = args.zoom
     aType = args.atomType
     vmin = args.vmin
@@ -358,11 +353,11 @@ if __name__ == "__main__":
     parser.add_argument("--modes", help="1) Calculate the covariance matrix over all modes by using the option all:\n  E.g --modes all\nOR\n2) Enter a select range of modes in format M1:M2\n  E.g To calculate the covariance matrix over the first 20 non-zero modes enter --modes 7:27\nOR\n3) Calculate the covariance matrix for a combination of specific modes\nEnter mode numbers separated by a comma\n  E.g: --modes 1,5,7", default="all") 
     parser.add_argument("--wMatrix", help="Text file of Eigevalues of pdb, in format output from ANM.cpp")
     parser.add_argument("--vtMatrix", help="Text file of Eigevectors of pdb, in row (VT) format output from ANM.cpp")
-    parser.add_argument("--assymetricUnits", help="1) Specify a single unit.\n  E.g --assymentricUnit 1 \nOR\n 2) Provide a list of assymteric units.\n  E.g --assymetricUnitsText 1,4,5", default = '1')
+    parser.add_argument("--aUnits", help="1) Specify a single unit.\n  E.g --assymentricUnit 1 \nOR\n 2) Provide a list of assymteric units.\n  E.g --aUnitsText 1,4,5", default = '1')
     parser.add_argument("--zoom", help="1) Zoom into a single chain within a specified assymetric unit.\nSpecify the unit and then the chain in a comma separted list single unit.\n  E.g --zoom 1,2 will zoom into chain 2 in assymteric unit 1",default = '0,0')
-    parser.add_argument("--atomType", help="Enter CA to select alpha carbons or CB to select beta carbons", default='CA')
-    parser.add_argument("--vmin", help="[int] minimum axes value", type=int, default = -0.1)
-    parser.add_argument("--vmax", help="[int] maximum axes value", type=int, default = 0.1)
+    parser.add_argument("--atomType", help="Enter CA to select alpha carbons or CB to select beta carbons", default='X')
+    parser.add_argument("--vmin", help="[float] minimum axes value", type=float, default = -0.1)
+    parser.add_argument("--vmax", help="[float] maximum axes value", type=float, default = 0.1)
     args = parser.parse_args()
 
     if args.welcome == "true":

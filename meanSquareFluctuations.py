@@ -96,7 +96,7 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
                         # these matrices contain info on all atoms
                         CResiduesOrderedByIndex.append(chain+'-'+str(res))
                         interface_index.append(count)
-		
+
                 ResiduesOrderedByIndex.append(chain+'-'+str(res))
                 count += 1
   
@@ -109,7 +109,7 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
     except IOError:
         print ('\n**************************************\n'+protein_name+' W-MATRIX FILE: '+wMatrix+' NOT FOUND:\n**************************************\n')
         sys.exit()
-	
+
     total_modes = len(eigen_values)
     res_range = range(count)
     #Create A Full W Inverse Matrix (This is if we want correlation averaged over all modes)
@@ -158,15 +158,15 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
         c = np.dot(u, w_v_t)
         # print "Correlations Calculated"
     
-        print ("Calculating MSF across modes specific modes")	
+        print ("Calculating MSF across modes specific modes")
         # Mode Specific C Matrix
         w_v_tm = np.dot(w_f, v_t)
         CMS = np.dot(u, w_v_tm)
     
     
         # Calculate Trace of the Correlation Matrices
-        trace_c = np.zeros((total_modes // 3, total_modes // 3))
-        trace_c_m = np.zeros((total_modes // 3, total_modes // 3))
+        trace_c = np.zeros((total_modes / 3, total_modes / 3))
+        trace_c_m = np.zeros((total_modes / 3, total_modes / 3))
     
         for i in range(0, total_modes, 3):
             for j in range(0, total_modes, 3):
@@ -175,10 +175,10 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
                 for k in range(3):
                     trace = trace + c[i + k, j + k]
                     trace_m = trace_m + CMS[i + k, j + k]
-                trace_c[i // 3, j // 3] = trace
-                trace_c_m[i // 3, j // 3] = trace_m
-    	    
-    	    
+                trace_c[i / 3, j / 3] = trace
+                trace_c_m[i / 3, j / 3] = trace_m
+       
+      
         # Print the diagonal values per residue
         w = open(args.outdir + "/" + protein_name+ "_msf.txt", 'w')
         w.write("MSF Calculated for "+pdb)
@@ -206,7 +206,7 @@ def calcMSF(pdb,common_residues,protein_name,wMatrix,vtMatrix,mode_range,sr,atom
             w = open(args.outdir + "/" + protein_name + "CommonResidues_msf.txt", 'w')
             w.write("MSF Calculated for "+pdb)
             w.write("\nRes\tm.s.f\n")
-            for k,i in enumerate(interface_index): 	  
+            for k,i in enumerate(interface_index): 
                 w.write(str(CResiduesOrderedByIndex[k]) + "\t" + str(trace_c[i, i]) + "\n")
             w.close()
     
@@ -240,12 +240,12 @@ def main(args):
     else:
         pdb2=args.pdbC
 
-    modes = args.modes	
+    modes = args.modes
     mode_range = []
     if ':' in modes:
         mRange = modes.split(':')
         mode_range = range(int(mRange[0])-1,int(mRange[1]))
-    else:	
+    else:
         modesSpecific = modes.split(',')
         for m in modesSpecific:
             mode_range.append(int(m)-1)
@@ -258,13 +258,13 @@ def main(args):
         wMatrix1 = args.wMatrix
         vtMatrix1 = args.vtMatrix 
         calcMSF(pdb1,common_residues,protein_name1,wMatrix1,vtMatrix1,mode_range,specificResidues,atomT)
-	
-	
+
+
         protein_name2 = "PDBCompare"
         wMatrixC = args.wMatrixC
         vtMatrixC = args.vtMatrixC 
         calcMSF(pdb2,common_residues,protein_name2,wMatrixC,vtMatrixC,mode_range,specificResidues,atomT)
-	
+
         #write a list of common residues to text file
         w = open(args.outdir + "/common_residues_msf", 'w')
         w.write("Residues Common in Both PDB Files: "+pdb1+" and "+pdb2+"\n")
@@ -276,17 +276,10 @@ def main(args):
         protein_name1 = "PDB1"
         pdb1_residues = parsePDB(pdb1,atomT)
         wMatrix1 = args.wMatrix
-        vtMatrix1 = args.vtMatrix	
+        vtMatrix1 = args.vtMatrix
         calcMSF(pdb1,pdb1_residues,protein_name1,wMatrix1,vtMatrix1,mode_range,specificResidues,atomT)
         
         
-        
-
-
-
-
-	
-
 silent = False
 stream = sys.stdout
 
@@ -317,7 +310,7 @@ if __name__ == "__main__":
     parser.add_argument("--vtMatrix", help="Text file of Eigevectors of pdb, in row (VT) format output from ANM.cpp")
     parser.add_argument("--wMatrixC", help="Text file of Eigevalues of pdbC, in format output from ANM.cpp", default = "none")
     parser.add_argument("--vtMatrixC", help="Text file of Eigevectors of pdbC, in row (VT) format output from ANM.cpp", default = "none")
-    parser.add_argument("--atomType", help="Enter CA to select alpha carbons or CB to select beta carbons", default='CA')
+    parser.add_argument("--atomType", help="Enter CA to select alpha carbons or CB to select beta carbons", default='X')
 
     args = parser.parse_args()
 
