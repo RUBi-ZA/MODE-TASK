@@ -48,7 +48,7 @@ Download the project
 MODE-TASK can be cloned from it's GitHub repository ::
 
 	git clone https://github.com/RUBi-ZA/MODE-TASK.git
-	cd NMA-TASK
+	cd MODE-TASK
 
 Activate the virtual environment you created in the previous step when using MODE-TASK with::
 
