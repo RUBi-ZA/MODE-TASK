@@ -33,3 +33,8 @@ MODE-TASK's documentation
 
    nma_tut
    pca_tut
+   
+.. toctree::   
+   :caption: pyMODE-TASK
+   
+   pymol_plugin
