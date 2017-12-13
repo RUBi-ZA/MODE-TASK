@@ -1,4 +1,4 @@
-pyMODE-TASK- a pymol plugin of MODE-TASK
+pyMODE-TASK- pymol plugin
 ========================================
 
 Kindly see the pyMODE-TASK documentaion for further detail. 
