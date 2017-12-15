@@ -27,13 +27,7 @@ MODE-TASK can be used with a variety of Python enviroments and package managers,
 sudo apt install virtualenvwrapper python-dev python-pip
 virtualenv venv
 source venv/bin/activate
-pip install numpy
-pip install cython
-pip install mdtraj
-pip install scipy
-pip install pandas
-pip install sklearn
-pip install matplotlib
+pip install -r requirements.txt
 ```
 *Virtual environment using Python 3 and pip3:*
 ```bash
@@ -41,13 +35,7 @@ sudo apt install virtualenvwrapper python3-dev python3-pip
 virtualenv venv
 source venv/bin/activate
 pip3 install setuptools
-pip3 install numpy
-pip3 install cython
-pip3 install mdtraj
-pip3 install scipy
-pip3 install pandas
-pip3 install sklearn
-pip3 install matplotlib
+pip3 install -r requirements.txt
 ```
 *Conda (Python version depends on Conda installation):*
 ```bash
