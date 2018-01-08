@@ -206,7 +206,7 @@ def calcCovariance(wMatrix, vtMatrix, modes, definedUnits, specifiedUnits, zoom,
                 w.write('\n')
             w.close()
     except IndexError:
-        print ('\n**************************************\nERORR!! PDB FILE AND ANM MATRICES ARE IMCOMPATABLE\nCHECK INPUT PARAMETERS FOR:\n1) INCORRECT PDB FILE \n2) INCORRECT MATRICES \n3) INCORRECT SPECIFIED ASSYMETRIC UNITS\n**************************************\n')
+        print ('\n**************************************\nERORR!! PDB FILE AND ANM MATRICES ARE INCOMPATABLE\nCHECK INPUT PARAMETERS FOR:\n1) INCORRECT PDB FILE \n2) INCORRECT MATRICES \n3) INCORRECT SPECIFIED ASSYMETRIC UNITS OR PDB CHAIN LABELS\n**************************************\n')
         sys.exit()            
 
 
