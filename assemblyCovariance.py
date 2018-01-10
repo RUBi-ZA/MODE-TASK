@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 # assemblyCovariance.py
-# Calcualtes covariance matrices for the following:
+# Calculates covariance matrices for the following:
 # 1) over all modes
 # OR
 # 2) specified modes
 # AND
-# 3) For a single assymteric unit
+# 3) For a single asymmetric unit
 # OR
-# 4) For a cluster of specified assymetric units
+# 4) For a cluster of specified asymmetric units
 # Author: Caroline Ross: caroross299@gmail.com
 # August 2017
 
@@ -147,7 +147,7 @@ def calcCovariance(wMatrix, vtMatrix, modes, definedUnits, specifiedUnits, zoom,
 
 
     try:
-        #Construct assymteric image
+        #Construct asymmetric image
         numberUnits = len(specifiedUnits)
         sizePerUnit = len(definedUnits[1])
         trace_cf = np.zeros((numberUnits*sizePerUnit,numberUnits*sizePerUnit))
@@ -206,7 +206,7 @@ def calcCovariance(wMatrix, vtMatrix, modes, definedUnits, specifiedUnits, zoom,
                 w.write('\n')
             w.close()
     except IndexError:
-        print ('\n**************************************\nERORR!! PDB FILE AND ANM MATRICES ARE INCOMPATABLE\nCHECK INPUT PARAMETERS FOR:\n1) INCORRECT PDB FILE \n2) INCORRECT MATRICES \n3) INCORRECT SPECIFIED ASSYMETRIC UNITS OR PDB CHAIN LABELS\n**************************************\n')
+        print ('\n**************************************\nERROR!! PDB FILE AND ANM MATRICES ARE IMCOMPATIBLE\nCHECK INPUT PARAMETERS FOR:\n1) INCORRECT PDB FILE \n2) INCORRECT MATRICES \n3) INCORRECT SPECIFIED ASYMMETRIC UNITS OR PDB CHAIN LABELS\n**************************************\n')
         sys.exit()            
 
 
@@ -311,10 +311,10 @@ def main(args):
             AUnits = AUnits.split(',')
             for a in AUnits:
                 if int(a) <= 0 :
-                        print ('\n**************************************\nWARNING!! ZERO OR NEGATIVE ASSYMETRIC UNITS. MATRIX INDEXES WILL BE AFFECTED\nRESULTS MAY NOT BE ACCURATE\n**************************************')
+                        print ('\n**************************************\nWARNING!! ZERO OR NEGATIVE ASYMMETRIC UNITS. MATRIX INDEXES WILL BE AFFECTED\nRESULTS MAY NOT BE ACCURATE\n**************************************')
                 AUnitsL.append(int(a))
     except TypeError:
-        print ('\n**************************************\nERROR!! INVALID INPUT FOR ASSYMETRIC UNITS: Default 1 has been selected\n**************************************')
+        print ('\n**************************************\nERROR!! INVALID INPUT FOR ASYMMETRIC UNITS: Default 1 has been selected\n**************************************')
         AUnitsL = []
         AUnitL.append(1)
 
@@ -353,8 +353,8 @@ if __name__ == "__main__":
     parser.add_argument("--modes", help="1) Calculate the covariance matrix over all modes by using the option all:\n  E.g --modes all\nOR\n2) Enter a select range of modes in format M1:M2\n  E.g To calculate the covariance matrix over the first 20 non-zero modes enter --modes 7:27\nOR\n3) Calculate the covariance matrix for a combination of specific modes\nEnter mode numbers separated by a comma\n  E.g: --modes 1,5,7", default="all") 
     parser.add_argument("--wMatrix", help="Text file of Eigevalues of pdb, in format output from ANM.cpp")
     parser.add_argument("--vtMatrix", help="Text file of Eigevectors of pdb, in row (VT) format output from ANM.cpp")
-    parser.add_argument("--aUnits", help="1) Specify a single unit.\n  E.g --assymentricUnit 1 \nOR\n 2) Provide a list of assymteric units.\n  E.g --aUnitsText 1,4,5", default = '1')
-    parser.add_argument("--zoom", help="1) Zoom into a single chain within a specified assymetric unit.\nSpecify the unit and then the chain in a comma separted list single unit.\n  E.g --zoom 1,2 will zoom into chain 2 in assymteric unit 1",default = '0,0')
+    parser.add_argument("--aUnits", help="1) Specify a single unit.\n  E.g --aUnits 1 \nOR\n 2) Provide a list of asymmetric units.\n  E.g --aUnits 1,4,5", default = '1')
+    parser.add_argument("--zoom", help="1) Zoom into a single chain within a specified asymmetric unit.\nSpecify the unit and then the chain in a comma separted list single unit.\n  E.g --zoom 1,2 will zoom into chain 2 in asymmetric unit 1",default = '0,0')
     parser.add_argument("--atomType", help="Enter CA to select alpha carbons or CB to select beta carbons", default='X')
     parser.add_argument("--vmin", help="[float] minimum axes value", type=float, default = -0.1)
     parser.add_argument("--vmax", help="[float] maximum axes value", type=float, default = 0.1)

@@ -258,7 +258,7 @@ def parsePDB(pdb_file, atomT):
         print ('\n**************************************\nFILE ' + pdb_file + ' NOT FOUND:\n**************************************\n')
         sys.exit()
   
-    # determine the number of assymetric units
+    # determine the number of asymmetric units
     number_of_protomers = 0
     currentResidue = 0
     currentChain = ''
@@ -315,7 +315,7 @@ def main(args):
     if pdb_1==pdb_Conf:
         print ('\n**************************************\nWARNING!!!\nConformational change PDB files are the same:\n--pdbANM: ' + pdb_1 + '\n--pdbConf: ' + pdb_Conf+ '\n**************************************\n')
 
-    # determine the number of assymetric units and check compatability
+    # determine the number of asymmetric units and check compatibility
     pdb1Info = parsePDB(pdb_1,atomT)
     pdbCInfo = parsePDB(pdb_Conf,atomT)
     
@@ -330,7 +330,7 @@ def main(args):
 
    
     if number_of_protomersN != number_of_protomersE:
-        print ('\n**************************************\nERROR!!!:\nConformations contain a different number of assymetric units.\nCheck PDB files!!!\n**************************************\n')
+        print ('\n**************************************\nERROR!!!:\nConformations contain a different number of asymmetric units.\nCheck PDB files!!!\n**************************************\n')
         system.exit()
 
 
@@ -349,18 +349,18 @@ def main(args):
   
     if len(full_residues.keys())>len(common_residues.keys()) or len(empty_residues.keys())>len(common_residues.keys()):
         print ('\n*****************************************************************\nWARNING!!!:\nNot all chains from PDB files were selected\nSuggested: Chain IDs do not match between PDB Files\n')
-        print ("**************************************************************\nCorrelations calculated across "+str(totalC*number_of_protomersN)+" common residues ("+str(totalC)+" per "+str(number_of_protomersN)+" assymetric units).\nBreakdown per chain:\n")
+        print ("**************************************************************\nCorrelations calculated across "+str(totalC*number_of_protomersN)+" common residues ("+str(totalC)+" per "+str(number_of_protomersN)+" asymmetric units).\nBreakdown per chain:\n")
         for k in commonK:
-            print (k+": "+str(len(common_residues[k]))+ " residues per assymetric unit")
+            print (k+": "+str(len(common_residues[k]))+ " residues per asymmetric unit")
             resS=''
             for r in common_residues[k]:
                 resS+=str(r)+" "
             print ("Residues selected include: "+resS+'\n')
         print("*****************************************************************\n")
     else:   
-        print ("\n**************************************************************\nCorrelations calculated across "+str(totalC*number_of_protomersN)+" common residues ("+str(totalC)+" per "+str(number_of_protomersN)+" assymetric units).\nBreakdown per chain:\n")
+        print ("\n**************************************************************\nCorrelations calculated across "+str(totalC*number_of_protomersN)+" common residues ("+str(totalC)+" per "+str(number_of_protomersN)+" asymmetric units).\nBreakdown per chain:\n")
         for k in commonK:
-            print (k+": "+str(len(common_residues[k]))+ " residues per assymetric unit")
+            print (k+": "+str(len(common_residues[k]))+ " residues per asymmetric unit")
             resS=''
             for r in common_residues[k]:
                 resS+=str(r)+" "
@@ -407,12 +407,12 @@ def main(args):
     for out in overlap_list:
         for o in output[out]:
             w.write(o)
-    w.write('\n********************************************************************************************************\nCombinded Overlap = '+str(OverlapC)+'\nCombinded Correlation = '+str(correlationC)+'\n********************************************************************************************************\n')
+    w.write('\n********************************************************************************************************\nCombined Overlap = '+str(OverlapC)+'\nCombined Correlation = '+str(correlationC)+'\n********************************************************************************************************\n')
 
     w.close()
 
 
-#Calculating overlap/correlation per assymetric unit, with chain breakdown
+#Calculating overlap/correlation per asymmetric unit, with chain breakdown
 
  #getIndexesPerChainPerUnit
     IndexesPerChainPerUnit = {}
@@ -428,7 +428,7 @@ def main(args):
    
     outputPerChainPerUnit = []
     for i in range(1,number_of_protomersN+1):
-        outputPerChainPerUnit.append("\n========================================================================================================\n========================================================================================================\n\nASSYMETRIC UNIT: "+str(i)+"\n")
+        outputPerChainPerUnit.append("\n========================================================================================================\n========================================================================================================\n\nASYMMETRIC UNIT: "+str(i)+"\n")
  
         for k in commonK:
             SpecificIndexes = IndexesPerChainPerUnit[i][k]
@@ -448,7 +448,7 @@ def main(args):
             for out in overlap_list:
                 for o in output[out]:
                     outputPerChainPerUnit.append(o)
-            outputPerChainPerUnit.append('\nCombinded Overlap = '+str(OverlapC)+'\nCombinded Correlation = '+str(correlationC)+'\n--------------------------------------------------------------------------------------------------------\n')
+            outputPerChainPerUnit.append('\nCombined Overlap = '+str(OverlapC)+'\nCombined Correlation = '+str(correlationC)+'\n--------------------------------------------------------------------------------------------------------\n')
     
     w = open(outdir + "/BreakDownPerUnit.txt", 'w')
     for o in outputPerChainPerUnit:

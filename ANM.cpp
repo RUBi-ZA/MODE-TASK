@@ -252,7 +252,7 @@ int main(int argc, char *argv[])
 	cout<< "\tResearch Unit in Bioinformatics (RUBi)\t\t"<<endl;
 	cout<< "\tRhodes University, 2017\t\t\t\t"<<endl;
 	cout<< "\tDistributed under GNU GPL 3.0\t\t\t\n"<<endl;
-	cout<< "\thttps://github.com/michaelglenister/NMA-TASK\t\n"<<endl;
+	cout<< "\thttps://github.com/RUBi-ZA/MODE-TASK\t\n"<<endl;
 
 	cout<< "============================================================"<<endl;
 
