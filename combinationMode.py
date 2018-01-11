@@ -481,7 +481,7 @@ if __name__ == "__main__":
     parser.add_argument("--outdir", help="Output directory", default="output")
 
     # custom arguments
-    parser.add_argument("--pdbConf", help="Most accurately performed when the full (not coarse grainined) protein complex of the conformational change is used")
+    parser.add_argument("--pdbConf", help="Most accurately performed when the full (not coarse grained) protein complex of the conformational change is used")
     parser.add_argument("--pdbANM", help="")
     parser.add_argument("--vtMatrix", help="")  # note: change this from vtProtomer
     parser.add_argument("--output", help="Output file", default="ModeSpecificConformationalChange.txt")
