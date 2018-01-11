@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-# coformationalMode.py
-# Identifies normal modes that act in the direction of a conformational change
+# combinationalMode.py
+# Identifies normal modes that act in the direction of a conformational change, for a particular mode, with break down per chain per asymmetric unit
 # Author: Caroline Ross: caroross299@gmail.com
 # August 2017
 
@@ -75,6 +75,8 @@ def calcConformation(delta_r,vtMatrix,nma_index,mode_range):
             if len(common_vector) == len(delta_r):
                 # print "Vectors Match"
                 C = abs(np.corrcoef(correlationMode,correlationDR)[0,1])
+                if len(correlationDR)==1 and len(correlationMode)==1:
+                    print("\nERROR: ONLY ONE COMMON ATOM SELECTED IN CURRENT CHAIN\n...NO CORRELATION CALCULATED FOR A SINGLE DATA POINT...C = NAN\n")
                 for i in range(len(common_vector)):
                     overlap += common_vector[i] * delta_r[i]
 
@@ -479,7 +481,7 @@ if __name__ == "__main__":
     parser.add_argument("--outdir", help="Output directory", default="output")
 
     # custom arguments
-    parser.add_argument("--pdbConf", help="")
+    parser.add_argument("--pdbConf", help="Most accurately performed when the full (not coarse grainined) protein complex of the conformational change is used")
     parser.add_argument("--pdbANM", help="")
     parser.add_argument("--vtMatrix", help="")  # note: change this from vtProtomer
     parser.add_argument("--output", help="Output file", default="ModeSpecificConformationalChange.txt")
@@ -489,7 +491,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.welcome == "true":
-        welcome_msg("Conformation mode", "Caroline Ross (caroross299@gmail.com)")
+        welcome_msg("Combination mode", "Caroline Ross (caroross299@gmail.com)")
 
     print ('!=====================================================================================!')
     print ('! Please check the following:                                                         !')
