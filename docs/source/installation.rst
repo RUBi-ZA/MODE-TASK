@@ -6,8 +6,15 @@ Platform compatibility
 
 A Linux-like operating system is recommended however MODE-TASK is compatible with most platforms which are able to run Python 2.7 or Python 3.6.
 
-Optionally g++ is required to compile C++ from source.
+A compiler is required to compile C++ from source, in this instance we use g++.
 
+Download the project
+-------------------------------
+
+MODE-TASK can be cloned from it's GitHub repository ::
+
+	git clone https://github.com/RUBi-ZA/MODE-TASK.git
+	cd MODE-TASK
 
 Installing dependencies 
 --------------------------
@@ -53,12 +60,3 @@ To install conda follow their `documentation <https://conda.io/docs/user-guide/i
 	Enable Windows Subsystem for Linux (WSL) by following `these instructions <https://msdn.microsoft.com/en-us/commandline/wsl/install_guide>`_.
 
 	Install the system dependencies as with Ubuntu above.
-
-
-Download the project
--------------------------------
-
-MODE-TASK can be cloned from it's GitHub repository ::
-
-	git clone https://github.com/RUBi-ZA/MODE-TASK.git
-	cd MODE-TASK
