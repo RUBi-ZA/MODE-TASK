@@ -2,4 +2,5 @@
 
 cd ..
 
-./visualiseVector.py --pdb output/ComplexCG4.pdb --vectorFile output/EVectors1.txt --atomType CB
+./visualiseVector.py --pdb output/ComplexCG4.pdb --atomType CB --vtMatrix output/VT_values.txt --mode 7
+
