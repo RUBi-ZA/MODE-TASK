@@ -1,4 +1,4 @@
-pyMODE-TASK- pymol plugin
+pyMODE-TASK- PyMOL plugin
 ========================================
 
 Kindly see the pyMODE-TASK documentaion for further detail. 

@@ -33,7 +33,7 @@ Preparation of structure of the mature capsid
 
 1) Download the 3VBS biological assembly (3VBS.pdb1) of the **mature EV-71 capsid** from the PDB.
 
-2) Open 3VBS.pdb1 in PyMol.
+2) Open 3VBS.pdb1 in PyMOL.
 
 3) Use the **split_states 3VBS** command to visualise the full capsid.
 
@@ -54,7 +54,7 @@ Preparation of structure of the A-partcile capsid
 
 1) Download the 4N43 biological assembly (4N43.pdb1) of the **A-partcile EV-71 capsid** from the PDB.
 
-2) Open 4N43.pdb1 in PyMol.
+2) Open 4N43.pdb1 in PyMOL.
 
 3) Use the **split_states 4N43** command to visualise the full capsid.
 
@@ -194,7 +194,7 @@ We will then compare the modes from the respective models and determine if the a
 
 To determine if our modes overlap with the direction of conformational change, we must first determine the conformational change between the crystal structures of the **mature** and **A-particle pentamer.** The **conformationMode.py**  scripts take two UNALIGNED pdb files and the set of all eigenvectors determined for the complex. The script aligns the structures, calculates the known conformational change and then identifies which modes contribute to the change.
 
-Prepare the A-partcile pentamer in PyMol, using the biological assembly: 4n43.pdb1
+Prepare the A-partcile pentamer in PyMOL, using the biological assembly: 4n43.pdb1
 
 Conformation mode
 -------------------------------
