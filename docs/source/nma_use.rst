@@ -437,7 +437,7 @@ Generates a trajectory with arrows that can be viewed in the tool VMD
 
 **Command:** ::
 
-	visualiseVector.py <options> --pdb <PDB file> --vectorFile <text file> --mode <int> --atomType <string>
+	visualiseVector.py <options> --pdb <PDB file> --vtMatrix <text file> --mode <int> --atomType <string>
 
 **Inputs:**
 
@@ -450,7 +450,7 @@ Generates a trajectory with arrows that can be viewed in the tool VMD
 | Mode index value *     | Ingeter    |``--mode``          | Value specifying the index  |
 |                        |            |                    | of the mode                 |
 +------------------------+------------+--------------------+-----------------------------+
-| Vector file *          | File       |``--vectorFile``    | File containing eigen       |
+| VT matrix file *       | File       |``--vtMatrix``      | File containing eigen       |
 |                        |            |                    | vectors                     |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom type *            | String     |``--atomType``      | Specify the type of atom to |
