@@ -4,14 +4,14 @@ Installation
 Platform compatibility
 -------------------------------
 
-A Linux-like operating system is recommended however MODE-TASK is compatible with most platforms which are able to run Python 2.7 or Python 3.6.
+A Linux-like operating system is recommended. However, MODE-TASK is compatible with most platforms which are able to run Python 2.7 or Python 3.6.
 
 A compiler is required to compile C++ from source, in this instance we use g++.
 
 Download the project
 -------------------------------
 
-MODE-TASK can be cloned from it's GitHub repository ::
+MODE-TASK can be cloned from its GitHub repository ::
 
 	git clone https://github.com/RUBi-ZA/MODE-TASK.git
 	cd MODE-TASK

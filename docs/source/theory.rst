@@ -166,11 +166,11 @@ linearly related the user has option to perform nonlinear generalization of PCA 
 extention of normal PCA, where different kernel fucntions (such as linear, RBF, polynomial, and cosine) are used
 to perform non-linear dimensional reduction.
 
-N points are linearly non-separable in dimension (d < N). But there can be a hyperplane dividing them in a higher dimension
-given N points, :math:`(Xi)` it can be maped to an N-dimensional space with
+:math:`N` points are linearly non-separable in dimension (:math:`d` < :math:`N`). But there can be a hyperplane dividing them in a higher dimension
+given :math:`N` points, :math:`(Xi)` it can be maped to an N-dimensional space with
 
 .. math::
-    \Phi \mathbf{(Xi)}  where  \Phi : \mathbf{R^d -> R^n}
+    \Phi \mathbf{(Xi)} \text{ where } \Phi : \mathbf{R^d -> R^n}
 
 :math:`\Phi` is an arbitrary choosen fucntion.
  
@@ -184,11 +184,11 @@ dynamics in cases where conventional PCA is not helpful.
 Incremental PCA
 ----------------  
 
-A major bottleneck in speed of PCA calculation is the availability of computer memory during the loading of 
+A major bottleneck in the speed of PCA calculation is the availability of computer memory during the loading of 
 a MD trajectory.   IPCA is a memory efficient variant of PCA, where only most substantial singular vectors 
 are used to project the input data to a lower dimension. The IPCA algorithm uses a batch data loading approach 
 and the incremental storage of various variables, thus achieving higher memory efficiency. MODE-TASK has
-implemented the IPCA on MD trajectory available through scikit-learn Python library and original algorithm 
+implemented IPCA on MD trajectory, available through scikit-learn Python library on the original algorithm 
 [6]_ [7]_.
  
 .. rubric:: References
@@ -201,18 +201,18 @@ implemented the IPCA on MD trajectory available through scikit-learn Python libr
 
  
 Multi-dimensional scaling (MDS)
-------------------------------
+-------------------------------
 MDS is a technique of dimensionality reduction, where measure of dissimilarity in a dataset is used. 
-It places each input point in N-dimensional space while trying to preserve the original distance matrix as 
+It places each input point in :math:`N`-dimensional space while trying to preserve the original distance matrix as 
 much as possible. MODE-TASK implements metric and nonmetric types of MDS for MD trajectory by using the 
-scikit-learn library [6]_. Euclidean distance between internal coordinates and pairwise RMSD between the MD 
+scikit-learn library [6]_. The Euclidean distance between internal coordinates and pairwise RMSD between the MD 
 frames is used as dissimilarity measures in MODE-TASK.
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE)
 ---------------------------------------------------
 
-t-SNE is another dimensionality reduction for data of high dimensions [8]_. t-SNE has been implemented for 
-protein MD trajectory in MODE-TASK. Like MDS, Euclidean distance between internal coordinates of a protein 
+t-SNE is another dimensionality reduction method for data of high dimensions [8]_. t-SNE has been implemented for 
+protein MD trajectories in MODE-TASK. Like MDS, the Euclidean distance between internal coordinates of a protein 
 structure and pairwise RMSD between a set of atoms are used as measures of dissimilarity.   
 
 .. rubric:: References

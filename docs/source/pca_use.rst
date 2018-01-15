@@ -1,9 +1,9 @@
 PCA Scripts
 ====================================
 
-Principal component analysis (PCA) is a useful statistical technique that has found applications in detection of correlated motion in MD data. Protein dynamics is manifested as a change in molecular structure, or conformation over a time scale. PCA extracts most important motions from a protein's MD trajectory using a covariance/correlation matrix (C-matrix) constructed from atomic coordinates. Different types of coordinate systems (Cartesian or internal coordinates) can be employed to define atomic movement in each time frame of a trajectory. Modes describing the protein motions can be constructed by diagonalizing the C-matrix. It leads to a complete set of orthonormal (orthogonal and normalized) collective modes (eigenvectors) with eigenvalues (variance) that characterize the protein dynamics. The largest eigenvalues represents the most collective spatial motion. When the original mean centered data (MD trajectory) is projected on the eigenvectors, the results are called Principle Components (PC). Diagonalization of C-matrix could be done by Eigenvalue decomposition (EVD) or Singular value decomposition (SVD), with the latter being computationally efficient.  
+Principal component analysis (PCA) is a useful statistical technique that has found applications in detection of correlated motion in MD data. Protein dynamics is manifested as a change in molecular structure, or conformation over a time scale. PCA extracts most important motions from a protein's MD trajectory using a covariance/correlation matrix (C-matrix) constructed from atomic coordinates. Different types of coordinate systems (Cartesian or internal coordinates) can be employed to define atomic movement in each time frame of a trajectory. Modes describing the protein motions can be constructed by diagonalizing the C-matrix. It leads to a complete set of orthonormal (orthogonal and normalized) collective modes (eigenvectors) with eigenvalues (variance) that characterize the protein dynamics. The largest eigenvalues represents the most collective spatial motion. When the original mean centered data (MD trajectory) is projected on the eigenvectors, the results are called Principle Components (PC). Diagonalization of the C-matrix can be done by Eigenvalue decomposition (EVD) or Singular value decomposition (SVD), with the latter being computationally efficient.  
 
-As stated earlier, different representations of protein conformations can be used. One can choose Cartesian coordinates or internal coordinates such as the pairwise distance between atoms, 1-3 angle, torsional angles (psi or phi). Since decomposition of a C-matrix is memory intensive and very often the program will run out of memory, often a coarse graining is required such as selecting CA atoms. The user can select the subset of atoms from the trajectory for the analysis such as CA, backbone atoms or all protein's atoms. It is highly recommended that the user should strip the water from the trajectory before hand, as it would result in faster loading and alleviate the memory issues. 
+As stated earlier, different representations of protein conformations can be used. One can choose Cartesian coordinates or internal coordinates such as the pairwise distance between atoms, 1-3 angle, torsional angles (:math:`\Phi` or :math:`\Psi`). Since decomposition of a C-matrix is memory intensive and very often the program will run out of memory, often a coarse graining is required such as selecting CA atoms. The user can select the subset of atoms from the trajectory for the analysis such as CA, backbone atoms or all protein's atoms. It is highly recommended that the user should strip the water from the trajectory before hand, as it would result in faster loading and alleviate the memory issues. 
 
 PCA uses linear transformation which may not be sufficient in cases where variables are non-linearly related. Thus, the user has the option to perform Nonlinear generalization of PCA such as Kernel PCA (kPCA). Caution should be given while interpreting the kPCA results since it is mapped to a feature space which is inherently different than conformational space. Nevertheless, kPCA is useful in understanding the protein's functions in terms of its conformational dynamics.   
 
@@ -30,21 +30,21 @@ To see the all the available options run the following command:
 | Topology file *        | File       |``-p``              | Topology file               |
 |                        |            |                    | (.gro, .pdb etc)            |
 +------------------------+------------+--------------------+-----------------------------+
-| Output directory       | String     |``-out``            | Name of the output directory|
-|                        |            |                    | .Default is out suffixed by |
-|                        |            |                    | trajectory name             |
+| Output directory       | String     |``-out``            | Name of the output          |
+|                        |            |                    | directory. Default is out,  |
+|                        |            |                    | suffixed by trajectory name |
 +------------------------+------------+--------------------+-----------------------------+
-| Atom group             | String     |``-ag``             | Group of atom for PCA.      |
+| Atom group             | String     |``-ag``             | Group of atoms for PCA.     |
 |                        |            |                    | Default is CA atoms.        |
 | 			 |	      | 		   | Other options are:          |
-|                        |            |                    | all= all atoms,             |
+|                        |            |                    | all = all atoms,            |
 |                        |            |                    | backbone = backbone atoms,  |
-|                        |            |                    | CA= C-alpha atoms,          |
-|                        |            |                    | protein= protein's atoms    |
+|                        |            |                    | CA = C-alpha atoms,         |
+|                        |            |                    | protein = protein atoms     |
 +------------------------+------------+--------------------+-----------------------------+
-| Reference structure    | File       | ``-r``             | Reference structure for RMSD|
-|                        |            |                    | Default: First frame of MD  |
-|                        |            |                    | trajectory                  |
+| Reference structure    | File       | ``-r``             | Reference structure for     |
+|                        |            |                    | RMSD. Default: First frame  |
+|                        |            |                    | of MD trajectory            |
 +------------------------+------------+--------------------+-----------------------------+
 | PCA method             | String     | ``-pt``            | PCA method.                 |
 |                        |            |                    | Default is svd (Single Value|
@@ -59,13 +59,13 @@ To see the all the available options run the following command:
 +------------------------+------------+--------------------+-----------------------------+
 | Number of components   | Int        | ``-nc``		   | Number of components to keep|
 |                        |            |                    | in a PCA object.            |
-|                        |            |                    | Default all the components  |
+|                        |            |                    | Default: All the components |
 |                        |            |                    | will be kept.               |
 +------------------------+------------+--------------------+-----------------------------+
 | Kernel Type            | String     | ``-kt``            | Type of kernel for          |
 |                        |            |                    | KernalPCA.                  |
-|                        |            |                    | default is linear.          |
-|                        |            |                    | Options are :linear, poly,  |
+|                        |            |                    | Default is linear.          |
+|                        |            |                    | Options are: linear, poly,  |
 |                        |            |                    | rbf, sigmoid, cosine,       |
 |                        |            |                    | precomputed                 |
 +------------------------+------------+--------------------+-----------------------------+
@@ -85,7 +85,7 @@ To see the all the available options run the following command:
 |                        | is grace formatted text file|
 +------------------------+-----------------------------+
 | PC plots (.png)	 | 2D Plot of first 3 PCs. Same|
-|                        | as above, but point are     |
+|                        | as above, but points are    |
 |                        | color coded according to MD |
 |                        | time                        |
 +------------------------+-----------------------------+
@@ -97,8 +97,8 @@ To see the all the available options run the following command:
 |                        | the MD time                 |
 +------------------------+-----------------------------+
 | RMSD Modes             | Plot of contribution of     |
-|                        | each resdiues toward first 3|
-|                        | Mode (eigenvectors)         |
+|                        | each resdiues towards the   |
+|                        | first 3 modes (eigenvectors)|
 +------------------------+-----------------------------+
 
 Beside the above-mentioned plots, it also prints useful information on the terminal such as, information about the trajectory, Kaiser-Meyer-Olkein (KMO) index of the trajectory, and cosine contents of the first few PCs. KMO value range from 0 to 1, 1 indicating that the MD has been sampled sufficiently. The cosine content of PCA projections can be used as an indicator if a simulation is converged. Squared cosine value should be more than 0.5.   
@@ -113,7 +113,7 @@ Given a trajectory called ``trajectory.xtc`` and a topology file called ``comple
 
 	``pca.py -t trajectory.xtc -p complex.pdb``
 
-This will perform the singular value decomposition (SVD) based PCA on CA atoms by default. To use other method, see the following examples.
+This will perform the singular value decomposition (SVD) based PCA on CA atoms by default. To use other methods, see the following examples.
 
 
 **SVD PCA**
@@ -147,7 +147,7 @@ To perform the Kernel PCA with rbf kernel
 **Incremental PCA** 
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Incremental PCA (IPCA) is a variant of usual PCA, which uses low-rank approximation of the input MD trajectory. It uses the amount of memory to store the input trajectory which is independent of trajectory size. IPCA is very useful in case the size of trajectory is bigger than the available computer memory.
+Incremental PCA (IPCA) is a variant of usual PCA, which uses low-rank approximation of the input MD trajectory. It uses the amount of memory to store the input trajectory which is independent of trajectory size. IPCA is very useful in case the size of trajectory is larger than that may be handled by the available computer memory.
 
 **Command:** 
 	  ``pca.py -t trajectory.xtc -p complex.pdb -ag CA -pt ipca``
@@ -169,7 +169,7 @@ Run the following command to see the detailed usage and other options:
 PCA on internal coordinates
 -----------------------------
 
-User can also perform the PCA on internal coordinates of a MD trajectory. Options are available for different types of internal coordinates such as:*pairwise distance between atoms*, *1-3 angle between backbone atoms*, *psi angle*, and *phi angle*.  
+User can also perform the PCA on internal coordinates of a MD trajectory. Options are available for different types of internal coordinates such as: *pairwise distance between atoms*, *1-3 angle between backbone atoms*, *psi angle*, and *phi angle*.  
 
 **General Usage:**
 
@@ -182,27 +182,27 @@ User can also perform the PCA on internal coordinates of a MD trajectory. Option
 | Input (*\*required*)   | Input type | Flag               | Description                 |
 +========================+============+====================+=============================+
 | Trajectory file *      | File       |``-t``              | MD trajectory input file    |
-|                        |            |                    | (.xtc, .mdcrd etc.)         |
+|                        |            |                    | (.xtc, .mdcrd, etc.)        |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 | Topology file *        | File       |``-p``              | Topology file               |
-|                        |            |                    | (.gro, .pdb etc)            |
+|                        |            |                    | (.gro, .pdb, etc)           |
 +------------------------+------------+--------------------+-----------------------------+
-| Output directory       | String     |``-out``            | Name of the output directory|
-|                        |            |                    | . Default is out suffixed by|
-|                        |            |                    | trajectory name             |
+| Output directory       | String     |``-out``            | Name of the output          |
+|                        |            |                    | directory. Default is out,  |
+|                        |            |                    | suffixed by trajectory name |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom group             | String     |``-ag``             | Group of atom for PCA.      |
 |                        |            |                    | Default is CA atoms.        |
 | 			 |	      | 		   | Other options are:          |
-|                        |            |                    | all= all atoms,             |
+|                        |            |                    | all = all atoms,            |
 |                        |            |                    | backbone = backbone atoms,  |
-|                        |            |                    | CA= C-alpha atoms,          |
-|                        |            |                    | protein= protein's atoms    |
+|                        |            |                    | CA = C-alpha atoms,         |
+|                        |            |                    | protein = protein atoms     |
 +------------------------+------------+--------------------+-----------------------------+
 | Coordinate Type        | String     | ``-ct``            | Internal cordinate type.    |
 |                        |            |                    | Options are: distance,      |
-|                        |            |                    | angles, phi and, psi        |
+|                        |            |                    | angles, phi, and psi        |
 +------------------------+------------+--------------------+-----------------------------+
 
  
@@ -212,16 +212,17 @@ User can also perform the PCA on internal coordinates of a MD trajectory. Option
 | Output                 | Description                 |
 +========================+=============================+
 | PC plots               | 2D Plot of first 3 PCs. It  |
-|                        | is grace formatted text file|
+|                        | is a grace formatted        |
+|                        | text file                   |
 +------------------------+-----------------------------+
 | PC plots (.png)	 | 2D Plot of first 3 PCs. Same|
 |                        | as above, but points are    |
 |                        | color coded according to MD |
 |                        | time                        |
 +------------------------+-----------------------------+
-| Scree plot 	         | Scree plot of contriution   |
-|                        | of first 100 modes          |
-|                        | (eigenvectors)              | 
+| Scree plot 	         | Scree plot of the           |
+|                        | contribution of the first   |
+|                        | 100 modes (eigenvectors)    | 
 +------------------------+-----------------------------+
 
 **Specific Examples:** 
@@ -259,46 +260,49 @@ MDS is a tool to visualize the similarity or dissimilarity in a dataset. Two typ
 | Input (*\*required*)   | Input type | Flag               | Description                 |
 +========================+============+====================+=============================+
 | Trajectory file *      | File       |``-t``              | MD trajectory input file    |
-|                        |            |                    | (.xtc, .mdcrd etc.)         |
+|                        |            |                    | (.xtc, .mdcrd, etc.)        |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 | Topology file *        | File       |``-p``              | Topology file               |
-|                        |            |                    | (.gro, .pdb etc)            |
+|                        |            |                    | (.gro, .pdb, etc)           |
 +------------------------+------------+--------------------+-----------------------------+
-| Output directory       | String     |``-out``            | Name of the output directory|
-|                        |            |                    | . Default is out suffixed by|
-|                        |            |                    | trajectory name             |
+| Output directory       | String     |``-out``            | Name of the output          |
+|                        |            |                    | directory. Default is out,  |
+|                        |            |                    | suffixed by trajectory name |
 +------------------------+------------+--------------------+-----------------------------+
-| Atom group             | String     |``-ag``             | Group of atom for MDS.      |
+| Atom group             | String     |``-ag``             | Group of atoms for MDS.     |
 |                        |            |                    | Default is CA atoms.        |
 |                        |            |                    | Other options are:          |
-|                        |            |                    | all= all atoms,             |
+|                        |            |                    | all = all atoms,            |
 |                        |            |                    | backbone = backbone atoms,  |
-|                        |            |                    | CA= C-alpha atoms,          |
-|                        |            |                    | protein= protein's atoms    |
+|                        |            |                    | CA = C-alpha atoms,         |
+|                        |            |                    | protein = protein atoms     |
 +------------------------+------------+--------------------+-----------------------------+
 | MDS type               | String     | ``-mt``            | Type of MDS. Options are    |
-|                        |            |                    | nm=non-metric, metric=metric|
+|                        |            |                    | nm = non-metric,            |
+|                        |            |                    | metric = metric             |
 +------------------------+------------+--------------------+-----------------------------+
 | Dissimilarity type     | String     | ``-dt``            | Type of dissimilarity matrix|
 |                        |            |                    | to use. euc = Euclidean     |
 |                        |            |                    | distance between internal   |
-|                        |            |                    | coordinates, rmsd= pairwise |
+|                        |            |                    | coordinates, rmsd = pairwise|
 |                        |            |                    | RMSD. Default is rmsd       |
 +------------------------+------------+--------------------+-----------------------------+
-| Coordinate type        | String     | ``-ct``            | Internal coordinates type.  |
-|                        |            |                    | Default is pairwise distance|
+| Coordinate type        | String     | ``-ct``            | Internal coordinate type.   |
+|                        |            |                    | Default is pairwise         |
+|                        |            |                    | distance.                   |
 |                        |            |                    | Only used if Dissimilarity  |
-|                        |            |                    | type is euclidean           |
+|                        |            |                    | type is Euclidean           |
 +------------------------+------------+--------------------+-----------------------------+
-| Atom indices           | String     | ``-ai``            | Group of atom for pairwise  |
+| Atom indices           | String     | ``-ai``            | Group of atoms for pairwise |
 |                        |            |                    | distance. Default is CA     |
 |                        |            |                    | atoms. Other options are:   |
-|                        |            |                    | all= all atoms,backbone =   |
-|                        |            |                    | backbone atoms, alpha=      |
-|                        |            |                    | C-alpha atoms,heavy= all non|
-|                        |            |                    | hydrogen atoms, minimal=CA, |
-|                        |            |                    | CB,C,N,O atoms              |
+|                        |            |                    | all = all atoms,backbone =  |
+|                        |            |                    | backbone atoms, alpha =     |
+|                        |            |                    | C-alpha atoms,heavy = all   |
+|                        |            |                    | non-hydrogen atoms,         |
+|                        |            |                    | minimal = CA,               |
+|                        |            |                    | CB, C, N, O atoms           |
 +------------------------+------------+--------------------+-----------------------------+
 
  
@@ -308,8 +312,8 @@ MDS is a tool to visualize the similarity or dissimilarity in a dataset. Two typ
 | Output                 | Description                 |
 +========================+=============================+
 | PC plots               | 2D Plot of the first 3 PCs. |
-|                        | It                          |
-|                        | is grace formatted text file|
+|                        | It is a grace               |
+|                        | formatted text file         |
 +------------------------+-----------------------------+
 | PC plots (.png)        | 2D Plot of the first 3 PCs. |
 |                        | Same                        |
@@ -342,7 +346,7 @@ Run the following command to see the detailed usage and other options:
 t-SNE on MD trajectory
 --------------------------------------------------------------------
 
-t-distributed Stochastic Neighbor Embedding (t-SNE) is a tool for dimensionality reduction. It is a variant of stochastic  neighbor embedding technique. t-SNE uses a measure of dissimilarity, which in case of MD trajectory may be the Euclidean distance between internal coordinates or pairwise RMSD.    
+t-distributed Stochastic Neighbor Embedding (t-SNE) is a tool for dimensionality reduction. It is a variant of stochastic neighbor embedding technique. t-SNE uses a measure of dissimilarity, which, in the case of MD trajectory, may be the Euclidean distance between internal coordinates or pairwise RMSD.    
 
 
 **General Usage:**
@@ -356,43 +360,44 @@ t-distributed Stochastic Neighbor Embedding (t-SNE) is a tool for dimensionality
 | Input (*\*required*)   | Input type | Flag               | Description                 |
 +========================+============+====================+=============================+
 | Trajectory file *      | File       |``-t``              | MD trajectory input file    |
-|                        |            |                    | (.xtc, .mdcrd etc.)         |
+|                        |            |                    | (.xtc, .mdcrd, etc.)        |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 | Topology file *        | File       |``-p``              | Topology file               |
-|                        |            |                    | (.gro, .pdb etc)            |
+|                        |            |                    | (.gro, .pdb, etc)           |
 +------------------------+------------+--------------------+-----------------------------+
-| Output directory       | String     |``-out``            | Name of the output directory|
-|                        |            |                    | . Default is out suffixed by|
-|                        |            |                    | trajectory name             |
+| Output directory       | String     |``-out``            | Name of the output          |
+|                        |            |                    | directory. Default is out,  |
+|                        |            |                    | suffixed by trajectory name |
 +------------------------+------------+--------------------+-----------------------------+
-| Atom group             | String     |``-ag``             | Group of atom for t-SNE.    |
+| Atom group             | String     |``-ag``             | Group of atoms for t-SNE.   |
 |                        |            |                    | Default is CA atoms.        |
 | 			 |	      | 		   | Other options are:          |
-|                        |            |                    | all= all atoms,             |
+|                        |            |                    | all = all atoms,            |
 |                        |            |                    | backbone = backbone atoms,  |
-|                        |            |                    | CA= C-alpha atoms,          |
-|                        |            |                    | protein= protein's atoms    |
+|                        |            |                    | CA = C-alpha atoms,         |
+|                        |            |                    | protein = protein atoms     |
 +------------------------+------------+--------------------+-----------------------------+
 | Coordinate type        | String     | ``-ct``            | Internal coordinates type.  |
 |                        |            |                    | Default is pairwise distance|
 |                        |            |                    | . Only used if Dissimilarity|
-|                        |            |                    | type is euclidean           |
+|                        |            |                    | type is Euclidean           |
 +------------------------+------------+--------------------+-----------------------------+
 | Dissimilarity type     | String     | ``-dt``            | Type of dissimilarity matrix|
 |                        |            |                    | to use. euc = Euclidean     |
 |                        |            |                    | distance between internal   |
-|                        |            |                    | coordinates, rmsd= pairwise |
+|                        |            |                    | coordinates, rmsd = pairwise|
 |                        |            |                    | RMSD. Default is rmsd       |
 +------------------------+------------+--------------------+-----------------------------+
-| Atom indices           | String     | ``-ai``            | Group of atom for pairwise  |
+| Atom indices           | String     | ``-ai``            | Group of atoms for pairwise |
 |                        |            |                    | distance. Default is CA     |
 |                        |            |                    | atoms. Other options are:   |
-|                        |            |                    | all= all atoms,backbone =   |
-|                        |            |                    | backbone atoms, alpha=      |
-|                        |            |                    | C-alpha atoms,heavy= all non|
-|                        |            |                    | hydrogen atoms, minimal=CA, |
-|                        |            |                    | CB,C,N,O atoms              |
+|                        |            |                    | all = all atoms, backbone = |
+|                        |            |                    | backbone atoms, alpha =     |
+|                        |            |                    | C-alpha atoms, heavy = all  |
+|                        |            |                    | non-hydrogen atoms,         |
+|                        |            |                    | minimal = CA,               |
+|                        |            |                    | CB, C, N, O atoms           |
 +------------------------+------------+--------------------+-----------------------------+
 
  

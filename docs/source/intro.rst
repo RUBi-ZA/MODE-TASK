@@ -16,7 +16,7 @@ To contribute to the documentation please follow `this guide`_.
 
 .. _this guide: https://docs.readthedocs.io/en/latest/getting_started.html
 
-To contribute to the source code submit a pull request to our `Github repository`_.
+To contribute to the source code, submit a pull request to our `Github repository`_.
 
 .. _Github repository: https://github.com/RUBi-ZA/MODE-TASK
 
