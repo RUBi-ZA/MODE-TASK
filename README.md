@@ -4,6 +4,8 @@
 
 Collection of tools for analysing normal modes and performing principal component analysis
 
+##for downloading pyMODE-TASK - a PyMol plugin, click here. 
+
 ## Installation
 
 *Download the project:*
