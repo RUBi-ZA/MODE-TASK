@@ -128,7 +128,7 @@ def visualise(pdb_lines,atomT,mode,vectors,outdir,head,tail,arrowLength,coloursS
 
     else:
         structure = 'VISUAL_AUNITS'
-        print (aUnits)
+        
         new_info = defineAsymmetricUnits(pdb_lines,vectors,aUnits,atomT)
         c_beta_atoms = new_info[0]
         vectors = new_info[1]
@@ -145,6 +145,9 @@ def visualise(pdb_lines,atomT,mode,vectors,outdir,head,tail,arrowLength,coloursS
         colours = ['red','blue','ochre','purple','yellow','red','cyan','pink','silver','violet','ochre','blue2','cyan2','iceblue','lime','green2','green3','violet','violet2','mauve']
     else:
         colours = coloursSpecified.strip().split(',')
+        for i,col in enumerate(colours):
+            col = col.lower()
+            colours[i] = col
     colourByChain = {}
 
     if chainSpecified !='all':
