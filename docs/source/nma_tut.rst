@@ -17,7 +17,7 @@ First create a directory for all the MODE-TASK scripts using the Linux command:
 
 	mkdir ModeTask
 
-Copy the entire contents of the MODE-TASK Scripts in to the MODE-TASK directory.
+Copy the entire contents of the MODE-TASK Scripts into the MODE-TASK directory.
 
 Within this directory create a folder called **Tutorial:**
 
@@ -102,7 +102,7 @@ b) Command line output
 	Completed at: 2017-12-12 11:34:36.541637
 	- Total time: 0:00:00
 
-Note that, the same set of 122 atoms from each protomer were selected for CG3, likewise, the same set of 54 aatoms from each protomer were selected for CG4 – thus the symmetry of the pentamer is retained.
+Note that, the same set of 122 atoms from each protomer were selected for CG3, likewise, the same set of 54 atoms from each protomer were selected for CG4 – thus the symmetry of the pentamer is retained.
 
 
  .. figure:: ../img/nma_tut0.png
@@ -114,12 +114,12 @@ Note that, the same set of 122 atoms from each protomer were selected for CG3, l
 Mode decomposition
 -------------------------------
 
-The ANM.cpp script accepts a PDB file and a cutoff distance. The script constructs the Hessian matrix connecting all CB atoms within the specific cutoff radius.  The script then performs singular value decompostion to return the eigenvalues and eigenvectors of the Hessian matrix. 
+The ANM.cpp script accepts a PDB file and a cutoff distance. The script constructs the Hessian matrix connecting all CB atoms within the specific cutoff radius.  The script then performs singular value decomposition to return the eigenvalues and eigenvectors of the Hessian matrix. 
 
 **Input parameters:**
 
 * pdb: path to PDB file
-* cutoff: cutoff radius in A. The script will construct an eleastic network model by connecting all atoms that interact within the cutoff distance (default = 15Å)
+* cutoff: cutoff radius in A. The script will construct an elastic network model by connecting all atoms that interact within the cutoff distance (default = 15Å)
 * outdir: folder in which output is saved
 
 
@@ -160,7 +160,7 @@ Example of the command line output:
 
 3) Run ./ANM to analyse  EV71_CG3.pdb
 
-3.1) First make a sub-directory to avoid overwriting of your previous ANM outout:
+3.1) First make a sub-directory to avoid overwriting of your previous ANM output:
 
  ::
 
@@ -194,7 +194,7 @@ We will then compare the modes from the respective models and determine if the a
 
 To determine if our modes overlap with the direction of the conformational change, we must first determine the conformational change between the crystal structures of the **mature** and **A-particle pentamer.** The **conformationMode.py**  scripts take two UNALIGNED pdb files and the set of all eigenvectors determined for the complex. The script aligns the structures, calculates the known conformational change and then identifies which modes contribute to the change.
 
-Prepare the A-partcile pentamer in PyMol, using the biological assembly: 4n43.pdb1
+Prepare the A-particle pentamer in PyMol, using the biological assembly: 4n43.pdb1
 
 Conformation mode
 -------------------------------
@@ -312,7 +312,7 @@ and perform the calculation over the modes 9 and 30.
 
 The command line output is the same as described for conformationMode.py 
 
-The script will also print out twe text files:
+The script will also print out two text files:
 
 1) A file that specifies that calculated overlap and correlation over the full model:
 
@@ -421,7 +421,7 @@ From each model we have identified which mode overlaps the most with the directi
 This option uses the default settings:
 Radius of arrow head = 2.20
 Radius of arrow tail = 0.80
-Arrow are coloured by chain in acsending order of PDB file according to the list:
+Arrow are coloured by chain in ascending order of PDB file according to the list:
 
 In a biological assembly, respective chains from each asymmetric unit are presented in the same colour.
 The script can handle 20 non-identical changes, after which all arrows will be coloured black by default
@@ -586,7 +586,7 @@ Assembly Covariance
 
 Now, we will use the assemblyCovariance.py script to calculate to plot various covariance matrices of the complex. For this example we will use the EV71_CG3 Model.
 
-a) First, we will plot the overall covriance for the full model, as calculated over all modes:
+a) First, we will plot the overall covariance for the full model, as calculated over all modes:
 
 	assemblyCovariance.py --pdb Tutorial/EV71_CG3.pdb --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --modes all --outdir Tutorial/CG3/ --atomType CB
 
@@ -601,13 +601,13 @@ The above function will produce a plot corresponding to the full model, AND as a
    :align: center
    Fig: Overall covariance matrix for a single protomer within the EV71_CG3 Model
 
-a) Now we will use the addtional options to calculate the covariance for mode 7 only (the first non-trivial mode). We will also plot the covriance between the asymmetric units 1 and 3, and then zoom
-   into chain A of the first asymmetric unit. We have also adjusted the values of the axes to increase sensivity for a single mode.
+a) Now we will use the additional options to calculate the covariance for mode 7 only (the first non-trivial mode). We will also plot the covariance between the asymmetric units 1 and 3, and then zoom
+   into chain A of the first asymmetric unit. We have also adjusted the values of the axes to increase sensitivity for a single mode.
 
 	assemblyCovariance.py --pdb Tutorial/EV71_CG3.pdb --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --modes 7 --aUnits 1,3 --zoom 1,A --outdir Tutorial/CG3/M7 --atomType CB
         --vmin -0.005 --vmax 0.005
 
-The above function will produce a plot corresponding to the full model for mode 7, a second plot that zooms into covariance between the first and thrid asymmetric units, and a third plot for the covarince of Chain A and Unit 1.
+The above function will produce a plot corresponding to the full model for mode 7, a second plot that zooms into covariance between the first and thrid asymmetric units, and a third plot for the covariance of Chain A and Unit 1.
 
 
  .. figure:: ../img/Covariance_FullMode7.png
