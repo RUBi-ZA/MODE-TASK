@@ -308,7 +308,7 @@ Identifies modes responsible for the conformational change of a molecule.
 | PDB *                  | File       |``--pdbANM``        | PDB file that was used to   |
 |                        |            |                    | run ANM                     |
 +------------------------+------------+--------------------+-----------------------------+
-| VT matrix file *       | File       |``--vtMatrix``      | Eigenvalues obtained from   |
+| VT matrix file *       | File       |``--vtMatrix``      | Eigenvetors obtained from   |
 |                        |            |                    | ANM script                  |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom type *            | String     |``--atomType``      | Specify the type of atom to |
@@ -318,7 +318,7 @@ Identifies modes responsible for the conformational change of a molecule.
 +------------------------+------------+--------------------+-----------------------------+
 | Output file            | File       |``--output``        | Specify a name for the PDB	 |
 |                        |            |                    | output file. Default:       |
-|                        |            |                    | ModesOfConfChange.pdb       |
+|                        |            |                    | ModesOfConfChange.txt       |
 +------------------------+------------+--------------------+-----------------------------+
 
 **Outputs:**
@@ -352,7 +352,7 @@ asymmetric unit for the specified modes. This allows the user to determine which
 | PDB *                  | File       |``--pdbANM``        | PDB file that was used to   |
 |                        |            |                    | run ANM                     |
 +------------------------+------------+--------------------+-----------------------------+
-| VT matrix file *       | File       |``--vtMatrix``      | Eigenvalues obtained from   |
+| VT matrix file *       | File       |``--vtMatrix``      | Eigenvetors obtained from   |
 |                        |            |                    | ANM script                  |
 +------------------------+------------+--------------------+-----------------------------+
 | Modes *                | Integer    |``--modes``         | Calculate the overlap for a |
