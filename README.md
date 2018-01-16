@@ -4,7 +4,7 @@
 
 Collection of tools for analysing normal modes and performing principal component analysis
 
-##for downloading pyMODE-TASK - a PyMol plugin, click here. 
+pyMODE-TASK - a PyMol plugin for MODE-TASK is [available here](https://github.com/RUBi-ZA/pyMODE-TASK).
 
 ## Installation
 
