@@ -367,7 +367,7 @@ asymmetric unit for the specified modes. This allows the user to determine which
 +------------------------+------------+--------------------+-----------------------------+
 | Output file            | File       |``--output``        | Specify a name for the PDB	 |
 |                        |            |                    | output file. Default:       |
-|                        |            |                    | ModesOfConfChange.pdb       |
+|                        |            |                    | ModesOfConfChange.txt       |
 +------------------------+------------+--------------------+-----------------------------+
 
 **Outputs:**
