@@ -23,10 +23,10 @@ Takes a protein structure or biological assembly and coarse grains to select a s
 |                        |            |                    | Only CA or CB accepted.     |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
-| Course grain level     | Comma      |``--cg``            | Level/Levels by which to    |
+| Coarse grain level     | Comma      |``--cg``            | Level/Levels by which to    |
 |                        | Separted   |                    | coarse grain protein.       |
 |                        | String     |                    | Lower is less coarse grained|
-|                        |            |                    | is less coarse grained.     |
+|                        |            |                    |                             |
 |                        |            |                    | E.g --cg 4                  |
 |                        |            |                    |     OR                      |
 |                        |            |                    | E.g --cg 1,3,5              |
@@ -55,7 +55,7 @@ Takes a protein structure or biological assembly and coarse grains to select a s
 ANM
 -------------------------------
 
-Construct an elastic network model of a protein complex and solves for the eigenvalues and eigenvectors of the system. 
+Constructs an elastic network model of a protein complex and solves for the eigenvalues and eigenvectors of the system. 
 
 **Compile:** ::
 
@@ -108,7 +108,7 @@ Calculates and returns the diagonals of the correlation matrix for a given set o
 The user can also compare the msf between two protein complexes. Let's say that the user has performed NMA on two coarse grained models of the same protein, and now wants to compare
 if the additional coarse graining decreased the accuracy. If we obtain the same mean square fluctuations for
 each residue, then in each model we can say that the results are comparable regardless of the coarse graining
-level. Obviously, we must compare only the residues that are common in each model. Hence we specify common residues
+level. Obviously, we must compare only the residues that are common in each model. Hence, we specify common residues.
 
 **Command:** ::
 
@@ -134,29 +134,32 @@ level. Obviously, we must compare only the residues that are common in each mode
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
 | Comparison PDB         | File       |``--pdbC``          | When assigned, calculates   |
-|                        |            |                    | mean square fluctautions    |
-|                        |            |                    | based of common residues    |
-|                        |            |                    | between the two proteins    |
+|                        |            |                    | mean square fluctuations    |
+|                        |            |                    | based on common residues    |
+|                        |            |                    | between the two systems.    |
 +------------------------+------------+--------------------+-----------------------------+
-| W matrix file          | File       |``--wMatrixC``	   | When assigned W values from |
-| for pdbC               |            |                    | ANM for Comparison PDB      |
+| W matrix file          | File       |``--wMatrixC``	   | When assigned, calculates   |
+| for pdbC               |            |                    | W values from ANM for       |
+|                        |            |                    | Comparison PDB              |
 +------------------------+------------+--------------------+-----------------------------+
-| VT matrix file         | File       |``--vtMatrixC``	   | When assigned VT values from|
-| for pdbC               |            |                    | ANM for Comparison PDB      |
+| VT matrix file         | File       |``--vtMatrixC``	   | When assigned, calculates   |
+| for pdbC               |            |                    | VT values from ANM for      |
+|                        |            |                    | Comparison PDB              |
 +------------------------+------------+--------------------+-----------------------------+
 | Selected modes         | String     |``--modes``         | MSFs will be calculated     |
 |                        |            |                    | over specified modes.       |
 |                        |    OR      |                    | Options:                    | 
-|	                 |            |                    | 1) Single mode E.g --modes 7|
-|                        | Colon      |                    | 2) A range E.g --modes 7:20 |
-|                        | Separated  |                    | 3) A list E.g --modes 8,9,11| 
+|	                 |            |                    | 1) Single mode E.g          |
+|	                 | Colon      |                    | --modes 7;                  |
+|                        | Separated  |                    | 2) A range E.g --modes 7:20;|
+|                        | String     |                    | 3) A list E.g --modes 8,9,11| 
+|                        |            |                    |                             |
+|                        |    OR      |                    | If unspecified MSFs will be |   
+|                        |            |                    | calculated for the first    |                           
+|                        | Comma      |                    | twenty slowest modes (7:27) |
+|                        | Separated  |                    |                             | 
 |                        | String     |                    |                             |
-|                        |            |                    | If unspecified MSFs will be |   
-|                        |    OR      |                    | calculated for the first    |                           
-|                        |            |                    | twenty slowest modes (7:27) |
-|                        | Comma      |                    |                             | 
-|                        | Separated  |                    |                             |
-|                        | String     |                    |                             |
+|                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+ 
 
 
@@ -189,9 +192,9 @@ Assembly Covariance
 
 Calculates and plots Covariance matrices
 
-The user can compare the Covariance between different regions in the biological assembly, or can calcaulate the Covariance across the full assembly complex.
+The user can compare the Covariance between different regions in the biological assembly, or can calculate the Covariance across the full assembly complex.
 The user also has the option to perform the calculation over a specified list of modes or a mode range. The function also has a zoom option that allows the
-user create a Covraiance plot for a particular chain within a particular asymmetric unit. 
+user to create a Covariance plot for a particular chain within a particular asymmetric unit. 
 
 **Command:** ::
 
@@ -221,34 +224,36 @@ user create a Covraiance plot for a particular chain within a particular asymmet
 |                        |    OR      |                    | modes                       |
 |                        |            |                    |                             | 
 |                        | Colon      |                    | Options:                    | 
-|                        | Separated  |                    | 1) All modes E.g --modes all|
-|                        | String     |                    | 2) Single mode E.g --modes 7|                             
-|            	         |            |                    | 3) A range E.g --modes 7:20 |                               
-|                        |    OR      |                    | 4) A list E.g --modes 8,9,11|               
-|                        |            |                    |                             |
-|                        | Comma      |                    | If unspecified Covariance   |  
-|                        | Separated  |                    | will be  calculated for all |   
-|                        | String     |                    | modes.                      | 
-+------------------------+------------+--------------------+-----------------------------+ 
+|                        | Separated  |                    | 1) All modes E.g            |
+|                        | String     |                    | --modes all;                |
+|                        |            |                    | 2) Single mode E.g          |
+|                        |    OR      |                    | --modes 7;                  |
+|            	         |            |                    | 3) A range E.g --modes 7:20;|
+|                        | Comma      |                    | 4) A list E.g --modes 8,9,11|
+|                        | Separated  |                    |                             |
+|                        | String     |                    | If unspecified, Covariance  |
+|                        |            |                    | will be  calculated for all |
+|                        |            |                    | modes.                      |
++------------------------+------------+--------------------+-----------------------------+
 | Asymmetric Units       | String     |``--aUnits``        | Covariance will be          | 
 |                        |            |                    | calculated and plotted for  |
 |                        |    OR      |                    | specified asymmetric units  |
 |                        |            |                    |                             | 
 |                        | Comma      |                    | Options:                    | 
 |                        | Separated  |                    | 1) Single unit              |
-|                        | String     |          	   |    E.g --aUnits 5           |               
+|                        | String     |          	   |    E.g --aUnits 5;          |               
 |                        |            |                    | 2) A list of units          |                  
 |                        |            |                    |    E.g --aUnits 1,3         | 
 |                        |            |                    |                             |
-|                        |            |                    | If unspecified Covariance   | 
+|                        |            |                    | If unspecified, Covariance  | 
 |                        |            |                    | will be calculated for the  |   
 |                        |            |                    | first asymmetric unit in    |                         
 |                        |            |                    | the assembly.               |                           
 +------------------------+------------+--------------------+-----------------------------+ 
-| Zoom                   | Comma      |``--zoom``          | If specified:Covariance will| 
-|                        | Separated  |                    | be calculated and plotted   |
-|                        | String     |                    | for a specified chain in a  |
-|                        |            |                    | specified unit.             | 
+| Zoom                   | Comma      |``--zoom``          | If specified, Covariance    | 
+|                        | Separated  |                    | will be calculated and      |
+|                        | String     |                    | plotted for a specified     |
+|                        |            |                    | chain in a specified unit.  | 
 |                        |            |                    | Only format accepts is:     | 
 |                        |            |                    | [Unit,Chain]                |
 |                        |            |          	   |    E.g --zoom 1,2           |               
@@ -257,7 +262,7 @@ user create a Covraiance plot for a particular chain within a particular asymmet
 |                        |            |                    |(Chain specifier must match  |
 |                        |            |                    | chain label in PDB file)    |
 |                        |            |                    | The above calculates the    | 
-|                        |            |                    | covairance for the second   |   
+|                        |            |                    | covariance for the second   |   
 |                        |            |                    | chain in the first          |                         
 |                        |            |                    | asymmetric unit.            |                           
 +------------------------+------------+--------------------+-----------------------------+ 
@@ -300,10 +305,10 @@ Identifies modes responsible for the conformational change of a molecule.
 | Unaligned PDB file *   | File       |``--pdbConf``       | PDB file of the             |
 |                        |            |                    | conformational change       |
 +------------------------+------------+--------------------+-----------------------------+
-| PDB *                  | File       |``--pdbANM``        | PDB file that was useed to  |
+| PDB *                  | File       |``--pdbANM``        | PDB file that was used to   |
 |                        |            |                    | run ANM                     |
 +------------------------+------------+--------------------+-----------------------------+
-| VT matrix file *       | File       |``--vtMatrix``      | Eigenavalues obtained from  |
+| VT matrix file *       | File       |``--vtMatrix``      | Eigenvalues obtained from   |
 |                        |            |                    | ANM script                  |
 +------------------------+------------+--------------------+-----------------------------+
 | Atom type *            | String     |``--atomType``      | Specify the type of atom to |
@@ -344,10 +349,10 @@ asymmetric unit for the specified modes. This allows the user to determine which
 | Unaligned PDB file *   | File       |``--pdbConf``       | PDB file of the             |
 |                        |            |                    | conformational change       |
 +------------------------+------------+--------------------+-----------------------------+
-| PDB *                  | File       |``--pdbANM``        | PDB file that was useed to  |
+| PDB *                  | File       |``--pdbANM``        | PDB file that was used to   |
 |                        |            |                    | run ANM                     |
 +------------------------+------------+--------------------+-----------------------------+
-| VT matrix file *       | File       |``--vtMatrix``      | Eigenavalues obtained from  |
+| VT matrix file *       | File       |``--vtMatrix``      | Eigenvalues obtained from   |
 |                        |            |                    | ANM script                  |
 +------------------------+------------+--------------------+-----------------------------+
 | Modes *                | Integer    |``--modes``         | Calculate the overlap for a |
@@ -436,7 +441,7 @@ Generates a set of frames, where eigenvectors are plotted as a set of unit vecto
 |                        |            |                    |  doubles the default length |
 |                        |            |                    |  and                        |
 |                        |            |                    |  --arrowLength 0.5          |
-|                        |            |                    |  halves the default length  |   
+|                        |            |                    |  halves the default length  |
 +------------------------+------------+--------------------+-----------------------------+
 | Colours                | Comma      |``--colourByChain`` | Colour the vectors arrows   |
 |                        | Separted   |                    | of each chain.              |

@@ -4,7 +4,7 @@ PCA Tutorial
 PCA of a MD trajectory
 -------------------------------
 
-In this tutorial, we will be performing PCA on a MD trajectory of protein. Before doing the PCA we need to prepare the trajectory which includes removing periodicity and removing water molecules. Most of the MD packages have options to do this. We will be using GROMACS in this tutorial. We will be using .xtc format for trajectory and .pdb for topology file. Any other common trajectory format should also work with MODE-TASK. 
+In this tutorial, we will be performing PCA on a MD trajectory of protein. Before doing the PCA, we need to prepare the trajectory which includes removing periodicity and removing water molecules. Most of the MD packages have options to do this. We will be using GROMACS in this tutorial. We will be using .xtc format for trajectory and .pdb for topology file. Any other common trajectory format should also work with MODE-TASK. 
 
 **1. Preparation of trajectory**
 
@@ -26,7 +26,7 @@ and select protein
 
 **2. Create a working directory**
 
-First create a directory for all the MODE-TASK scripts using the Linux command:
+First, create a directory for all the MODE-TASK scripts using the Linux command:
 
  ::
 
@@ -59,7 +59,7 @@ Run the following command to perform the singular value decomposition (SVD) PCA 
 
 **(a)-** Various output files are written to the out_md_01_noWAT.xtc directory. 
 2D Plot of first 3 PCs, Scree plot, RMSD plot, and RMSD Modes plot. 
-For details about these output files please refer to the MODE-TASK documentation. 
+For details about these output files, please refer to the MODE-TASK documentation. 
 
 **(b)-** Command line output: Following output is redirected to command line. 
 
@@ -99,24 +99,24 @@ You can also visualize the .png format figure plot by opening it with your favor
 .. figure:: ../img/pca_tut1.png
    :align: center
 
-   Fig: plot of PC1 and PC2 
+   plot of PC1 and PC2 
 
 
 .. figure:: ../img/pca_tut2.png
    :align: center
 
-   Fig: plot of PC1 and PC3
+   plot of PC1 and PC3
 
 .. figure:: ../img/pca_tut3.png
    :align: center
 
-   Fig: Explained variance of PCs 
+   Explained variance of PCs 
 
 
 
 **3.2. PCA on internal coordinates**
 
-One can also do PCA on internal coordinates of a MD trajectory. Options are available for different types of internal coordinates such as, pairwise distance between atoms, 1-3 angle between backbone atoms, psi angle, and phi angle. Run the following command to do PCA on pairwise distance between CA atoms. 
+One can also do PCA on internal coordinates of a MD trajectory. Options are available for different types of internal coordinates such as, pairwise distance between atoms, 1-3 angle between backbone atoms, phi angle, and psi angle. Run the following command to do PCA on pairwise distance between CA atoms. 
 
  ::
 
@@ -128,7 +128,7 @@ Run the following command to do PCA on backbone psi angles.
 
 	internal_pca.py -t Tutorial/md_01_noWAT.xtc -p Tutorial/complex.pdb -ag CA -ct psi
 
-Output files include 2D plot of first 3 PCs and scree plot, which can be visualized using xmgrace as described earlier. 
+Output files include 2D plot of first 3 PCs and Scree plot, which can be visualized using xmgrace as described earlier. 
 
 MDS (Multi-dimensional scaling) on a MD trajectory
 ----------------------------------------------------
@@ -139,17 +139,17 @@ To perform the MDS on pairwise RMSD between C-alpha atoms, run the following com
 
 	mds.py -t Tutorial/md_01_noWAT.xtc -p Tutorial/complex.pdb -ag CA -dt rmsd
 
-Output files include 2D plot of first 3 PCs. Which can be visualize using xmgrace as described earlier.
+Output files include 2D plot of first three PCs which can be visualized using xmgrace as described earlier.
 
 .. figure:: ../img/mmds1.png
    :align: center
 
-   Fig: plot of PC1 and PC2  
+   plot of PC1 and PC2  
 
 .. figure:: ../img/mmds2.png
    :align: center
 
-   Fig: plot of PC1 and PC3  
+   plot of PC1 and PC3  
 
 t-SNE on a MD trajectory
 -------------------------------
@@ -165,10 +165,10 @@ Output files include 2D plot of the first 3 PCs, which can be visualize using xm
  .. figure:: ../img/tsne1.png
    :align: center
 
-   Fig: plot of PC1 and PC2  
+   plot of PC1 and PC2  
 
 .. figure:: ../img/tsne2.png
    :align: center
 
-   Fig: plot of PC1 and PC3  
+   plot of PC1 and PC3  
 
