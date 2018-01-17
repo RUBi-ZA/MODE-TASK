@@ -5,6 +5,13 @@ MODE-TASK is a collection of tools for analysing normal modes and performing pri
 
 Novel coarse graining techniques allow for analysis of very large assemblies without the need for high performance computing clusters and workstations.
 
+PyMOL Plugin
+------------------
+
+A PyMOL plugin for MODE-TASK has been made available `here`_.
+
+.. _here: https://github.com/RUBi-ZA/pyMODE-TASK
+
 Cite this project
 ------------------
 

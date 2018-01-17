@@ -1,6 +1,6 @@
 pyMODE-TASK- PyMOL plugin
 ========================================
 
-See the pyMODE-TASK documentaion for further detail. 
+Kindly see the `pyMODE-TASK documentaion`_ for further details. 
 
-http://pymode-task.readthedocs.io/en/latest/index.html
+.. _pyMODE-TASK documentaion: http://pymode-task.readthedocs.io/en/latest/

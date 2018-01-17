@@ -473,9 +473,8 @@ To improve clarity under the ``NewCartoon`` options select:
 
 .. figure:: ../img/Default_Visualisation.png
    :align: center
-Fig: Visualisation in VMD. Left) Only arrows depicted Right) Arrows plotted onto cartoon depiction of pentamer
 
- ::
+   Fig: Visualisation in VMD. Left) Only arrows depicted Right) Arrows plotted onto cartoon depiction of pentamer
 
 2) Additional options for visualisation
 
@@ -494,9 +493,8 @@ Here we will increase the thickness of the arrow head to 3.0, increase the thick
 
 .. figure:: ../img/Arrows_Visualisation.png
    :align: center
-Fig: Visualisation in VMD after increasing arrow sizes
 
- ::
+   Fig: Visualisation in VMD after increasing arrow sizes
 
 2.2) specify the colours of the arrows for each change
 
@@ -510,9 +508,8 @@ Here we will colour the arrows as follows:
 
 .. figure:: ../img/Colours_Visualisation.png
    :align: center
-Fig: Visualisation in VMD with arrows coloured as specified by user
 
- ::
+   Fig: Visualisation in VMD with arrows coloured as specified by user
 
 2.3) Visualise the motion and draw arrows for a single or specified set of asymmetric units
 
@@ -524,9 +521,8 @@ The motion will be captured in the frame set: VISUAL_AUNITS_9.pdb in the Tutoria
 
 .. figure:: ../img/Units_Visualisation.png
    :align: center
-Fig: Vectors arrows for asymmetric units 1 and 3 of the pentamer
 
- ::
+   Fig: Vectors arrows for asymmetric units 1 and 3 of the pentamer
 
 2.4) Draw arrows for a single chain
 
@@ -535,8 +531,8 @@ Here we will draw arrows only for A chain of asymmetric unit 1 of the EV71_CG4 p
 
 .. figure:: ../img/Chains_Visualisation.png
    :align: center
-Fig: Vectors arrows for Chain A of asymmetric units 1 in colour gray
 
+   Fig: Vectors arrows for Chain A of asymmetric units 1 in colour gray
 
 
 Mean square fluctuation (MSF)
@@ -595,10 +591,12 @@ The above function will produce a plot corresponding to the full model, AND as a
 
  .. figure:: ../img/Covariance_Full.png
    :align: center
+
    Fig: Overall covariance matrix for the full EV71_CG3 Model
 
  .. figure:: ../img/Covariance_AUnits.png
    :align: center
+
    Fig: Overall covariance matrix for a single protomer within the EV71_CG3 Model
 
 a) Now we will use the additional options to calculate the covariance for mode 7 only (the first non-trivial mode). We will also plot the covariance between the asymmetric units 1 and 3, and then zoom
@@ -612,14 +610,17 @@ The above function will produce a plot corresponding to the full model for mode 
 
  .. figure:: ../img/Covariance_FullMode7.png
    :align: center
+
    Fig: Covariance matrix for the full EV71_CG3 Model calculated over Mode 7
 
  .. figure:: ../img/Covariance_AUnits1_3.png
    :align: center
+
    Fig: Covariance matrix for the asymmetric units 1 and 3 of the EV71_CG3 Model calculated over Mode 7
 
  .. figure:: ../img/Covariance_Zoom.png
    :align: center
+
    Fig: Covariance matrix for Chain A in asymmetric units 1 the EV71_CG3 Model calculated over Mode 7
 
 For each of the steps above, the script also outputs each covariance matrix in txt file format. 
