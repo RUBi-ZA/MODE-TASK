@@ -51,6 +51,12 @@ conda install -c conda-forge pandas
 conda install -c conda-forge sklearn-contrib-lightning
 conda install -c conda-forge matplotlib
 ```
+now install the MODE-TASK from Anaconda cloud by:
+
+```bash
+conda install -c nizamibilal1064 mode-task
+```
+It will install the mode-task in /home/user/miniconda2/pkgs
 
 ## Usage
 
