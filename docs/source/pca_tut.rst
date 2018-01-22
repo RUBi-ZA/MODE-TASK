@@ -87,7 +87,7 @@ For details about these output files, please refer to the MODE-TASK documentatio
 
 **3.2. Visualizing the results**
 
-2D Plot of the first 3 PCs in grace and png format are written. In order to open the .agr file with xmgrace run the following command.
+2D Plot of the first 3 PCs in grace and png format is written. In order to open the .agr file with xmgrace run the following command.
 
  ::
 
@@ -114,7 +114,7 @@ You can also visualize the .png format figure plot by opening it with your favor
 
 
 
-**3.2. PCA on internal coordinates**
+**3.3. PCA on internal coordinates**
 
 One can also do PCA on internal coordinates of a MD trajectory. Options are available for different types of internal coordinates such as, pairwise distance between atoms, 1-3 angle between backbone atoms, phi angle, and psi angle. Run the following command to do PCA on pairwise distance between CA atoms. 
 

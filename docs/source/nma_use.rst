@@ -316,7 +316,7 @@ Identifies modes responsible for the conformational change of a molecule.
 |                        |            |                    | Only CA or CB accepted.     |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
-| Output file            | File       |``--output``        | Specify a name for the PDB	 |
+| Output file            | File       |``--output``        | Specify a name for the      |
 |                        |            |                    | output file. Default:       |
 |                        |            |                    | ModesOfConfChange.txt       |
 +------------------------+------------+--------------------+-----------------------------+
@@ -365,9 +365,9 @@ asymmetric unit for the specified modes. This allows the user to determine which
 |                        |            |                    | Only CA or CB accepted.     |
 |                        |            |                    |                             |
 +------------------------+------------+--------------------+-----------------------------+
-| Output file            | File       |``--output``        | Specify a name for the PDB	 |
+| Output file            | File       |``--output``        | Specify a name for the      |
 |                        |            |                    | output file. Default:       |
-|                        |            |                    | ModesOfConfChange.txt       |
+|                        |            |                    | ModeSpecificConfChange.txt  |
 +------------------------+------------+--------------------+-----------------------------+
 
 **Outputs:**

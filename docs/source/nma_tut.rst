@@ -33,7 +33,7 @@ Preparation of structure of the mature capsid
 
 1) Download the 3VBS biological assembly (3VBS.pdb1) of the **mature EV-71 capsid** from the PDB.
 
-2) Open 3VBS.pdb1 in PyMol.
+2) Open 3VBS.pdb1 in PyMOL.
 
 3) Use the **split_states 3VBS** command to visualise the full capsid.
 
@@ -54,7 +54,7 @@ Preparation of the structure of the A-particle capsid
 
 1) Download the 4N43 biological assembly (4N43.pdb1) of the **A-partcile EV-71 capsid** from the PDB.
 
-2) Open 4N43.pdb1 in PyMol.
+2) Open 4N43.pdb1 in PyMOL.
 
 3) Use the **split_states 4N43** command to visualise the full capsid.
 
@@ -194,7 +194,7 @@ We will then compare the modes from the respective models and determine if the a
 
 To determine if our modes overlap with the direction of the conformational change, we must first determine the conformational change between the crystal structures of the **mature** and **A-particle pentamer.** The **conformationMode.py**  scripts take two UNALIGNED pdb files and the set of all eigenvectors determined for the complex. The script aligns the structures, calculates the known conformational change and then identifies which modes contribute to the change.
 
-Prepare the A-particle pentamer in PyMol, using the biological assembly: 4n43.pdb1
+Prepare the A-particle pentamer in PyMOL, using the biological assembly: 4n43.pdb1
 
 Conformation mode
 -------------------------------
@@ -599,13 +599,13 @@ The above function will produce a plot corresponding to the full model, AND as a
 
    Fig: Overall covariance matrix for a single protomer within the EV71_CG3 Model
 
-a) Now we will use the additional options to calculate the covariance for mode 7 only (the first non-trivial mode). We will also plot the covariance between the asymmetric units 1 and 3, and then zoom
+b) Now we will use the additional options to calculate the covariance for mode 7 only (the first non-trivial mode). We will also plot the covariance between the asymmetric units 1 and 3, and then zoom
    into chain A of the first asymmetric unit. We have also adjusted the values of the axes to increase sensitivity for a single mode.
 
 	assemblyCovariance.py --pdb Tutorial/EV71_CG3.pdb --wMatrix Tutorial/CG3/W_values.txt --vtMatrix Tutorial/CG3/VT_values.txt --modes 7 --aUnits 1,3 --zoom 1,A --outdir Tutorial/CG3/M7 --atomType CB
         --vmin -0.005 --vmax 0.005
 
-The above function will produce a plot corresponding to the full model for mode 7, a second plot that zooms into covariance between the first and thrid asymmetric units, and a third plot for the covariance of Chain A and Unit 1.
+The above function will produce a plot corresponding to the full model for mode 7, a second plot that zooms into covariance between the first and third asymmetric units, and a third plot for the covariance of Chain A and Unit 1.
 
 
  .. figure:: ../img/Covariance_FullMode7.png
