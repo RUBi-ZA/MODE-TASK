@@ -1,2 +1,3 @@
 Tutorial/* linguist-vendored
 cpp/* linguist-vendored
+*.cpp text
