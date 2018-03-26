@@ -1,7 +1,7 @@
 PCA Scripts
 ====================================
 
-Principal component analysis (PCA) is a useful statistical technique that has found applications in detection of correlated motion in MD data. Protein dynamics is manifested as a change in molecular structure, or conformation over a time scale. PCA extracts most important motions from a protein's MD trajectory using a covariance/correlation matrix (C-matrix) constructed from atomic coordinates. Different types of coordinate systems (Cartesian or internal coordinates) can be employed to define atomic movement in each time frame of a trajectory. Modes describing the protein motions can be constructed by diagonalizing the C-matrix. It leads to a complete set of orthonormal (orthogonal and normalized) collective modes (eigenvectors) with eigenvalues (variance) that characterize the protein dynamics. The largest eigenvalues represents the most collective spatial motion. When the original mean centered data (MD trajectory) is projected on the eigenvectors, the results are called Principle Components (PC). Diagonalization of the C-matrix can be done by Eigenvalue decomposition (EVD) or Singular value decomposition (SVD), with the latter being computationally efficient.  
+Principal component analysis (PCA) is a useful statistical technique that has found applications in detection of correlated motion in MD data. Protein dynamics is manifested as a change in molecular structure, or conformation over a timescale. PCA extracts most important motions from a protein's MD trajectory using a covariance/correlation matrix (C-matrix) constructed from atomic coordinates. Different types of coordinate systems (Cartesian or internal coordinates) can be employed to define atomic movement in each time frame of a trajectory. Modes describing the protein motions can be constructed by diagonalizing the C-matrix. It leads to a complete set of orthonormal (orthogonal and normalized) collective modes (eigenvectors) with eigenvalues (variance) that characterize the protein dynamics. The largest eigenvalues represent the most collective spatial motion. When the original mean centered data (MD trajectory) is projected on the eigenvectors, the results are called Principal Components (PC). Diagonalization of the C-matrix can be done by Eigenvalue decomposition (EVD) or Singular value decomposition (SVD), with the latter being computationally efficient.  
 
 As stated earlier, different representations of protein conformations can be used. One can choose Cartesian coordinates or internal coordinates such as the pairwise distance between atoms, 1-3 angle, torsional angles (:math:`\Phi` or :math:`\Psi`). Since decomposition of a C-matrix is memory intensive and very often the program will run out of memory, often a coarse graining is required such as selecting CA atoms. The user can select the subset of atoms from the trajectory for the analysis such as CA, backbone atoms or all protein's atoms. It is highly recommended that the user should strip the water from the trajectory before hand, as it would result in faster loading and alleviate the memory issues. 
 
@@ -101,7 +101,7 @@ To see the all the available options run the following command:
 |                        | first 3 modes (eigenvectors)|
 +------------------------+-----------------------------+
 
-Beside the above-mentioned plots, it also prints useful information on the terminal such as, information about the trajectory, Kaiser-Meyer-Olkein (KMO) index of the trajectory, and cosine contents of the first few PCs. KMO value range from 0 to 1, 1 indicating that the MD has been sampled sufficiently. The cosine content of PCA projections can be used as an indicator if a simulation is converged. Squared cosine value should be more than 0.5.   
+Besides the above-mentioned plots, it also prints useful information on the terminal such as, information about the trajectory, Kaiser-Meyer-Olkein (KMO) index of the trajectory, and cosine contents of the first few PCs. KMO value range from 0 to 1, 1 indicating that the MD has been sampled sufficiently. The cosine content of PCA projections can be used as an indicator if a simulation is converged. Squared cosine value should be more than 0.5.   
 
 
 **Specific Examples:**
@@ -169,7 +169,7 @@ Run the following command to see the detailed usage and other options:
 PCA on internal coordinates
 -----------------------------
 
-User can also perform the PCA on internal coordinates of a MD trajectory. Options are available for different types of internal coordinates such as: *pairwise distance between atoms*, *1-3 angle between backbone atoms*, *psi angle*, and *phi angle*.  
+Users can also perform the PCA on internal coordinates of a MD trajectory. Options are available for different types of internal coordinates such as: *pairwise distance between atoms*, *1-3 angle between backbone atoms*, *psi angle*, and *phi angle*.  
 
 **General Usage:**
 
@@ -244,7 +244,7 @@ To perform the PCA on pairwise distance between CA atoms of an MD trajectory ``t
 Run the following command to see the detailed usage and other options:
 	``internal_pca.py -h``
 
-MDS (Multi-dimentional scaling)  on MD trajectory
+MDS (Multi-dimensional scaling)  on MD trajectory
 ---------------------------------------------------
 
 MDS is a tool to visualize the similarity or dissimilarity in a dataset. Two types of dissimilarity measures can be used in the case of a MD trajectory. The first is Euclidean distance between internal coordinates of a protein structure, the second is pairwise RMSD between a set of atoms over the frames of a MD trajectory. 

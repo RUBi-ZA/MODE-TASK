@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/badge/python-2.7%2C%203.6-blue.svg" align="right"><img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right"><img src="https://media.readthedocs.org/static/projects/badges/passing.svg" align="right">
+<img src="https://img.shields.io/badge/python-2.7%2C%203.6-blue.svg" align="right"><img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right"><img src="https://media.readthedocs.org/static/projects/badges/passing.svg" align="right"> <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/version.svg' align="right"> <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/downloads.svg' align="right">
 
 # MODE-TASK
 
@@ -51,6 +51,12 @@ conda install -c conda-forge pandas
 conda install -c conda-forge sklearn-contrib-lightning
 conda install -c conda-forge matplotlib
 ```
+Now <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/installer/conda.svg'>:
+
+```bash
+conda install -c nizamibilal1064 mode-task
+```
+It will install the mode-task in /home/user/miniconda2/pkgs
 
 ## Usage
 

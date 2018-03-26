@@ -86,7 +86,7 @@ The selection of :math:`r_{c}` has been the cause of much research. While it is 
 .. [3] C Atilgan, OB Okan, AR Atilgan, "Orientational Order Governs Collectivity of Folded Proteins," Proteins: Structure, Function, Bioinformatics, 78, 3363-3375 (2010).
 
 
-Principle Component Analysis (PCA)
+Principal Component Analysis (PCA)
 ----------------------------------
 
 A molecular dynamics (MD) simulation of a protein provides the positional movements of each atom with
