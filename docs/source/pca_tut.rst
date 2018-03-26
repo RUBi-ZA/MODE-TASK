@@ -162,7 +162,7 @@ Run the following command to perform t-SNE using pairwise RMSD of CA atoms as th
 
 Output files include 2D plot of the first 3 PCs, which can be visualize using xmgrace as described earlier. 
 
-Note: The t-SNE algorithm is non-linear and highly flexible, which makes it difficults to interpret the results. 
+Note: The t-SNE algorithm is non-linear and highly flexible, which makes it difficult to interpret the results. 
 Different set of parameters gives very different output. Users are required to try different set of values for 
 “perplexity” , "learning rates", and "number of iteration". A useful discussion covering these issues can be found 
 here https://distill.pub/2016/misread-tsne/
