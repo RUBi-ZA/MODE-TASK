@@ -399,6 +399,23 @@ t-distributed Stochastic Neighbor Embedding (t-SNE) is a tool for dimensionality
 |                        |            |                    | minimal = CA,               |
 |                        |            |                    | CB, C, N, O atoms           |
 +------------------------+------------+--------------------+-----------------------------+
+| PERPLEXITY             | Float      | ``-pr``            | [t-SNE parameters] The      |
+|                        |            |                    | perplexity is related to the|
+|                        |            |                    | number of nearest neighbors |
+|                        |            |                    | that is used in other       |
+|                        |            |                    | manifold learning algorithms|
+|                        |            |                    | Default is 30               |
++------------------------+------------+--------------------+-----------------------------+
+| LEARNING_RATE          | Float      | ``-lr``            | [t-SNE parameters] The      |
+|                        |            |                    | learning rate for t-SNE.    |
+|                        |            |                    | Default is 200              |
++------------------------+------------+--------------------+-----------------------------+
+| N_ITER,                | Int        | ``-ni``            | [t-SNE parameters] Number of|
+|                        |            |                    | iteration to run. Default   |
+|                        |            |                    | is 300                      |
++------------------------+------------+--------------------+-----------------------------+
+
+
 
  
 **Outputs:**
