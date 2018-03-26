@@ -410,7 +410,7 @@ t-distributed Stochastic Neighbor Embedding (t-SNE) is a tool for dimensionality
 |                        |            |                    | learning rate for t-SNE.    |
 |                        |            |                    | Default is 200              |
 +------------------------+------------+--------------------+-----------------------------+
-| N_ITER,                | Int        | ``-ni``            | [t-SNE parameters] Number of|
+| N_ITER                 | Int        | ``-ni``            | [t-SNE parameters] Number of|
 |                        |            |                    | iteration to run. Default   |
 |                        |            |                    | is 300                      |
 +------------------------+------------+--------------------+-----------------------------+
