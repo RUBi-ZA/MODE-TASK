@@ -70,5 +70,9 @@ Pull requests are welcome and will be reviewed however a guarentee can not me ma
 
 To contribute to the documentation see [here](https://github.com/RUBi-ZA/MODE-TASK/tree/master/docs). The documentation is hosted by [ReadTheDocs](https://readthedocs.org/) and makes use of reStructuredText for markdown with Latex for mathematical equasions. See [here](https://docs.readthedocs.io/en/latest/getting_started.html) for a more detailed guideline on creating documentation for ReadTheDocs.
 
+## Citattion
+
+Caroline Ross, Bilal Nizami, Michael Glenister, Olivier Sheik Amamuddy, Ali Rana Atilgan, Canan Atilgan, Özlem Tastan Bishop; MODE-TASK: Large-scale protein motion tools, Bioinformatics, , bty427, https://doi.org/10.1093/bioinformatics/bty427
+
 
 
