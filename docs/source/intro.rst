@@ -15,7 +15,9 @@ A PyMOL plugin for MODE-TASK has been made available `here`_.
 Cite this project
 ------------------
 
-A publication is currently being prepared
+Caroline Ross, Bilal Nizami, Michael Glenister, Olivier Sheik Amamuddy, Ali Rana Atilgan, Canan Atilgan, Özlem Tastan Bishop;
+MODE-TASK: Large-scale protein motion tools, Bioinformatics, May 2018 , 
+https://doi.org/10.1093/bioinformatics/bty427
 
 Contributing
 ---------------
