@@ -54,7 +54,8 @@ def superpose3D(ref, target, weights=None,refmask=None,targetmask=None,returnRot
             dotProd = npy.dot( npy.transpose(reftmp), targettmp)
             V, S, Wt = npy.linalg.svd(dotProd )
         except Exception:
-            print >> sys.stderr,"Couldn't perform the Single Value Decomposition, skipping alignment"
+            #print >> sys.stderr,"Couldn't perform the Single Value Decomposition, skipping alignment"
+            print ("Couldn't perform the Single Value Decomposition, skipping alignment", file=sys.stderr)
         return ref, 0
     # we already have our solution, in the results from SVD.
     # we just need to check for reflections and then produce
