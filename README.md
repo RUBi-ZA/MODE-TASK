@@ -18,7 +18,6 @@ cd MODE-TASK
 ```
 sudo apt install g++
 g++ -I cpp/src/ ANM.cpp -o ANM
-g++ -I cpp/input/ getEigenVectors.cpp -o getEigenVectors
 
 ```
 
