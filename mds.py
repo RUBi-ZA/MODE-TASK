@@ -124,7 +124,7 @@ print ('Reading trajectory ', args.trj, '...')
 try:
 	pca_traj = md.load(traj, top=topology)
 except:
-	raise IOError('Could not open trajectory {0} for reading. \n' .format(trj))
+	raise IOError('Could not open trajectory {0} for reading. \n' .format(traj))
 top = pca_traj.topology
 atm_name=args.atm_grp
 sele_grp = get_trajectory(atm_name, top)
