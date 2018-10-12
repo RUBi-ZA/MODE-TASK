@@ -86,7 +86,7 @@ The selection of :math:`r_{c}` has been the cause of much research. While it is 
 .. [3] C Atilgan, OB Okan, AR Atilgan, "Orientational Order Governs Collectivity of Folded Proteins," Proteins: Structure, Function, Bioinformatics, 78, 3363-3375 (2010).
 
 
-Principle Component Analysis (PCA)
+Principal Component Analysis (PCA)
 ----------------------------------
 
 A molecular dynamics (MD) simulation of a protein provides the positional movements of each atom with
@@ -156,5 +156,67 @@ have been discussed in detail in the literature, [5]_ and implemented in MODE-TA
 .. [4] A Amadei, ABM Linssen, HJC Berendsen, “Essential Dynamics of Proteins,” Proteins: Structure, Function and Genetics, 17, 412-425 (1993).
 
 .. [5] CC David, DJ Jacobs, “Principal component analysis: a method for determining the essential dynamics of proteins,” Methods in Molecular Biology, 1084, 193-226 (2014).
+
+
+Kernel PCA (kPCA)
+------------------
+
+Standard PCA assumes that input data are linearly related. In cases where variables are not intrinsically 
+linearly related the user has option to perform nonlinear generalization of PCA such as Kernel PCA. It is an
+extention of normal PCA, where different kernel fucntions (such as linear, RBF, polynomial, and cosine) are used
+to perform non-linear dimensional reduction.
+
+:math:`N` points are linearly non-separable in dimension (:math:`d` < :math:`N`). But there can be a hyperplane dividing them in a higher dimension
+given :math:`N` points, :math:`(Xi)` it can be maped to an N-dimensional space with
+
+.. math::
+    \Phi \mathbf{(Xi)} \text{ where } \Phi : \mathbf{R^d -> R^n}
+
+:math:`\Phi` is an arbitrary choosen fucntion.
+ 
+MODE-TASK includes the tools to perform the Kernel PCA on MD trajectory, and offers the user different choices
+for the kernel. In Kernel PCA the input trajectory is first raised to a higher dimension by a kernel function 
+and then PCA is performed on the elevated data. One should use Kernel PCA with caution as it is difficult to 
+interpret the results since the input trajectory is mapped to a different feature space than conformational 
+space. Nevertheless, Kernel PCA could be an invaluable tool in studying structural mechanisms behind protein 
+dynamics in cases where conventional PCA is not helpful. 
+
+Incremental PCA
+----------------  
+
+A major bottleneck in the speed of PCA calculation is the availability of computer memory during the loading of 
+a MD trajectory.   IPCA is a memory efficient variant of PCA, where only most substantial singular vectors 
+are used to project the input data to a lower dimension. The IPCA algorithm uses a batch data loading approach 
+and the incremental storage of various variables, thus achieving higher memory efficiency. MODE-TASK has
+implemented IPCA on MD trajectory, available through scikit-learn Python library on the original algorithm 
+[6]_ [7]_.
+ 
+.. rubric:: References
+
+.. [6] Pedregosa F, Varoquaux G, Gramfort A, Michel V, Thirion B, Grisel O, et al. Scikit-learn: Machine Learning in Python. J. Mach. Learn. Res. 2011;12:2825–30.
+
+.. [7] Ross DA, Lim J, Lin R-S, Yang M-H. Incremental Learning for Robust Visual Tracking. Int. J. Comput. Vis. 2008;77:125–41. 
+
+
+
+ 
+Multi-dimensional scaling (MDS)
+-------------------------------
+MDS is a technique of dimensionality reduction, where measure of dissimilarity in a dataset is used. 
+It places each input point in :math:`N`-dimensional space while trying to preserve the original distance matrix as 
+much as possible. MODE-TASK implements metric and nonmetric types of MDS for MD trajectory by using the 
+scikit-learn library [6]_. The Euclidean distance between internal coordinates and pairwise RMSD between the MD 
+frames is used as dissimilarity measures in MODE-TASK.
+
+t-Distributed Stochastic Neighbor Embedding (t-SNE)
+---------------------------------------------------
+
+t-SNE is another dimensionality reduction method for data of high dimensions [8]_. t-SNE has been implemented for 
+protein MD trajectories in MODE-TASK. Like MDS, the Euclidean distance between internal coordinates of a protein 
+structure and pairwise RMSD between a set of atoms are used as measures of dissimilarity.   
+
+.. rubric:: References
+
+.. [8] Van der Maaten L, Hinton G. Visualizing Data using t-SNE. J. Mach. Learn. Res. 2008;9:2579–605.
 
 

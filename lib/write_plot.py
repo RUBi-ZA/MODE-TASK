@@ -106,7 +106,7 @@ def write_fig(file_name, pca, out_dir, title):
 	plt.ylabel('PC2')
 	plt.title(title)
 	cbar = plt.colorbar()
-	cbar.set_label('Time [ps]')
+	cbar.set_label('#Frame')
 	fig.savefig(fname)
 	
 	## # plot 1 and 3 PC
@@ -117,7 +117,7 @@ def write_fig(file_name, pca, out_dir, title):
 	plt.ylabel('PC3')
 	plt.title(title)
 	cbar = plt.colorbar()
-	cbar.set_label('Time [ps]')
+	cbar.set_label('#Frame')
 	fig.savefig(fname)
 	
 	## # plot 2 and 3 PC
@@ -128,7 +128,7 @@ def write_fig(file_name, pca, out_dir, title):
 	plt.ylabel('PC3')
 	plt.title(title)
 	cbar = plt.colorbar()
-	cbar.set_label('Time [ps]')
+	cbar.set_label('#Frame')
 	fig.savefig(fname)
 	return;
 

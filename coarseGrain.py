@@ -148,8 +148,8 @@ def coarseGrain(c_g,starting_atom,number_protomer_atoms, number_of_protomers, c_
             # print index_of_selected_atoms
         print ("------------------------------------------------------------")
         print ("SUMMARY OF COARSE GRAINING PERFORMED AT LEVEL "+str(c_g))
-        print ("No. atoms selected per unit: " + str(len(index_of_selected_atoms)) + " from " + str(number_protomer_atoms) + " orignal residues")
-        print ("No. atoms selected per macromolecule: " + str(len(index_of_selected_atoms) * number_of_protomers) + " from " + str(number_protomer_atoms* number_of_protomers) + " orignal residues")
+        print ("No. atoms selected per unit: " + str(len(index_of_selected_atoms)) + " from " + str(number_protomer_atoms) + " original residues")
+        print ("No. atoms selected per macromolecule: " + str(len(index_of_selected_atoms) * number_of_protomers) + " from " + str(number_protomer_atoms* number_of_protomers) + " original residues")
         print ("------------------------------------------------------------")
     
 

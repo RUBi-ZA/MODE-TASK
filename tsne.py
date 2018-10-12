@@ -45,6 +45,10 @@ def get_options():
 	parser.add_argument("-ct", "--coordinate_type",  dest="coordinate_type",				help="Type of coordinates to use for distance calculation")
 	parser.add_argument("-dt", "--dissimilarity_type",  dest="dissimilarity_type",				help="Type of dissimilarity matrix to use. Euclidean distance between internal coordinates or pairwise RMSD")
 	parser.add_argument("-ai", "--atom_indices",  dest="atom_indices",				help="group of atom for pairwise distance. Default is C alpha atoms. Other options are :"				  "all= all atoms, backbone = backbone atoms, alpha= C alpha atoms, heavy= all non hydrogen atoms, minimal=CA,CB,C,N,O atoms")
+	parser.add_argument("-pr", "--perplexity",  dest="perplexity", type=float,				help="[t-SNE parameters] The perplexity is related to the number of nearest neighbors that is used in other manifold learning algorithms.. Default is 30")
+	parser.add_argument("-lr", "--learning_rate",  dest="learning_rate", type=float,				help="[t-SNE parameters]. The learning rate for t-SNE. Default is 200")
+	parser.add_argument("-ni", "--n_iter",  dest="n_iter", type=int,				help="[t-SNE parameters]. Number of iteration to run. Default is 3000")
+
 	args = parser.parse_args()
 	
 	if args.out_dir == None:
@@ -75,6 +79,14 @@ def get_options():
 	if args.dissimilarity_type not in  ('rmsd', 'euc', None):
 		print ('ERROR: no such option as', args.dissimilarity_type, 'for flag -dt \nPlease see the help by running \n tsne.py -h\n\n ')
 		sys.exit(1)
+	
+	if args.perplexity == None:
+		args.perplexity = 30.0
+	if args.n_iter == None:
+		args.n_iter = 3000
+	if args.learning_rate == None:
+		args.learning_rate = 200.0
+		
 	return args;
 	
 args=get_options()
@@ -157,8 +169,8 @@ def get_pair_rmsd(pca_traj, sele_grp):
 def tsne(input):
 	't-distributed Stochastic Neighbor Embedding'
 	seed = np.random.RandomState(seed=1)
-	my_tsne = TSNE(n_components=3, n_iter=3000, random_state=seed, init='pca') ## apparantly n_components more than 3 throws error in certain cases. 
-	print ("Performing TSNE...")
+	my_tsne = TSNE(n_components=3, perplexity = args.perplexity, n_iter = args.n_iter, learning_rate = args.learning_rate, random_state=seed, init='pca') ## apparantly n_components more than 3 throws error in certain cases. 
+	print ("Performing TSNE...with perplexity", args.perplexity, "n_iter", args.n_iter, " and learning_rate", args.learning_rate )
 	mpos = my_tsne.fit_transform(input)
 	write_plots('tsne_projection', mpos, out_dir)
 	title='t-SNE Projection'
