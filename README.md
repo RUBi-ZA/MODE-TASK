@@ -72,7 +72,8 @@ To contribute to the documentation see [here](https://github.com/RUBi-ZA/MODE-TA
 ## Citation
 
 **MODE-TASK: Large-scale protein motion tools**
-*Caroline Ross, Bilal Nizami, Michael Glenister, Olivier Sheik Amamuddy, Ali Rana Atilgan, Canan Atilgan, Özlem Tastan Bishop; MODE-TASK: Large-scale protein motion tools, Bioinformatics,2018, bty427, https://doi.org/10.1093/bioinformatics/bty427*
+
+*Caroline Ross, Bilal Nizami, Michael Glenister, Olivier Sheik Amamuddy, Ali Rana Atilgan, Canan Atilgan, Özlem Tastan Bishop;*
 
 [Bioinformatics, Volume 34, Issue 21, 1 November 2018](https://academic.oup.com/bioinformatics/article/34/21/3759/5021681) <br/>
 [![doi](http://img.shields.io/badge/doi-10.1093%2Fbioinformatics%2Fbty427-blue.svg?style=flat)](https://academic.oup.com/bioinformatics/article/34/21/3759/5021681) 
