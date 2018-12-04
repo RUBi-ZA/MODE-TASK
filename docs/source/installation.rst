@@ -25,6 +25,7 @@ Python 2.7 with pip and virtualenv ::
 
 	sudo apt-get update
 	sudo apt-get install python-pip virtualenv virtualenvwrapper
+	virtualenv venv
 	source venv/bin/activate
 	pip install -r requirements.txt
 
@@ -32,6 +33,7 @@ Python 3.6 with pip and virtualenv ::
 
 	sudo apt-get update
 	sudo apt-get install python3-pip virtualenv virtualenvwrapper
+	virtualenv venv
 	source venv/bin/activate
 	pip3 install -r requirements.txt
 
