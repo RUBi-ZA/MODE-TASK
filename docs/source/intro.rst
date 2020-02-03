@@ -29,6 +29,14 @@ To contribute to the source code, submit a pull request to our `Github repositor
 
 .. _Github repository: https://github.com/RUBi-ZA/MODE-TASK
 
+Please follow the `PEP8` style guide for python tools. A number of tools are available to help with checking PEP8 compliance including `flake8`
+
+.. _PEP8: https://www.python.org/dev/peps/pep-0008/
+
+.. _flake8: https://flake8.pycqa.org/en/latest/
+
+Don't reformat code that is unrelated to you work unless the pull request or commit is specifically to format for PEP8 compliance.
+
 License
 ---------------
 
