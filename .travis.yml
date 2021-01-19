@@ -1,7 +1,7 @@
 branches:
     only:
         - master
-        - dev-michael
+        - dev
    
 language: python
 
