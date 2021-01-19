@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/badge/python-2.7%2C%203.6-blue.svg" align="right"><img src="https://api.travis-ci.org/RUBi-ZA/MODE-TASK.svg?branch=master" align="right"><img src="https://readthedocs.org/projects/pymode-task/badge/?version=latest" align="right"> <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/version.svg' align="right"> <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/downloads.svg' align="right">
+<img src="https://img.shields.io/badge/python-2.7%2C%203.6-blue.svg" align="right"><img src="https://travis-ci.com/RUBi-ZA/MODE-TASK.svg?branch=master" align="right"><img src="https://readthedocs.org/projects/pymode-task/badge/?version=latest" align="right"> <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/version.svg' align="right"> <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/downloads.svg' align="right">
 
 # MODE-TASK
 
