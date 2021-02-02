@@ -63,9 +63,9 @@ def main(args):
     if not os.path.isdir(args.outdir):
         os.makedirs(args.outdir)
     if len(sys.argv) > 1:
-        if not os.path.isfile("/software/nfs/mode-task/ANM"):
+        if not os.path.isfile("ANM"):
             os.system("g++ -I cpp/src/ ANM.cpp -o ANM")
-            if not os.path.isfile("/software/nfs/mode-task/ANM"):
+            if not os.path.isfile("ANM"):
                 print ("ERROR: 'ANM' executable not found.")
                 print ("Please ensure it exists in the same directory as this script.")
                 sys.exit(1)
