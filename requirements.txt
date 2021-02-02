@@ -6,3 +6,4 @@ matplotlib==2.0.2
 mdtraj==1.8.0
 pandas==0.21.1
 biopython==1.76
+seaborn==0.9.1
