@@ -14,8 +14,8 @@ import argparse
 import pandas as pd
 import matplotlib
 import seaborn as sns
-from matplotlib import pyplot as plt
 matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 
 def plot(filename, nmodes=50, figsize=(8, 3)):
     """Plots the 1 n eigenvalues"""
