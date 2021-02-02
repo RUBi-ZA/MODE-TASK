@@ -33,6 +33,7 @@ install:
   - pip install matplotlib==2.0.2
   - pip install mdtraj==1.8.0
   - pip install pandas==0.21.1
+  - pip install biopython==1.76
 
 script: 
   - cd tests
