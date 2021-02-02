@@ -143,7 +143,7 @@ try:
 	pca_traj = md.load(traj, top=topology)
 except:
 	raise IOError('Could not open trajectory {0} for reading. \n' .format(traj))
-	
+
 top = pca_traj.topology
 
 

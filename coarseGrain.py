@@ -4,89 +4,67 @@
 # Selects a sub-set of carbon atoms, equally distributed across the complex
 # Author: Caroline Ross: caroross299@gmail.com
 # August 2017
-
+# 21 November 2020: Modified by Olivier to work with proteins other than 
+#                   capsids without ENDMDL/END specifiers
 
 import os
 import sys
+import math
 import argparse
 from datetime import datetime
-
 from lib.utils import *
+from Bio.PDB.MMCIFParser import MMCIFParser
 
-import math
-
-
-def parseAssembly(pdb_file,atomT):
-    try:
-        f = open(pdb_file, 'r')
+def parse_protein(pdb_file, atomT):
+    """
+    Prepares large proteins such as biological assemblies for coarse-graining
+    """
+    with open(pdb_file, "r") as f:
         lines = f.readlines()
-        f.close()
-    except IOError:
-        print ('\n**************************************\nFILE '+pdb_file+' NOT FOUND\n**************************************\n')
-        sys.exit()
-
-# get index of first atom
-    for i in range(len(lines)):
-        if lines[i].startswith("ATOM"):
-            index_atom = i
-            break
-    header = lines[0:index_atom]
-    all_atoms = lines[index_atom:]
-
-    chain_dics = {}
+        # Get header
+        for i, line in enumerate(lines):
+            if line.startswith("ATOM"):
+                break
+        header = lines[:i]
+    lines = [line for line in lines if line.startswith("ATOM")]
+    chains = list(set((line[21] for line in lines if line.split()[2] in
+                       ("CA", "CB"))))
+    n_catoms = 0
+    c_coords = []
+    c_lines = []
+    previous_chain = "-"
+    initial_chain = chains[0]
+    chain_dict = dict([(chain, 0) for chain in chains])
     number_protomer_atoms = 0
-    c_atoms = []
-    c_cords = []
+    for i, line in enumerate(lines):
+        chain = line[21]
+        info = line.split()
+        res = info[3]
+        atom_type = info[2]
+        if atom_type == atomT or (atom_type == "CA" and res == "GLY"):
+            if chain != previous_chain:
+                chain_dict[chain] += 1
+                previous_chain = chain
+            coords = [float(i.strip()) for i in 
+                      (line[30:38], line[38:46], line[46:54])]
+            c_lines.append(line)
+            n_catoms += 1
+            c_coords.append(coords)
+    number_of_protomers = chain_dict[chains[0]]
+    number_protomer_atoms = n_catoms//(number_of_protomers)
+    return (header, number_protomer_atoms, number_of_protomers, c_lines, c_coords)
 
-    for atom in all_atoms:
-        if atom.startswith("ATOM"):
-            coords = [] 
-            info = atom.split()
-            chain = info[4]
-            res = info[3]
-            atom_type = info[2]
-            if atom_type == atomT or (atom_type == "CA" and res == "GLY"): #Give user the option for C-aplhas or C-betas
-                if number_protomer_atoms == 0:
-                    chain1 = chain
-                if chain not in chain_dics:
-                    number_protomer_atoms += 1
-                if chain != chain1:
-                    if chain1 not in chain_dics:
-                        chain_dics[chain1] = 1
-                    else:
-                        # Is macro molecule
-                        chain_dics[chain1] += 1
-                    chain1 = chain
-                c_atoms.append(atom)
-                coords.append(float(atom[30:38].strip().strip()))
-                coords.append(float(atom[38:46].strip().strip()))
-                coords.append(float(atom[46:54].strip().strip()))
-                c_cords.append(coords)
-        if atom.startswith("END") and not "ENDMDL" in atom:
-            if chain1 in chain_dics:
-                chain_dics[chain1] += 1
-            else:
-                chain_dics[chain1] = 1
-    number_of_protomers = chain_dics[chain1]
-
-    return (header,number_protomer_atoms,number_of_protomers,c_atoms,c_cords)
-
-def coarseGrain(c_g,starting_atom,number_protomer_atoms, number_of_protomers, c_cords,c_atoms):
-
-
+def coarseGrain(c_g,starting_atom, number_protomer_atoms, number_of_protomers,
+                c_cords,c_atoms):
     index_of_selected_atoms = []
     starting_atom_i = starting_atom - 1  # Index for starting atom
-    
-    
     protomer_c_betas = c_cords[0:number_protomer_atoms]
     coords_start = protomer_c_betas[starting_atom_i]
     distances_from_start = []
     distance_index = {}  # holds the index of the atoms in order of distance from
-
     xstart = coords_start[0]
     ystart = coords_start[1]
     zstart = coords_start[2]
-
     for i in range(len(protomer_c_betas)):
         atom = protomer_c_betas[i]
         if i == starting_atom_i:
@@ -100,28 +78,20 @@ def coarseGrain(c_g,starting_atom,number_protomer_atoms, number_of_protomers, c_
         distances_from_start.append(distance)
         distance_index[distance] = i
     distances_from_start.sort()
-
-
-   
     index_of_selected_atoms = []
     index_of_selected_atoms.append(starting_atom_i)
-
     if c_g == 1:
         c_g_select = 0
     elif c_g ==2:
         c_g_select = 1
     else:
         c_g_select = (c_g * (c_g - 1)) - c_g
-    
     # selects atoms which are not within this distance to already selected atoms
     try:
         cutoff = distances_from_start[c_g_select]
         atom_index = distance_index[cutoff]
         index_of_selected_atoms.append(atom_index)
-    
-    
         distribution = {}
-    
         #loops through ordered list and selects all suitable atoms
         for dist in distances_from_start[c_g_select+ 1:]:
             atom_index = distance_index[dist]
@@ -144,22 +114,24 @@ def coarseGrain(c_g,starting_atom,number_protomer_atoms, number_of_protomers, c_
                 index_of_selected_atoms.append(atom_index)
                 local_distribution.sort()
                 distribution[atom_index] = local_distribution
-    
             # print index_of_selected_atoms
+        natoms_per_unit = len(index_of_selected_atoms)
+        natoms_per_macromol = len(index_of_selected_atoms) * number_of_protomers
+        nresidues_per_protomer = number_protomer_atoms
+        nresidues_total = number_protomer_atoms* number_of_protomers
         print ("------------------------------------------------------------")
-        print ("SUMMARY OF COARSE GRAINING PERFORMED AT LEVEL "+str(c_g))
-        print ("No. atoms selected per unit: " + str(len(index_of_selected_atoms)) + " from " + str(number_protomer_atoms) + " original residues")
-        print ("No. atoms selected per macromolecule: " + str(len(index_of_selected_atoms) * number_of_protomers) + " from " + str(number_protomer_atoms* number_of_protomers) + " original residues")
-        print ("------------------------------------------------------------")
-    
-
-    
+        print ("SUMMARY OF COARSE GRAINING PERFORMED AT LEVEL {}".format(c_g))
+        if natoms_per_unit != natoms_per_macromol:
+            print("No. atoms selected per unit: {0} from {1} original residues".format(
+                   natoms_per_unit, nresidues_per_protomer))
+        print("No. atoms selected per macromolecule: {0} from {1} original residues".format(
+               natoms_per_macromol, nresidues_total))
+        print("------------------------------------------------------------")
         index_of_selected_atoms.sort()
         # write a pdb file lines of the Coarse-Grained Capsid with renumbered atoms
         selected_c_beta_lines = []
         # Includes all c atoms of the first pentamer and then coarse grains the rest of the surrounding capsid
         count = 0
-    
         for i in range(0, number_of_protomers):  # parameter
             for j in index_of_selected_atoms:
                 index = j + i * number_protomer_atoms
@@ -173,23 +145,18 @@ def coarseGrain(c_g,starting_atom,number_protomer_atoms, number_of_protomers, c_
         return selected_c_beta_lines
     except IndexError:
        print ("\n**************************************\nERROR: Coarse Grain Level = "+str(c_g)+" is TOO LARGE\nNo output generated\n**************************************")
-        
 
 def writeCG(outfile,outdir,header,selected_c_beta_lines,c_g):
- 
     if outfile == "ComplexCG.pdb":
         outfile = outfile.strip('.pdb')+str(c_g)+'.pdb'     
     elif '.pdb' in outfile:
         outfile = outfile.strip('.pdb')+'CG'+str(c_g)+'.pdb'    
-	    
     elif not '.pdb' in outfile and not'.' in outfile:
         outfile+='CG'+str(c_g)
         outfile+='.pdb'
     elif not '.pdb' in outfile and '.' in outfile:
         print ('\n**************************************\nSpecified output file name is not comptable with PDB format\nDefault file created: ComplexCG_'+str(c_g)+'.pdb\n**************************************')
         outfile = 'ComplexCG'+str(c_g)+'.pdb'
-	
-    
     w = open(args.outdir + "/" + outfile, 'w')
     w.writelines(header)
     w.writelines(selected_c_beta_lines)
@@ -198,16 +165,12 @@ def writeCG(outfile,outdir,header,selected_c_beta_lines,c_g):
 
 
 def main(args):
-
-
     #Get Input Parameters
     pdb_file = args.pdb
     atomT = args.atomType.upper()
     if atomT!='CA' and atomT!='CB':
         print ("\n**************************************\nUnrecognised atom type\nInput Options:\nCA: to select alpha carbon atoms\nCB: to select beta carbon atoms\n**************************************\n")
-        sys.exit()
-
-
+        sys.exit(1)
     # Set level of coarsegrain
     c_gList = []
     try:
@@ -218,16 +181,14 @@ def main(args):
         print ("\n**************************************\nInput for Coarse Graining Level: "+str(args.cg)+" is INVALID\nDefault CG Level = 4 has been used\n**************************************\n")
         c_gList =[]
         c_gList.append(4)
-
     starting_atom = args.startingAtom  # residue number of starting atoms
     if starting_atom<=0:        
         print ("\n**************************************\nStarting Atom: "+str(starting_atom)+" is INVALID\nDefault Starting Atom = 1 has been used\n**************************************\n")
         starting_atom = 1
-    
     outfile = args.output
     outdir = args.outdir
     #Parse PDB File      
-    cAssembly = parseAssembly(pdb_file,atomT)
+    cAssembly = parse_protein(pdb_file,atomT)
     header  = cAssembly[0]
     number_protomer_atoms = cAssembly[1]
     number_of_protomers = cAssembly[2]
@@ -242,31 +203,25 @@ def main(args):
     
         if selected_c_beta_lines:
             writeCG(outfile,outdir,header,selected_c_beta_lines,c_g)
-    
 
 silent = False
 stream = sys.stdout
 
-
 def log(message):
     global silent
     global stream
-
     if not silent:
         print_err(message)
-
 
 if __name__ == "__main__":
 
     # parse cmd arguments
     parser = argparse.ArgumentParser()
-
     # standard arguments for logging and output
     parser.add_argument("--silent", help="Turn off logging", action='store_true', default=False)
     parser.add_argument("--welcome", help="Display welcome message (true/false)", default="true")
     parser.add_argument("--log-file", help="Output log file (default: standard output)", default=None)
     parser.add_argument("--outdir", help="Output directory", default="output")
-
     # custom arguments
     parser.add_argument("--output", help="File name for Coarse Grained PDB", default='ComplexCG.pdb')
     parser.add_argument("--pdb", help="PDB input file")
@@ -274,37 +229,26 @@ if __name__ == "__main__":
     parser.add_argument("--startingAtom", help="Residue number of first carbon atom to be selected [int]", default=1, type=int)
     parser.add_argument("--atomType", help="Enter CA to select alpha carbons or CB to select beta carbons", default='CA')
     # parser.add_argument("--protomerAtoms", help="", default=0, type=int)
-
     args = parser.parse_args()
-
     if args.welcome == "true":
         welcome_msg("Coarse grain", "Caroline Ross (caroross299@gmail.com)")
-
     # Check if required directories exist
     if not os.path.isdir(args.outdir):
         os.makedirs(args.outdir)
-
     # Check if args supplied by user
     if len(sys.argv) > 1:
         # set up logging
         silent = args.silent
-
         if args.log_file:
             stream = open(args.log_file, 'w')
-
         start = datetime.now()
         log("Started at: %s" % str(start))
-
         # run script
         main(args)
-
         end = datetime.now()
-
         time_taken = format_seconds((end - start).seconds)
-
         log("Completed at: %s" % str(end))
         log("- Total time: %s" % str(time_taken))
-
         # close logging stream
         stream.close()
     else:

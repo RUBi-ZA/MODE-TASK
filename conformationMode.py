@@ -109,8 +109,7 @@ def calcConformation(delta_r,vtMatrix,nma_index,outdir,outfile):
 
 
 def calcDR(full_cords,empty_cords,count_common):
-    # full_cords is list of coarse grained coords
-    # empty_cords is list of conformational change coords
+
     struc = np.zeros((count_common,3))
     for i,res in enumerate(empty_cords):
         for j,c in enumerate(res):
@@ -155,7 +154,7 @@ def commonCords(nma,lines_empty,common_residues):
         res = int(info[5].strip())
         if chain in common_residues:
             if res in common_residues[chain]:
-                # Common coordinates
+                
                 x = float(line[30:38].strip())
                 y = float(line[38:46].strip())
                 z = float(line[46:54].strip())
@@ -172,7 +171,7 @@ def commonCords(nma,lines_empty,common_residues):
         res = int(info[5].strip())
         if chain in common_residues:
             if res in common_residues[chain]:
-                # Common coordinates
+                    
                 x = float(line[30:38].strip())
                 y = float(line[38:46].strip())
                 z = float(line[46:54].strip())
@@ -271,15 +270,14 @@ def main(args):
     pdb1Info = parsePDB(pdb_1,atomT)
     pdbCInfo = parsePDB(pdb_Conf,atomT)
     
-    # Coarse grained model info
+ 
     number_of_protomersN = pdb1Info[0]
     full_residues = pdb1Info[1]
     nma = pdb1Info[2]
-    
-    # Full conformation info
+  
     number_of_protomersE = pdbCInfo[0]
     empty_residues =  pdbCInfo[1]
-    lines_empty =  pdbCInfo[2]
+    lines_empty =  pdbCInfo[2]  
 
    
     if number_of_protomersN != number_of_protomersE:
@@ -288,17 +286,15 @@ def main(args):
 
 
     common_residues = getCommonResidues(full_residues, empty_residues)
-    
-    # Common chain keys
+
     commonK = sorted(common_residues.keys())
-    
-    # Total common residues irrespective of chain
+
     totalC = 0
     for k in commonK:
         totalC +=len(common_residues[k])
 
     if not any(common_residues):
-        print ('\n**************************************\nPDB Conformations are not compatible:\nSuggested error: Chain IDs do not match between PDB Files\n**************************************\n')
+        print ('\n**************************************\nPDB Conformations are not compatable:\nSuggested error: Chain IDs do not match between PDB Files\n**************************************\n')
         system.exit()
 
    #Print warnings to user
