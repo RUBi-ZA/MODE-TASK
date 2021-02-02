@@ -13,8 +13,8 @@ import sys
 import argparse
 import pandas as pd
 import matplotlib
-import seaborn as sns
 matplotlib.use('Agg')
+import seaborn as sns
 from matplotlib import pyplot as plt
 
 def plot(filename, nmodes=50, figsize=(8, 3)):
