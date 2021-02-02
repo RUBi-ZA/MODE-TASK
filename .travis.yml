@@ -11,13 +11,6 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      python: 2.7
-      sudo: required
-      apt:
-       packages:
-        - python-tk
-    - os: linux
-      dist: trusty
       python: 3.6
       sudo: required
       apt:
@@ -39,6 +32,7 @@ install:
   - pip install scipy==0.19.1
   - pip install matplotlib==2.0.2
   - pip install mdtraj==1.8.0
+  - pip install pandas==0.21.1
 
 script: 
   - cd tests
