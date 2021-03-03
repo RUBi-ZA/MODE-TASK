@@ -6,6 +6,8 @@ Collection of tools for analysing normal modes and performing principal componen
 
 Take a look at our web application [MDM-TASK-web](https://mdmtaskweb.rubi.ru.ac.za/)
 
+[MDM-TASK-web BioRxiv](https://www.biorxiv.org/content/10.1101/2021.01.29.428734v1)
+
 pyMODE-TASK - a PyMol plugin for MODE-TASK is [available here](https://github.com/RUBi-ZA/pyMODE-TASK).
 
 ## Installation
