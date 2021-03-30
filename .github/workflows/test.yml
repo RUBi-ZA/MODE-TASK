@@ -1,4 +1,4 @@
-name: PCA test workflow
+name: NMA test workflow
 
 on:
   push:
@@ -23,4 +23,5 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run tests
-      run: test_pca.sh
+      run: test_cg.sh
+      working-directory: ./tests
