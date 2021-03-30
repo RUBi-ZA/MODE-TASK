@@ -22,6 +22,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run tests
+    - name: Coarse grain
       run: ./test_cg.sh
+      working-directory: ./tests
+      
+    - name: ANM
+      run: ./test_anm.sh
       working-directory: ./tests
