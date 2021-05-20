@@ -50,10 +50,10 @@ def parse_args():
                         help="The expected number of protein clusters to\
                         extract.")
     parser.add_argument('--ignn', type=int, default=0,
-                        help="The number of C-terminus residues to ignore in \
+                        help="The number of N-terminus residues to ignore in \
                         PCA calculations (default=0)")
     parser.add_argument('--ignc', type=int, default=3,
-                        help="The number of N-terminus residues to ignore in \
+                        help="The number of C-terminus residues to ignore in \
                         PCA calculations (default=3)")
     args = parser.parse_args()
     return args
