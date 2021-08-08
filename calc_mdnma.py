@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Computes ANM from MD. Writes the mapping file for NGL and can display 
 the mode animation using a multi-PDB file
@@ -59,9 +59,9 @@ def arg_parser():
 def write_header(fobject, topology):
     """Writes header"""
     header = """$.when(
-$.get("/api/mdtask/jobs/" + job.selected_job().JobID() + "/toponmaa", function(responseTopo) { }),
+$.get("/api/mdtask/jobs/" + job.selected_job().JobID() + "/topomdnma", function(responseTopo) { }),
 ).then(function(responseTopo) {
-var stage = new NGL.Stage( "viewport_vm_out" );
+var stage = new NGL.Stage( "viewport_mdnma_struc" );
 window.addEventListener( "resize", function( event ){
 stage.handleResize();
 }, false );
