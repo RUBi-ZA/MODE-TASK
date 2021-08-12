@@ -78,9 +78,10 @@ def write_footer(fobject):
 shapeComp.addRepresentation("buffer", { wireframe: false })
 var stringBlobTopo = new Blob( [ responseTopo ], { type: "text/plain"} );
 stage.loadFile( stringBlobTopo, { asTrajectory: true, ext: "pdb" } ).then(function (o) {
+o.addRepresentation("tube", { color: "grey" , radius: 0.1});
 o.autoView()
 })
-stage.setParameters( { backgroundColor: "white", hoverTimeout: -1 } );
+stage.setParameters( { backgroundColor: "white" } );
 });\n"""
     fobject.write(footer)
 
@@ -145,7 +146,7 @@ def calc_nma(trajectory, topology, selection="all",
 
 def write_ngl(nma, args):
     """Write ngl file for the mapping"""
-    protein = md.load(args.topology)
+    protein = md.load_pdb(args.topology)
     protein = protein.atom_slice(protein.top.select("name CA"))
     protein = protein.atom_slice(
             protein.top.select("resid >= {0} and resid < {1} ".format(
@@ -163,7 +164,7 @@ def write_ngl(nma, args):
             text += "shape.addArrow([{0},{1},{2}], [{3},{4},{5}], [{6},{7},{8}], {9})\n".format(
                     float(arrow_starts[i,0]), float(arrow_starts[i,1]), float(arrow_starts[i,2]),
                     float(arrow_ends[i,0]), float(arrow_ends[i,1]), float(arrow_ends[i,2]),
-                    COLORS[chains[i]][0],COLORS[chains[i]][1],COLORS[chains[i]][2], 0.5)
+                    COLORS[chains[i]][0],COLORS[chains[i]][1],COLORS[chains[i]][2], 1)
         _.write(text)
         write_footer(_)
         print("INFO: Wrote file \"{}\"".format(args.outfilename))
