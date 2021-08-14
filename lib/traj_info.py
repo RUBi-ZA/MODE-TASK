@@ -150,9 +150,9 @@ def print_kmo(pca_traj, traj, atm_name, sele_grp):
 	sele_traj_reshaped = sele_trj.reshape(pca_traj.n_frames, len(sele_grp) * 3)
 	arr = sele_traj_reshaped
 	#===============================================
-	# covariance matrix 
+	# Correlation matrix 
 	#===============================================
-	cov_mat = np.cov(arr, rowvar=False)
+	cov_mat = np.corrcoef(arr, rowvar=False)
 	
 	get_kmo(cov_mat)
 	return;
