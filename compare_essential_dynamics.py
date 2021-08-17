@@ -3,6 +3,7 @@
 Combines several trajectories before performing PCA
 Some PCA material is borrowed from 'http://mdtraj.org/latest/examples/pca.html'
 '''
+import sys
 import argparse
 import numpy as np
 import mdtraj as md
@@ -16,10 +17,10 @@ from matplotlib import pyplot as plt
 __author__ = "Olivier Sheik Amamuddy"
 __copyright__ = "Copyright 2019, Research Unit in Bioinformatics"
 __license__ = "GNU GPL 3.0"
-__version__ = "1.1"
+__version__ = "1.2"
 __maintainer__ = "Olivier Sheik Amamuddy"
 __email__ = "oliserand@gmail.com"
-__date__ = "1st November 2020"
+__date__ = "24th May 2021"
 
 def parse_args():
     """
@@ -58,6 +59,15 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+def check_compatibility(num_frames):
+    """Check if trajectories are compatible given this list of frame numbers"""
+    assert isinstance(num_frames, list), "A list has to be provided"
+    if len(num_frames) > 1:
+        if len(set(num_frames)) > 1:
+            raise ValueError("Trajectory length mismatch. Ensure all trajectories "
+                    "have the same number of frames.")
+            sys.exit(1)
+
 def clean_protein_termini(traj, selection="name CA", ignn=0, ignc=0):
     """
     Reduces protein to CA atoms and removes the C and N termini in each chain
@@ -69,7 +79,7 @@ def clean_protein_termini(traj, selection="name CA", ignn=0, ignc=0):
      ignc: Number of C-terminus residues to ignore
      Returns
      cleaned trajectory
-    """ 
+    """
     atoms = traj.top.select(selection)
     traj = traj.atom_slice(atoms)
     chains = traj.top.chains
@@ -93,7 +103,6 @@ def get_kmean_centroids(pcs, traj, outbasename, n_clusters=3,
     kmeans = KMeans(n_clusters=n_clusters, n_init=n_init, max_iter=max_iter)
     kmeans.fit(coords)
     centroids = kmeans.cluster_centers_
-    nearest_neighbors = []
     # Plot
     plt.scatter(pcs[:, 0], pcs[:, 1], s=marker_size, c=traj.time, cmap="viridis")
     cbar = plt.colorbar()
@@ -115,7 +124,7 @@ def get_kmean_centroids(pcs, traj, outbasename, n_clusters=3,
     return centroids
 
 def get_energy_basins(pcs, traj, outbasename, marker="o",
-                      marker_size=0.5, kde_levels=30, plt=plt):    
+                      kde_levels=30, plt=plt):
     """
     Searches the landscape, and plots the lowest energy basins
      Input:
@@ -131,7 +140,7 @@ def get_energy_basins(pcs, traj, outbasename, marker="o",
     basin_paths = subplot.collections[-1].get_paths()
     basins = [basin.vertices for basin in basin_paths]
     basin_centroids = [basin.mean(axis=0) for basin in basins]
-    # Search basin for nearest nearest neighbor 
+    # Search basin for nearest nearest neighbor
     coords = pcs[:,:2]
     for basin_centroid in basin_centroids:
         displacements = coords - basin_centroid
@@ -148,8 +157,8 @@ def get_energy_basins(pcs, traj, outbasename, marker="o",
     return basin_centroids
 
 def plot_graphs(pcs, outbasename, traj, title="Essential dynamics plot",
-                marker_size=0.5, xlim=None, ylim=None, percent_variance=None,
-                annotations=None, n_clusters=3):
+                xlim=None, ylim=None, percent_variance=None,
+                n_clusters=3):
     """
     Generates scatter plots for PCA
     """
@@ -157,8 +166,7 @@ def plot_graphs(pcs, outbasename, traj, title="Essential dynamics plot",
     plt.xlim(xlim)
     plt.ylim(ylim)
     # Search basins and get KDE samples
-    get_energy_basins(pcs, traj=traj, outbasename=outbasename,
-                       marker_size=marker_size)
+    get_energy_basins(pcs, traj=traj, outbasename=outbasename)
     get_kmean_centroids(pcs, traj=traj, outbasename=outbasename,
                     n_clusters=n_clusters)
     plt.title(title)
@@ -175,11 +183,11 @@ def main(args):
     plt.rcParams["font.family"] = 'serif'
     pca = PCA()
     ntrajectories = len(args.trajectories)
+    num_frames = []
     all_frames = []
     all_times = []
     topologies = args.topologies
     trajectories = args.trajectories
-    selection = args.selection
     n_clusters = args.n_clusters
     # Set a reference frame
     ref_frame = md.load(args.trajectories[0], top=args.topologies[0])
@@ -197,6 +205,8 @@ def main(args):
         xyz_reshaped = traj.xyz.reshape(traj.n_frames, traj.n_atoms*3)
         all_frames.append(xyz_reshaped)
         all_times.append(traj.time)
+        num_frames.append(traj.n_frames)
+        check_compatibility(num_frames)
     xyz_concat = np.concatenate(all_frames)
     pca.fit(xyz_concat)
     percent_variance = pca.explained_variance_ratio_[:2]*100
@@ -210,8 +220,6 @@ def main(args):
     increment = int(pcs.shape[0]/ntrajectories)
     for idx, start in enumerate(range(0, pcs.shape[0], increment)):
         end = start+increment
-        outfilename = "{}_{}.png".format(args.trajectories[idx][:-4],
-                                         args.suffix)
         # Slice PCs for current trajectory
         pcs_currtraj = pcs[start:end, :]
         # Get cluster representatives
