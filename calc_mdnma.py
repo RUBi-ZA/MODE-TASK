@@ -68,7 +68,6 @@ stage.handleResize();
 var shape = new NGL.Shape("shape", { disableImpostor: true, radialSegments: 10 });
 stage.loadFile( "%s" ).then( function( o ){
 o.addRepresentation( "trace" );
-o.autoView();
 } );""" % topology
     fobject.write(header)
 
