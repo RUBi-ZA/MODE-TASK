@@ -135,7 +135,7 @@ def get_energy_basins(pcs, traj, outbasename, marker="o",
      Returns:
      The basin centroids
     """
-    subplot = sns.kdeplot(x=pcs[:, 0], y=pcs[:, 1], shade=True, alpha=0.2,
+    subplot = sns.kdeplot(x=pcs[:, 0], y=pcs[:, 1], fill=True, alpha=0.2,
                           levels=kde_levels, cmap="jet_r")
     basin_paths = subplot.collections[-1].get_paths()
     basins = [basin.vertices for basin in basin_paths]
