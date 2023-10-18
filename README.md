@@ -9,7 +9,7 @@ If you use MDM-TASK-web in your work, please cite the following:
 ## Installation
 Clone the MDM-TASK-web branch
 ```
-git clone -b mdmtask-dev https://github.com/RUBi-ZA/MODE-TASK
+git clone -b mdmtask https://github.com/RUBi-ZA/MODE-TASK
 ```
 Go inside the cloned MODE-TASK folder and run the following to create the working environment named "mdmtaskweb"
 ```
