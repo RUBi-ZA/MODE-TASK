@@ -8,6 +8,7 @@ import argparse
 import numpy as np
 import mdtraj as md
 from sklearn.decomposition import PCA
+from sklearn.decomposition import IncrementalPCA
 from sklearn.cluster import KMeans
 import matplotlib
 import seaborn as sns
@@ -20,7 +21,7 @@ __license__ = "GNU GPL 3.0"
 __version__ = "1.2"
 __maintainer__ = "Olivier Sheik Amamuddy"
 __email__ = "oliserand@gmail.com"
-__date__ = "24th May 2021"
+__date__ = "16th Oct 2021"
 
 def parse_args():
     """
@@ -50,6 +51,8 @@ def parse_args():
     parser.add_argument('--n_clusters', type=int, default=3,
                         help="The expected number of protein clusters to\
                         extract.")
+    parser.add_argument('--ipca', action="store_true",
+                        help="Use incremental PCA. Reduces memory usage (default=off)")
     parser.add_argument('--ignn', type=int, default=0,
                         help="The number of N-terminus residues to ignore in \
                         PCA calculations (default=0)")
@@ -175,13 +178,26 @@ def plot_graphs(pcs, outbasename, traj, title="Essential dynamics plot",
     plt.tight_layout()
     plt.savefig("{}.png".format(outbasename))
 
+def write_pcs(outfilename, pcs_matrix, explained_variance_array):
+    """Save PCs csv file"""
+    columns = []
+    for i, j in enumerate(explained_variance_array):
+        columns.append("PC{}:{}".format(i+1, np.round(j,3)))
+    columns = ",".join(columns)
+    np.savetxt(outfilename, pcs_matrix, delimiter=",",
+               comments="", header=columns)
+    print("INFO: Wrote PCs in {}".format(outfilename))
+
 def main(args):
     """
     Program main
     """
     sns.set_style("whitegrid")
     plt.rcParams["font.family"] = 'serif'
-    pca = PCA()
+    if args.ipca:
+        pca = IncrementalPCA()
+    else:
+        pca = PCA()
     ntrajectories = len(args.trajectories)
     num_frames = []
     all_frames = []
@@ -209,7 +225,7 @@ def main(args):
         check_compatibility(num_frames)
     xyz_concat = np.concatenate(all_frames)
     pca.fit(xyz_concat)
-    percent_variance = pca.explained_variance_ratio_[:2]*100
+    percent_variance = pca.explained_variance_ratio_*100
     pcs = pca.transform(xyz_concat)
     # Setting plot limits
     xmin = np.min(pcs[:, 0])
@@ -230,7 +246,9 @@ def main(args):
         # Plotting
         plot_graphs(pcs=pcs_currtraj, traj=traj, outbasename=outbasename,
                     xlim=(xmin, xmax), ylim=(ymin, ymax),
-                    percent_variance=percent_variance, n_clusters=n_clusters)
+                    percent_variance=percent_variance[:2], n_clusters=n_clusters)
+        # Save PCs
+        write_pcs("{}_pcs.csv".format(outbasename), pcs_currtraj, percent_variance)
 
 if __name__ == "__main__":
     ARGS = parse_args()
