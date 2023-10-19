@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ..
+cd ../src
 
 g++ -I cpp/src/ ANM.cpp -o ANM
 
