@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd ..
+cd ../src
 
-./tsne.py -t tests/pca_test_trj.xtc -p tests/complex.pdb -ag CA -dt rmsd
+./tsne.py -t ../tests/pca_test_trj.xtc -p ../tests/complex.pdb -ag CA -dt rmsd
