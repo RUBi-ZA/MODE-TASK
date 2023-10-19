@@ -8,4 +8,4 @@ done <${file}
 
 cd ../src
 
-./coarseGrain.py --pdb ../tests/${prot}.pdb --cg 4 --atomType CB --outdir ../outdir/
+./coarseGrain.py --pdb ../tests/${prot}.pdb --cg 4 --atomType CB --outdir ../output/
