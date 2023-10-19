@@ -6,6 +6,6 @@ do
 	prot=${line}
 done <${file}
 
-cd ..
+cd ../src
 
-../src/conformationMode.py --pdbConf output/ComplexCG4.pdb --pdbANM output/ComplexCG4.pdb --vtMatrix output/VT_values.txt --atomType CB
+./conformationMode.py --pdbConf output/ComplexCG4.pdb --pdbANM output/ComplexCG4.pdb --vtMatrix output/VT_values.txt --atomType CB
