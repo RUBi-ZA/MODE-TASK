@@ -9,3 +9,5 @@ out_pca_test_trj\.xtc/
 .DS_Store
 
 data/.DS_Store
+
+src/ANM

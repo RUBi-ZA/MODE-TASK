@@ -36,10 +36,10 @@ using namespace std;
 using namespace alglib;
 
 
-int countAtoms()//counts Carbon Atoms (Beta carbons for all residues but Alpha carbons for Glycine)
-{
-	vector< vector<int> > row;
-}//countAtoms
+//int countAtoms()//counts Carbon Atoms (Beta carbons for all residues but Alpha carbons for Glycine)
+//{
+//	vector< vector<int> > row;
+//}//countAtoms
 
 
 vector< vector<double> > getCoOrds(string pdbInput,string atype)// gets the x,y,z cordinates for all the carbon atoms in PDB file. Returns 3 X numAtoms Matrix
