@@ -1,0 +1,9 @@
+name: mode-task
+channels:
+  - defaults
+dependencies:
+  - conda-forge::matplotlib
+  - conda-forge::sklearn-contrib-lightning
+  - pandas
+  - conda-forge::mdtraj
+prefix: /home/ubuntu/.conda/envs/mode-task

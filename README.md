@@ -8,54 +8,34 @@ pyMODE-TASK - a PyMol plugin for MODE-TASK is [available here](https://github.co
 
 ## Installation
 
-*Download the project:*
+*1. Download the project:*
+
 ```bash
 git clone https://github.com/RUBi-ZA/MODE-TASK.git
 cd MODE-TASK
 ```
 
 *C++ scripts can be called from within a python environment using their corresponding ANM.py and getEigenVectors.py scripts. If the binaries do not exist the Python wrapper will attempt to complile them. To compile the C++ yourself, use the following commands:*
+
 ```
 sudo apt install g++
 g++ -I cpp/src/ ANM.cpp -o ANM
-
 ```
 
-MODE-TASK can be used with a variety of Python enviroments and package managers, below are some of the options:
+*Create and activate the MODE-TASK environment:*
 
-*Virtual environment using Python 2 and pip:*
-```bash
-sudo apt install virtualenvwrapper python-dev python-pip
-virtualenv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-*Virtual environment using Python 3 and pip3:*
-```bash
-sudo apt install virtualenvwrapper python3-dev python3-pip
-virtualenv venv
-source venv/bin/activate
-pip3 install setuptools
-pip3 install -r requirements.txt
-```
-*Conda (Python version depends on Conda installation):*
-```bash
-conda create -n mode_task
-source activate mode_task
-conda install -c conda-forge numpy
-conda install -c conda-forge cython
-conda install -c omnia mdtraj
-conda install -c conda-forge scipy
-conda install -c conda-forge pandas
-conda install -c conda-forge sklearn-contrib-lightning
-conda install -c conda-forge matplotlib
-```
-Now <img src='https://anaconda.org/nizamibilal1064/mode-task/badges/installer/conda.svg'>:
+You can either run:
 
 ```bash
-conda install -c nizamibilal1064 mode-task
+conda create -n mode-task pandas conda-forge::matplotlib conda-forge::mdtraj conda-forge::sklearn-contrib-lightning
 ```
-It will install the mode-task in /home/user/miniconda2/pkgs
+
+or you can use the provided YAML file:
+
+```
+conda env create -f mode-task.yml
+conda activate mode-task
+```
 
 ## Usage
 
@@ -65,9 +45,9 @@ For more detailed documentation on installation and usage of the tool suite plea
 
 Questions and issues can be posted to the [issue tracker](https://github.com/RUBi-ZA/MODE-TASK/issues).
 
-Pull requests are welcome and will be reviewed however a guarentee can not me made as to your request being accepted.
+Pull requests are welcome and will be reviewed however a guarantee cannot me made as to your request being accepted.
 
-To contribute to the documentation see [here](https://github.com/RUBi-ZA/MODE-TASK/tree/master/docs). The documentation is hosted by [ReadTheDocs](https://readthedocs.org/) and makes use of reStructuredText for markdown with Latex for mathematical equasions. See [here](https://docs.readthedocs.io/en/latest/getting_started.html) for a more detailed guideline on creating documentation for ReadTheDocs.
+To contribute to the documentation see [here](https://github.com/RUBi-ZA/MODE-TASK/tree/master/docs). The documentation is hosted by [ReadTheDocs](https://readthedocs.org/) and makes use of reStructuredText for markdown with Latex for mathematical equations. See [here](https://docs.readthedocs.io/en/latest/getting_started.html) for a more detailed guideline on creating documentation for ReadTheDocs.
 
 ## Citation
 
